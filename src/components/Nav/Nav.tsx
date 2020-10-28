@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { Box, Flex, Grid, Text, Container, NavLink } from 'theme-ui'
-import { Notebook, Tag } from 'phosphor-react'
+import { Book, Tag } from 'phosphor-react'
 import SkipNavLink from './SkipNavLink'
 import Logo from './Logo'
 import ColorModeToggle from './ColorModeToggle'
@@ -10,7 +10,7 @@ const Nav: React.FC = () => (
   <Box as="nav" sx={{ paddingY: 1, backgroundColor: 'primary' }}>
     <Grid
       as={Container}
-      columns={['1fr 1fr min-content', null, 3]}
+      columns={['1fr 1fr min-content', null, null, 3]}
       gap={3}
       sx={{
         alignItems: 'center',
@@ -21,25 +21,30 @@ const Nav: React.FC = () => (
     >
       <SkipNavLink />
 
-      <Box sx={{ order: [1, null, 2], textAlign: ['left', null, 'center'] }}>
+      <Box
+        sx={{
+          order: [1, null, null, 2],
+          textAlign: ['left', null, null, 'center'],
+        }}
+      >
         <Logo />
       </Box>
 
       <Flex
         as="ul"
         sx={{
-          order: [2, null, 1],
-          justifyContent: ['flex-end', null, 'flex-start'],
-          marginRight: [3, 0],
+          order: [2, null, null, 1],
+          justifyContent: ['flex-end', null, null, 'flex-start'],
+          marginRight: [0, 3, null, 0],
           paddingLeft: 0,
           listStyleType: 'none',
         }}
       >
-        <Box as="li" mr={4}>
+        <Box as="li" mr={[3, 4]}>
           <Link href="/recipes" passHref>
             <NavLink>
-              <Notebook />{' '}
-              <Text as="span" sx={{ display: ['none', 'inline'] }}>
+              <Book weight="bold" />{' '}
+              <Text as="span" sx={{ display: ['none', null, 'inline'] }}>
                 Recipes
               </Text>
             </NavLink>
@@ -49,8 +54,8 @@ const Nav: React.FC = () => (
         <Box as="li">
           <Link href="/categories" passHref>
             <NavLink>
-              <Tag />{' '}
-              <Text as="span" sx={{ display: ['none', 'inline'] }}>
+              <Tag weight="bold" />{' '}
+              <Text as="span" sx={{ display: ['none', null, 'inline'] }}>
                 Categories
               </Text>
             </NavLink>

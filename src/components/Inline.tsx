@@ -3,7 +3,7 @@ import { Box, Flex } from 'theme-ui'
 import { ThemeUIProps } from '../types/ThemeUIComponent'
 
 interface Props extends ThemeUIProps {
-  gap?: number
+  gap?: number | number[]
 }
 
 const Inline: React.FC<Props> = ({ gap = 0, sx, children, ...props }) => {

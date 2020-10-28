@@ -12,7 +12,7 @@ const ColorModeToggle: React.FC = () => {
         setColorMode(colorMode === 'default' ? 'dark' : 'default')
       }}
     >
-      {colorMode === 'default' ? <Sun /> : <Moon />}
+      {colorMode === 'default' ? <Sun weight="bold" /> : <Moon weight="bold" />}
     </Button>
   )
 }

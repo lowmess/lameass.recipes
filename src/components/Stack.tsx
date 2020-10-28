@@ -3,7 +3,7 @@ import { Box } from 'theme-ui'
 import { ThemeUIProps } from '../types/ThemeUIComponent'
 
 interface Props extends ThemeUIProps {
-  gap?: number
+  gap?: number | number[]
   dividers?: boolean
   dividerColor?: string
 }

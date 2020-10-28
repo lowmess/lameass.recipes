@@ -48,6 +48,7 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
         <Text
           sx={{
             marginTop: 1,
+            marginBottom: tags.length || totalTime > 0 ? 4 : 0,
             fontSize: 0,
             fontWeight: 'bold',
             textTransform: 'uppercase',
@@ -60,7 +61,7 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
         </Text>
 
         {tags.length > 0 && (
-          <Inline gap={2} mt={4} pb={totalTime > 0 ? 2 : 0}>
+          <Inline gap={2} pb={totalTime > 0 ? 2 : 0}>
             {tags.map((tag) => (
               <NextLink key={tag.id} href={`/tagged/${tag.slug}`} passHref>
                 <Link variant="tag">{tag.title}</Link>

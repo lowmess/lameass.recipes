@@ -4,7 +4,7 @@ export default {
     alignItems: 'center',
     position: 'relative',
     top: (theme) => `calc(${theme.space[1]} * 0.5)`,
-    fontWeight: 'normal',
+    fontWeight: 'semi-bold',
     color: 'text',
 
     '&:hover, &:focus': {
@@ -29,9 +29,33 @@ export default {
   ui: {
     color: 'text',
     textDecoration: 'none',
+    transition: '0.2s ease color',
 
     '&:hover': {
       color: 'accent',
+    },
+  },
+
+  'view-all': {
+    display: 'inline-flex',
+    alignItems: 'center',
+    fontSize: 0,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    color: 'accent',
+    textDecoration: 'none',
+
+    svg: {
+      marginLeft: 2,
+      transition: '0.2s ease transform',
+    },
+
+    '&:hover': {
+      color: 'accent',
+
+      svg: {
+        transform: 'translateX(0.5rem)',
+      },
     },
   },
 
@@ -41,6 +65,7 @@ export default {
     textTransform: 'uppercase',
     color: 'primary',
     textDecoration: 'none',
+    transition: '0.2s ease color',
 
     '&:hover': {
       color: 'secondary',
@@ -56,6 +81,7 @@ export default {
     fontSize: 0,
     color: 'muted-text',
     textDecoration: 'none',
+    transition: '0.2s ease color',
 
     '&:hover': {
       color: 'text',

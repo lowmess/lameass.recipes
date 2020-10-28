@@ -8,10 +8,12 @@ import Inline from './Inline'
 
 interface RecipePreviewProps extends ThemeUIProps {
   recipe: Recipe
+  level?: 'h2' | 'h3' | 'h4' | 'h5' | 'h5'
 }
 
 const RecipePreview: React.FC<RecipePreviewProps> = ({
   recipe,
+  level = 'h3',
   sx,
   ...props
 }) => {
@@ -28,7 +30,7 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
           right: 0,
           left: 0,
           height: '2rem',
-          backgroundColor: 'accent',
+          backgroundColor: 'primary',
         }}
       />
 
@@ -39,7 +41,7 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
           {category.emoji}
         </Text>
 
-        <Heading variant="recipe-name" mt={3}>
+        <Heading as={level} variant="recipe-name" mt={3}>
           <NextLink href={`/recipes/${slug}`} passHref>
             <Link variant="ui">{title}</Link>
           </NextLink>

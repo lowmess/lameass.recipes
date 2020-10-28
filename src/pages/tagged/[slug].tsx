@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { Heading } from 'theme-ui'
+import HighlightHeading from '../../components/HighlightHeading'
+import RecipeGrid from '../../components/RecipeGrid'
 import { getAllTags, getTagBySlug, getAllRecipesByTag } from '../../../lib/api'
 import { Recipe, Tag } from '../../types/Recipe'
 
@@ -11,9 +12,11 @@ interface TagPageProps {
 
 const TagPage: React.FC<TagPageProps> = ({ tag, recipes }) => (
   <React.Fragment>
-    <Heading>{tag.title}</Heading>
+    <HighlightHeading as="h1" variant="page-name" my={[5, null, 6]}>
+      {tag.title}
+    </HighlightHeading>
 
-    <pre>{JSON.stringify(recipes, null, 2)}</pre>
+    <RecipeGrid mb={5} recipes={recipes} />
   </React.Fragment>
 )
 

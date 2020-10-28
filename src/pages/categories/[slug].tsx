@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { Heading } from 'theme-ui'
+import { Flex, Text } from 'theme-ui'
+import HighlightHeading from '../../components/HighlightHeading'
+import RecipeGrid from '../../components/RecipeGrid'
 import {
   getAllCategories,
   getCategoryBySlug,
@@ -15,9 +17,25 @@ interface CategoryPageProps {
 
 const CategoryPage: React.FC<CategoryPageProps> = ({ category, recipes }) => (
   <React.Fragment>
-    <Heading>{category.title}</Heading>
+    <Flex sx={{ alignItems: 'center', marginY: [5, null, 6] }}>
+      <Text
+        sx={{
+          position: 'relative',
+          top: -1,
+          marginRight: 3,
+          fontSize: [5, null, 6],
+          lineHeight: 'solid',
+        }}
+      >
+        {category.emoji}
+      </Text>
 
-    <pre>{JSON.stringify(recipes, null, 2)}</pre>
+      <HighlightHeading as="h1" variant="page-name">
+        {category.title}
+      </HighlightHeading>
+    </Flex>
+
+    <RecipeGrid mb={5} recipes={recipes} />
   </React.Fragment>
 )
 

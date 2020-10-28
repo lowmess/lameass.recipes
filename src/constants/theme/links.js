@@ -63,12 +63,12 @@ export default {
     fontSize: 0,
     fontWeight: 'bold',
     textTransform: 'uppercase',
-    color: 'primary',
+    color: 'accent',
     textDecoration: 'none',
     transition: '0.2s ease color',
 
     '&:hover': {
-      color: 'secondary',
+      color: 'accent',
     },
   },
 

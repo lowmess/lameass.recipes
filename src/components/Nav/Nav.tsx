@@ -1,7 +1,8 @@
 import * as React from 'react'
 import Link from 'next/link'
-import { Box, Flex, Container, Grid, NavLink } from 'theme-ui'
+import { Box, Flex, Grid, Text, Container, NavLink } from 'theme-ui'
 import { Notebook, Tag } from 'phosphor-react'
+import SkipNavLink from './SkipNavLink'
 import Logo from './Logo'
 import ColorModeToggle from './ColorModeToggle'
 
@@ -9,23 +10,38 @@ const Nav: React.FC = () => (
   <Box as="nav" sx={{ paddingY: 1, backgroundColor: 'primary' }}>
     <Grid
       as={Container}
-      columns={3}
+      columns={['1fr 1fr min-content', null, 3]}
       gap={3}
       sx={{
         alignItems: 'center',
+        position: 'relative',
         marginX: 'auto', // have to override
         paddingY: 1,
       }}
     >
-      <Box sx={{ order: 2, textAlign: 'center' }}>
+      <SkipNavLink />
+
+      <Box sx={{ order: [1, null, 2], textAlign: ['left', null, 'center'] }}>
         <Logo />
       </Box>
 
-      <Flex as="ul" sx={{ order: 1, paddingLeft: 0, listStyleType: 'none' }}>
+      <Flex
+        as="ul"
+        sx={{
+          order: [2, null, 1],
+          justifyContent: ['flex-end', null, 'flex-start'],
+          marginRight: [3, 0],
+          paddingLeft: 0,
+          listStyleType: 'none',
+        }}
+      >
         <Box as="li" mr={4}>
           <Link href="/recipes" passHref>
             <NavLink>
-              <Notebook /> Recipes
+              <Notebook />{' '}
+              <Text as="span" sx={{ display: ['none', 'inline'] }}>
+                Recipes
+              </Text>
             </NavLink>
           </Link>
         </Box>
@@ -33,7 +49,10 @@ const Nav: React.FC = () => (
         <Box as="li">
           <Link href="/categories" passHref>
             <NavLink>
-              <Tag /> Categories
+              <Tag />{' '}
+              <Text as="span" sx={{ display: ['none', 'inline'] }}>
+                Categories
+              </Text>
             </NavLink>
           </Link>
         </Box>

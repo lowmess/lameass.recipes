@@ -3,7 +3,7 @@ export default {
     display: 'inline-flex',
     borderRadius: 0,
     paddingY: 2,
-    paddingX: [2, 3],
+    paddingX: [0, 2, 3],
     backgroundColor: 'transparent',
     color: 'text',
     cursor: 'pointer',

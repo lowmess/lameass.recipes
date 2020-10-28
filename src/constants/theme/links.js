@@ -2,16 +2,18 @@ export default {
   nav: {
     display: 'inline-flex',
     alignItems: 'center',
-    fontSize: 2,
+    position: 'relative',
+    top: (theme) => `calc(${theme.space[1]} * 0.5)`,
     fontWeight: 'normal',
     color: 'text',
 
-    '&:hover': {
+    '&:hover, &:focus': {
       color: 'text',
     },
 
     svg: {
-      marginRight: 2,
+      marginRight: [0, 2],
+      fontSize: 3,
     },
   },
 

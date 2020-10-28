@@ -7,7 +7,7 @@ const Layout: React.FC = ({ children }) => (
   <Flex sx={{ flexDirection: 'column', minHeight: '100vh' }}>
     <Nav />
 
-    <Container as="main" sx={{ flex: 1 }}>
+    <Container as="main" id="main-content" sx={{ flex: 1 }}>
       {children}
     </Container>
 

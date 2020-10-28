@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { GetStaticProps } from 'next'
 import { default as NextLink } from 'next/link'
-import { useThemeUI, Box, Flex, Grid, Heading, Link } from 'theme-ui'
+import { useThemeUI, Box, Flex, Heading, Link } from 'theme-ui'
 import { ArrowRight } from 'phosphor-react'
 import Stack from '../components/Stack'
-import RecipePreview from '../components/RecipePreview'
+import RecipeGrid from '../components/RecipeGrid'
 import { getHomepage, getAllRecipes } from '../../lib/api'
 import unwidow from '../../lib/unwidow'
 import smartypants from '../../lib/smartypants'
@@ -55,11 +55,7 @@ const Homepage: React.FC<HomepageProps> = ({
           <Box>
             <Heading>Featured Recipes</Heading>
 
-            <Grid columns={[1, null, 2, 3]} gap={4} mt={4}>
-              {featuredRecipes.map((recipe) => (
-                <RecipePreview key={recipe.id} recipe={recipe} />
-              ))}
-            </Grid>
+            <RecipeGrid mt={4} recipes={featuredRecipes} />
           </Box>
         )}
 
@@ -74,11 +70,7 @@ const Homepage: React.FC<HomepageProps> = ({
             </NextLink>
           </Flex>
 
-          <Grid columns={[1, null, 2, 3]} gap={4} mt={4}>
-            {recentRecipes.map((recipe) => (
-              <RecipePreview key={recipe.id} recipe={recipe} />
-            ))}
-          </Grid>
+          <RecipeGrid mt={4} recipes={recentRecipes} />
         </Box>
       </Stack>
     </React.Fragment>

@@ -91,7 +91,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const formattedHeadline = unwidow(smartypants(headline))
 
-  const recentRecipes = allRecipes.slice(0, 5) || []
+  const recentRecipes = allRecipes.slice(0, 6) || []
 
   return {
     props: {

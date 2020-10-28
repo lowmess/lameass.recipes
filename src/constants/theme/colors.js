@@ -51,6 +51,9 @@ export default {
   accent: palette.pinks[6],
   highlight: palette.cyans[5],
   muted: palette.grays[0],
+  'muted-text': palette.grays[8],
+  border: palette.cyans[1],
+  'card-shadow': 'rgba(87, 173, 173, 0.25)', // palette.cyans[6]
 
   modes: {
     dark: {
@@ -58,9 +61,12 @@ export default {
       background: palette.black,
       primary: palette.cyans[7],
       secondary: palette.cyans[6],
-      accent: palette.pinks[5],
+      accent: palette.pinks[8],
       highlight: palette.cyans[4],
       muted: palette.grays[9],
+      'muted-text': palette.grays[4],
+      border: palette.cyans[9],
+      'card-shadow': 'rgba(0, 16, 16, 0.5)',
     },
   },
 }

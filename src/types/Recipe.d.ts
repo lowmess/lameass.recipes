@@ -22,8 +22,8 @@ export interface Recipe {
   title: string
   category?: Category
   tags?: Tag[]
-  prepTime?: string
-  cookTime?: string
+  prepTime?: number
+  cookTime?: number
   servingSize?: string
   ingredients?: RecipePiece[]
   steps?: RecipePiece[]

@@ -12,4 +12,11 @@ export default {
     fontWeight: 'bold',
     lineHeight: 'solid',
   },
+
+  'recipe-name': {
+    fontFamily: 'heading',
+    fontSize: 3,
+    fontWeight: 'bold',
+    lineHeight: 'solid',
+  },
 }

@@ -31,7 +31,34 @@ export default {
     textDecoration: 'none',
 
     '&:hover': {
-      color: 'primary',
+      color: 'accent',
+    },
+  },
+
+  category: {
+    fontSize: 0,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    color: 'primary',
+    textDecoration: 'none',
+
+    '&:hover': {
+      color: 'secondary',
+    },
+  },
+
+  tag: {
+    display: 'inline-block',
+    borderRadius: 2,
+    paddingY: 1,
+    paddingX: 2,
+    backgroundColor: 'muted',
+    fontSize: 0,
+    color: 'muted-text',
+    textDecoration: 'none',
+
+    '&:hover': {
+      color: 'text',
     },
   },
 }

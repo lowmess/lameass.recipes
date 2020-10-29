@@ -65,7 +65,7 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
         {tags.length > 0 && (
           <Inline gap={2} pb={totalTime > 0 ? 2 : 0}>
             {tags.map((tag) => (
-              <NextLink key={tag.id} href={`/tagged/${tag.slug}`} passHref>
+              <NextLink key={tag.id} href={`/tags/${tag.slug}`} passHref>
                 <Link variant="tag">{tag.title}</Link>
               </NextLink>
             ))}

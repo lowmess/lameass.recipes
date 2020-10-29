@@ -1,25 +1,36 @@
 import * as React from 'react'
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { Link } from 'theme-ui'
 import HighlightHeading from '../../components/HighlightHeading'
 import Inline from '../../components/Inline'
 import { getAllTags } from '../../../lib/api'
 import { Tag } from '../../types/Recipe'
+import { PageProps } from '../../types/Page'
 
-interface TagsPageProps {
+interface TagsPageProps extends PageProps {
   tags: Tag[]
 }
 
-const TagsPage: React.FC<TagsPageProps> = ({ tags }) => (
+const TagsPage: React.FC<TagsPageProps> = ({
+  tags,
+  titleSuffix,
+  description,
+}) => (
   <React.Fragment>
+    <Head>
+      <title key="title">All Tags{titleSuffix}</title>
+      <meta name="description" content={description} />
+    </Head>
+
     <HighlightHeading as="h1" variant="page-name" my={[5, null, 6]}>
       All Tags
     </HighlightHeading>
 
     <Inline gap={3} mb={5}>
       {tags.map(({ id, title, slug }) => (
-        <NextLink key={id} href={`/categories/${slug}`} passHref>
+        <NextLink key={id} href={`/tags/${slug}`} passHref>
           <Link variant="tag" sx={{ fontSize: 2 }}>
             {title}
           </Link>
@@ -30,10 +41,18 @@ const TagsPage: React.FC<TagsPageProps> = ({ tags }) => (
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-  const tags = await getAllTags()
+  const {
+    allTags: tags,
+    site: {
+      globalSeo: {
+        titleSuffix,
+        fallbackSeo: { description },
+      },
+    },
+  } = await getAllTags()
 
   return {
-    props: { tags },
+    props: { tags, titleSuffix, description },
     revalidate: 60,
   }
 }

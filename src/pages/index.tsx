@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { useThemeUI, Box, Flex, Heading, Link } from 'theme-ui'
 import { ArrowRight } from 'phosphor-react'
@@ -9,8 +10,9 @@ import { getHomepage, getAllRecipes } from '../../lib/api'
 import unwidow from '../../lib/unwidow'
 import smartypants from '../../lib/smartypants'
 import { Recipe } from '../types/Recipe'
+import { PageProps } from '../types/Page'
 
-interface HomepageProps {
+interface HomepageProps extends PageProps {
   headline: string
   featuredRecipes?: Recipe[]
   recentRecipes?: Recipe[]
@@ -20,11 +22,18 @@ const Homepage: React.FC<HomepageProps> = ({
   headline,
   featuredRecipes = [],
   recentRecipes = [],
+  siteName,
+  description,
 }) => {
   const { colorMode } = useThemeUI()
 
   return (
     <React.Fragment>
+      <Head>
+        <title key="title">{siteName}</title>
+        <meta name="description" content={description} />
+      </Head>
+
       <Box
         sx={{
           marginTop: 5,
@@ -78,8 +87,17 @@ const Homepage: React.FC<HomepageProps> = ({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { headline, featuredRecipes } = await getHomepage()
-  const allRecipes = await getAllRecipes()
+  const {
+    homepage: { headline, featuredRecipes },
+    site: {
+      globalSeo: {
+        siteName,
+        fallbackSeo: { description },
+      },
+    },
+  } = await getHomepage()
+
+  const { allRecipes } = await getAllRecipes()
 
   const formattedHeadline = unwidow(smartypants(headline))
 
@@ -90,6 +108,8 @@ export const getStaticProps: GetStaticProps = async () => {
       headline: formattedHeadline,
       featuredRecipes,
       recentRecipes,
+      siteName,
+      description,
     },
     revalidate: 60,
   }

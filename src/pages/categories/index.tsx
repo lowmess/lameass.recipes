@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { Grid, Text, Card, Link } from 'theme-ui'
 import HighlightHeading from '../../components/HighlightHeading'
 import { getAllCategories } from '../../../lib/api'
 import { Category } from '../../types/Recipe'
+import { PageProps } from '../../types/Page'
 
 interface CategoryPreviewProps {
   category: Category
@@ -43,12 +45,21 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = ({ category }) => {
   )
 }
 
-interface CategoriesPageProps {
+interface CategoriesPageProps extends PageProps {
   categories: Category[]
 }
 
-const CategoriesPage: React.FC<CategoriesPageProps> = ({ categories }) => (
+const CategoriesPage: React.FC<CategoriesPageProps> = ({
+  categories,
+  titleSuffix,
+  description,
+}) => (
   <React.Fragment>
+    <Head>
+      <title key="title">All categories{titleSuffix}</title>
+      <meta name="description" content={description} />
+    </Head>
+
     <HighlightHeading as="h1" variant="page-name" my={[5, null, 6]}>
       Categories
     </HighlightHeading>
@@ -62,10 +73,18 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ categories }) => (
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-  const categories = await getAllCategories()
+  const {
+    allCategories: categories,
+    site: {
+      globalSeo: {
+        titleSuffix,
+        fallbackSeo: { description },
+      },
+    },
+  } = await getAllCategories()
 
   return {
-    props: { categories },
+    props: { categories, titleSuffix, description },
     revalidate: 60,
   }
 }

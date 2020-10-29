@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import Head from 'next/head'
 import { Flex, Text } from 'theme-ui'
 import HighlightHeading from '../../components/HighlightHeading'
 import RecipeGrid from '../../components/RecipeGrid'
@@ -9,14 +10,27 @@ import {
   getAllRecipesByCategory,
 } from '../../../lib/api'
 import { Recipe, Category } from '../../types/Recipe'
+import { PageProps } from '../../types/Page'
 
-interface CategoryPageProps {
+interface CategoryPageProps extends PageProps {
   category: Category
   recipes: Recipe[]
 }
 
-const CategoryPage: React.FC<CategoryPageProps> = ({ category, recipes }) => (
+const CategoryPage: React.FC<CategoryPageProps> = ({
+  category,
+  recipes,
+  titleSuffix,
+  description,
+}) => (
   <React.Fragment>
+    <Head>
+      <title key="title">
+        {category.title} recipes{titleSuffix}
+      </title>
+      <meta name="description" content={description} />
+    </Head>
+
     <Flex sx={{ alignItems: 'center', marginY: [5, null, 6] }}>
       <Text
         sx={{
@@ -40,19 +54,27 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ category, recipes }) => (
 )
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const category = await getCategoryBySlug(params.slug)
-  const recipes = await getAllRecipesByCategory(params.slug)
+  const {
+    category,
+    site: {
+      globalSeo: {
+        titleSuffix,
+        fallbackSeo: { description },
+      },
+    },
+  } = await getCategoryBySlug(params.slug)
+  const { allRecipes: recipes } = await getAllRecipesByCategory(params.slug)
 
   return {
-    props: { category, recipes },
+    props: { category, recipes, titleSuffix, description },
     revalidate: 60,
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const categories = await getAllCategories()
+  const { allCategories } = await getAllCategories()
 
-  const paths = categories.map((c) => ({ params: { slug: c.slug } })) || []
+  const paths = allCategories.map((c) => ({ params: { slug: c.slug } })) || []
 
   return {
     paths,

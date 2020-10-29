@@ -1,16 +1,31 @@
-import { GetStaticProps } from 'next'
 import * as React from 'react'
+import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import { Text, Link } from 'theme-ui'
 import { getAboutPage } from '../../lib/api'
 import HighlightHeading from '../components/HighlightHeading'
+import { PageProps } from '../types/Page'
 
-interface AboutPageProps {
+interface AboutPageProps extends PageProps {
   title: string
   content: string
 }
 
-const AboutPage: React.FC<AboutPageProps> = ({ title = 'About', content }) => (
+const AboutPage: React.FC<AboutPageProps> = ({
+  title = 'About',
+  content,
+  titleSuffix,
+  description,
+}) => (
   <React.Fragment>
+    <Head>
+      <title key="title">
+        {title}
+        {titleSuffix}
+      </title>
+      <meta name="description" content={description} />
+    </Head>
+
     <HighlightHeading as="h1" variant="page-name" my={[5, null, 6]}>
       {title}
     </HighlightHeading>
@@ -60,10 +75,18 @@ const AboutPage: React.FC<AboutPageProps> = ({ title = 'About', content }) => (
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { title, content } = await getAboutPage()
+  const {
+    aboutPage: { title, content },
+    site: {
+      globalSeo: {
+        titleSuffix,
+        fallbackSeo: { description },
+      },
+    },
+  } = await getAboutPage()
 
   return {
-    props: { title, content },
+    props: { title, content, titleSuffix, description },
     revalidate: 60,
   }
 }

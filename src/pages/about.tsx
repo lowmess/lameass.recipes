@@ -1,16 +1,43 @@
+import { GetStaticProps } from 'next'
 import * as React from 'react'
 import { Text, Link } from 'theme-ui'
+import { getAboutPage } from '../../lib/api'
 import HighlightHeading from '../components/HighlightHeading'
 
-const AboutPage: React.FC = () => (
+interface AboutPageProps {
+  title: string
+  content: string
+}
+
+const AboutPage: React.FC<AboutPageProps> = ({ title = 'About', content }) => (
   <React.Fragment>
     <HighlightHeading as="h1" variant="page-name" my={[5, null, 6]}>
-      About
+      {title}
     </HighlightHeading>
 
-    <Text as="p" sx={{ fontSize: [4, null, 5], lineHeight: 'heading' }}>
-      lameass.recipes features recipes developed by Kayla&nbsp;Lomas.
-    </Text>
+    <Text
+      sx={{
+        fontSize: [4, null, 5],
+        lineHeight: 'heading',
+
+        p: {
+          margin: 0,
+        },
+
+        a: {
+          color: 'text',
+          textDecorationColor: (theme) => theme.colors.accent,
+          '&:hover': {
+            color: 'accent',
+          },
+        },
+
+        '&:empty': {
+          display: 'none',
+        },
+      }}
+      dangerouslySetInnerHTML={{ __html: content }}
+    />
 
     <Text
       as="p"
@@ -31,5 +58,14 @@ const AboutPage: React.FC = () => (
     </Text>
   </React.Fragment>
 )
+
+export const getStaticProps: GetStaticProps = async () => {
+  const { title, content } = await getAboutPage()
+
+  return {
+    props: { title, content },
+    revalidate: 60,
+  }
+}
 
 export default AboutPage

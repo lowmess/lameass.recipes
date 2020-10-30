@@ -69,7 +69,13 @@ const Homepage: React.FC<HomepageProps> = ({
         )}
 
         <Box>
-          <Flex sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+          <Flex
+            sx={{
+              flexDirection: ['column', 'row'],
+              alignItems: [null, 'center'],
+              justifyContent: 'space-between',
+            }}
+          >
             <Heading>Recent Recipes</Heading>
 
             <NextLink href="/recipes" passHref>

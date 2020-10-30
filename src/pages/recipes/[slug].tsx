@@ -67,6 +67,10 @@ const RecipePage: React.FC<RecipePageProps> = ({
             width: [256, null, 512],
             height: [90, null, 180],
             userSelect: 'none',
+
+            '@media print': {
+              display: 'none',
+            },
           },
         }}
       >
@@ -128,6 +132,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
                 </Link>
               </NextLink>
             </Flex>
+
             {tags.length > 0 && (
               <Flex sx={{ alignItems: 'center' }}>
                 <Tag weight="bold" />
@@ -135,7 +140,9 @@ const RecipePage: React.FC<RecipePageProps> = ({
                 <Inline gap={3} ml={3}>
                   {tags.map((tag) => (
                     <NextLink key={tag.id} href={`/tags/${tag.slug}`} passHref>
-                      <Link variant="tag">{tag.title}</Link>
+                      <Link variant="tag" sx={{ fontSize: 1 }}>
+                        {tag.title}
+                      </Link>
                     </NextLink>
                   ))}
                 </Inline>
@@ -149,7 +156,18 @@ const RecipePage: React.FC<RecipePageProps> = ({
                 Ingredients
               </Heading>
 
-              <Text as="ul" sx={{ paddingLeft: 0, listStyleType: 'none' }}>
+              <Text
+                as="ul"
+                sx={{
+                  paddingLeft: 0,
+                  listStyleType: 'none',
+
+                  '@media print': {
+                    paddingLeft: 4,
+                    listStyleType: 'disc',
+                  },
+                }}
+              >
                 {ingredients.map(({ id, value }) => (
                   <Text
                     key={id}
@@ -162,6 +180,10 @@ const RecipePage: React.FC<RecipePageProps> = ({
 
                       '&:nth-of-type(even)': {
                         backgroundColor: 'muted',
+                      },
+
+                      '@media print': {
+                        padding: 0,
                       },
                     }}
                   >
@@ -196,6 +218,10 @@ const RecipePage: React.FC<RecipePageProps> = ({
                           color: 'accent',
                         },
                       },
+
+                      '@media print': {
+                        padding: 0,
+                      },
                     }}
                     dangerouslySetInnerHTML={{
                       __html: removeWrappingP(value),
@@ -207,13 +233,19 @@ const RecipePage: React.FC<RecipePageProps> = ({
           )}
 
           {similarRecipes.length > 0 && (
-            <React.Fragment>
+            <Box
+              sx={{
+                '@media print': {
+                  display: 'none',
+                },
+              }}
+            >
               <Heading mt={[5, 6]} mb={4}>
                 Other {category.title} recipes:
               </Heading>
 
               <RecipeGrid recipes={similarRecipes} />
-            </React.Fragment>
+            </Box>
           )}
         </Box>
       </Box>

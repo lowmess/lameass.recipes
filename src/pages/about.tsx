@@ -42,6 +42,7 @@ const AboutPage: React.FC<AboutPageProps> = ({
         a: {
           color: 'text',
           textDecorationColor: (theme) => theme.colors.accent,
+
           '&:hover': {
             color: 'accent',
           },

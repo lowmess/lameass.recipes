@@ -4,7 +4,11 @@ import { Box, Flex, Container, Link } from 'theme-ui'
 import { ThemeUIProps } from '../types/ThemeUIComponent'
 
 const Footer: React.FC<ThemeUIProps> = ({ sx, ...props }) => (
-  <Box sx={{ paddingY: 4, backgroundColor: 'muted', ...sx }} {...props}>
+  <Box
+    as="footer"
+    sx={{ paddingY: 4, backgroundColor: 'muted', ...sx }}
+    {...props}
+  >
     <Container>
       <Flex
         as="ul"

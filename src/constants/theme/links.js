@@ -92,5 +92,10 @@ export default {
     '&:hover': {
       color: 'text',
     },
+
+    '@media print': {
+      padding: 0,
+      fontSize: 'inherit',
+    },
   },
 }

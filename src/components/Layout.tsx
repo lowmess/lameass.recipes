@@ -1,29 +1,73 @@
 import * as React from 'react'
 import Head from 'next/head'
-import { Flex, Container } from 'theme-ui'
+import { Global, css } from '@emotion/core'
+import { useThemeUI, Flex, Container } from 'theme-ui'
 import Nav from './Nav'
 import Footer from './Footer'
 
-const Layout: React.FC = ({ children }) => (
-  <React.Fragment>
-    <Head>
-      {/*
-       * Shouldn't be set in `_document`:
-       * https://github.com/vercel/next.js/blob/master/errors/no-document-viewport-meta.md
-       */}
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </Head>
+const Layout: React.FC = ({ children }) => {
+  const { theme } = useThemeUI()
 
-    <Flex sx={{ flexDirection: 'column', minHeight: '100vh' }}>
-      <Nav />
+  return (
+    <React.Fragment>
+      <Global
+        styles={css`
+          ::selection {
+            background-color: ${theme.colors.accent};
+            color: ${theme.colors.text};
+          }
 
-      <Container as="main" id="main-content" sx={{ flex: 1 }}>
-        {children}
-      </Container>
+          html {
+            font-variant-ligatures: common-ligatures discretionary-ligatures;
+            scroll-behavior: smooth;
 
-      <Footer />
-    </Flex>
-  </React.Fragment>
-)
+            @media (prefers-reduced-motion: reduce) {
+              scroll-behavior: auto;
+            }
+
+            @media (min-width: 100em) {
+              font-size: 112.5%;
+            }
+          }
+
+          @media print {
+            * {
+              background-color: transparent !important;
+              color: #000 !important;
+            }
+
+            nav,
+            footer {
+              display: none;
+            }
+          }
+
+          body {
+            margin: 0;
+            cursor: default;
+          }
+        `}
+      />
+
+      <Head>
+        {/*
+         * Shouldn't be set in `_document`:
+         * https://github.com/vercel/next.js/blob/master/errors/no-document-viewport-meta.md
+         */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+
+      <Flex sx={{ flexDirection: 'column', minHeight: '100vh' }}>
+        <Nav />
+
+        <Container as="main" id="main-content" sx={{ flex: 1 }}>
+          {children}
+        </Container>
+
+        <Footer />
+      </Flex>
+    </React.Fragment>
+  )
+}
 
 export default Layout

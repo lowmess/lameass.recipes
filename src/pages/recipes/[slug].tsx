@@ -76,7 +76,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
       >
         <img
           width="512"
-          height="180"
+          height="182"
           alt=""
           src={`/images/recipe-swash-${colorMode}.png`}
           srcSet={`/images/recipe-swash-${colorMode}@2x.png 2x`}

@@ -52,7 +52,7 @@ export default {
   highlight: palette.cyans[5],
   muted: palette.grays[1],
   'muted-text': palette.grays[8],
-  border: palette.cyans[1],
+  border: palette.cyans[2],
   'card-shadow': 'rgba(87, 173, 173, 0.25)', // palette.cyans[6]
 
   modes: {

@@ -6,9 +6,11 @@ export default {
     top: (theme) => `calc(${theme.space[1]} * 0.5)`,
     fontWeight: 'semi-bold',
     color: 'text',
+    transition: '0.2s ease opacity',
 
     '&:hover, &:focus': {
       color: 'text',
+      opacity: 0.75,
     },
 
     svg: {

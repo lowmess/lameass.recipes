@@ -52,14 +52,18 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
           sx={{
             marginTop: 1,
             marginBottom: tags.length || totalTime > 0 ? 4 : 0,
-            fontSize: 0,
-            fontWeight: 'bold',
-            textTransform: 'uppercase',
-            color: 'accent',
           }}
         >
           <NextLink href={`/categories/${category.slug}`} passHref>
-            <Link variant="category">{category.title}</Link>
+            <Link
+              variant="category"
+              sx={{
+                marginTop: 1,
+                marginBottom: tags.length || totalTime > 0 ? 4 : 0,
+              }}
+            >
+              {category.title}
+            </Link>
           </NextLink>
         </Text>
 

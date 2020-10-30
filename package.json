@@ -17,6 +17,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@reach/visually-hidden": "^0.11.1",
     "next": "^10.0.0",
     "phosphor-react": "^1.0.0",
     "react": "^17.0.1",

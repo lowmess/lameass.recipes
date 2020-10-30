@@ -71,7 +71,7 @@ jobs:
         run: npm install && npm install -g @lhci/cli@0.4.x
 
       - name: Build site
-        run: npm run build
+        run: DATOCMS_API_TOKEN=$DATOCMS_API_TOKEN npm run build
 
       - name: Run Lighthouse CI
         run: lhci autorun

@@ -21,10 +21,18 @@ export default {
         `0 2rem 4rem -0.5rem ${theme.colors['card-shadow']}`,
       opacity: 0,
       transition: '0.2s ease opacity',
+
+      '@media (prefers-reduced-motion: reduce), (any-hover: none)': {
+        content: 'none',
+      },
     },
 
     '&:hover': {
       transform: (theme) => `translateY(-${theme.space[3]})`,
+
+      '@media (prefers-reduced-motion: reduce), (any-hover: none)': {
+        transform: 'none',
+      },
     },
 
     '&:hover::before': {

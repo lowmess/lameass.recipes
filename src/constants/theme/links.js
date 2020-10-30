@@ -57,6 +57,10 @@ export default {
 
       svg: {
         transform: 'translateX(0.5rem)',
+
+        '@media (prefers-reduced-motion: reduce), (any-hover: none)': {
+          transform: 'none',
+        },
       },
     },
   },

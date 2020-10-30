@@ -218,7 +218,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { allRecipes } = await getAllRecipesByCategory(recipe.category.slug)
 
   const similarRecipes =
-    allRecipes.filter((r) => r.id !== recipe.id).slice(0, 6) || []
+    allRecipes?.filter((r) => r.id !== recipe.id).slice(0, 6) || []
 
   return {
     props: { recipe, similarRecipes, titleSuffix, description },
@@ -228,7 +228,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { allRecipes } = await getAllRecipes()
-  const paths = allRecipes.map((r) => ({ params: { slug: r.slug } })) || []
+  const paths = allRecipes?.map((r) => ({ params: { slug: r.slug } })) || []
 
   return {
     paths,

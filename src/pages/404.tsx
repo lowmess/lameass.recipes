@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   } = await getAllRecipes()
 
-  const recipes = allRecipes.slice(0, 6) || []
+  const recipes = allRecipes?.slice(0, 6) || []
 
   return {
     props: { recipes, titleSuffix, description },

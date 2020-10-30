@@ -49,7 +49,15 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
       </HighlightHeading>
     </Flex>
 
-    <RecipeGrid mb={5} recipes={recipes} />
+    {recipes.length > 0 ? (
+      <RecipeGrid mb={5} recipes={recipes} />
+    ) : (
+      <Text as="p" sx={{ fontSize: [2, null, 3] }}>
+        We&rsquo;ve been too busy enjoying our {category.title.toLowerCase()}{' '}
+        recipes to write them down. We&rsquo;ll put some up after we do one more
+        test batch. (Or two. Or three&hellip;)
+      </Text>
+    )}
   </React.Fragment>
 )
 

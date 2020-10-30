@@ -6,6 +6,7 @@
   "scripts": {
     "start": "next dev",
     "build": "next build",
+    "serve": "next start",
     "lint-staged": "lint-staged"
   },
   "keywords": [],

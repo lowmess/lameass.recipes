@@ -2,6 +2,7 @@ import * as React from 'react'
 import { default as NextLink } from 'next/link'
 import { Box, Flex, Card, Heading, Text, Link } from 'theme-ui'
 import { Clock } from 'phosphor-react'
+import minutesToHours from '../../lib/minutesToHours'
 import { ThemeUIProps } from '../types/ThemeUIComponent'
 import { Recipe } from '../types/Recipe'
 import Inline from './Inline'
@@ -87,7 +88,7 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
               },
             }}
           >
-            <Clock /> {totalTime} minutes
+            <Clock /> {minutesToHours(totalTime)}
           </Text>
         )}
       </Flex>

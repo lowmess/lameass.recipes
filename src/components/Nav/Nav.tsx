@@ -1,13 +1,22 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { Box, Flex, Grid, Text, Container, NavLink } from 'theme-ui'
-import { ListBullets, Tag } from 'phosphor-react'
+import { ListBullets, FolderSimple } from 'phosphor-react'
 import SkipNavLink from './SkipNavLink'
 import Logo from './Logo'
 import ColorModeToggle from './ColorModeToggle'
 
 const Nav: React.FC = () => (
-  <Box as="nav" sx={{ paddingY: 1, backgroundColor: 'primary' }}>
+  <Box
+    as="nav"
+    sx={{
+      position: 'relative',
+      zIndex: 1000,
+      overflow: 'visible',
+      paddingY: 1,
+      backgroundColor: 'primary',
+    }}
+  >
     <Grid
       as={Container}
       columns={['1fr 1fr min-content', null, null, 3]}
@@ -54,7 +63,7 @@ const Nav: React.FC = () => (
         <Box as="li">
           <Link href="/categories" passHref>
             <NavLink>
-              <Tag weight="bold" />{' '}
+              <FolderSimple weight="bold" />{' '}
               <Text as="span" sx={{ display: ['none', null, 'inline'] }}>
                 Categories
               </Text>

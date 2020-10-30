@@ -16,6 +16,12 @@ import {
 import { Recipe } from '../../types/Recipe'
 import { PageProps } from '../../types/Page'
 
+const removeWrappingP = (str: string) => {
+  const re = /^(<p>)|(<\/p>)$/g
+
+  return str.replace(re, '')
+}
+
 interface RecipePageProps extends PageProps {
   recipe: Recipe
   similarRecipes: Recipe[]
@@ -181,10 +187,20 @@ const RecipePage: React.FC<RecipePageProps> = ({
                       maxWidth: '55ch',
                       paddingY: 2,
                       fontSize: [1, null, 2],
+
+                      a: {
+                        color: 'text',
+                        textDecorationColor: (theme) => theme.colors.accent,
+
+                        '&:hover': {
+                          color: 'accent',
+                        },
+                      },
                     }}
-                  >
-                    {value}
-                  </Text>
+                    dangerouslySetInnerHTML={{
+                      __html: removeWrappingP(value),
+                    }}
+                  />
                 ))}
               </Box>
             </React.Fragment>

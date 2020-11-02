@@ -64,7 +64,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({
       Categories
     </HighlightHeading>
 
-    <Grid columns={[1, null, null, 2]} gap={4}>
+    <Grid columns={[1, null, null, 2]} gap={4} mb={5}>
       {categories.map((category) => (
         <CategoryPreview key={category.id} category={category} />
       ))}

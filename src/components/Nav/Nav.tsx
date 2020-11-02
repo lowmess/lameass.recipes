@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { Box, Flex, Grid, Text, Container, NavLink } from 'theme-ui'
-import { ListBullets, FolderSimple } from 'phosphor-react'
+import { ListNumbers, FolderSimple } from 'phosphor-react'
 import SkipNavLink from './SkipNavLink'
 import Logo from './Logo'
 import ColorModeToggle from './ColorModeToggle'
@@ -52,7 +52,7 @@ const Nav: React.FC = () => (
         <Box as="li" mr={[3, 4]}>
           <Link href="/recipes" passHref>
             <NavLink>
-              <ListBullets weight="bold" />{' '}
+              <ListNumbers weight="bold" />{' '}
               <Text as="span" sx={{ display: ['none', null, 'inline'] }}>
                 Recipes
               </Text>

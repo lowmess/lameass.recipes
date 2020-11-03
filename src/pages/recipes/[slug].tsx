@@ -90,26 +90,47 @@ const RecipePage: React.FC<RecipePageProps> = ({
 
           <Stack gap={2} sx={{ marginTop: 3, fontSize: 2 }}>
             {(prepTime || cookTime) && (
-              <Flex sx={{ alignItems: 'center' }}>
+              <Flex
+                sx={{
+                  alignItems: ['baseline', 'center'],
+                  svg: {
+                    position: 'relative',
+                    top: [1, 0],
+                  },
+                }}
+              >
                 <Clock weight="bold" />
 
-                {prepTime > 0 && (
-                  <Text as="span" ml={3}>
-                    {minutesToHours(prepTime)} prep
-                  </Text>
-                )}
+                <Flex
+                  sx={{
+                    flexDirection: ['column', 'row'],
+                    alignItems: [null, 'center'],
+                    marginLeft: 3,
+                  }}
+                >
+                  {prepTime > 0 && (
+                    <Text as="span">{minutesToHours(prepTime)} prep</Text>
+                  )}
 
-                {prepTime > 0 && cookTime > 0 && (
-                  <Text as="span" ml={3} color="accent">
-                    &bull;
-                  </Text>
-                )}
+                  {prepTime > 0 && cookTime > 0 && (
+                    <Text
+                      as="span"
+                      sx={{
+                        display: ['none', 'inline'],
+                        marginLeft: 3,
+                        color: 'accent',
+                      }}
+                    >
+                      &bull;
+                    </Text>
+                  )}
 
-                {cookTime > 0 && (
-                  <Text as="span" ml={3}>
-                    {minutesToHours(cookTime)} cook
-                  </Text>
-                )}
+                  {cookTime > 0 && (
+                    <Text as="span" ml={prepTime > 0 ? [null, 3] : null}>
+                      {minutesToHours(cookTime)} cook
+                    </Text>
+                  )}
+                </Flex>
               </Flex>
             )}
 

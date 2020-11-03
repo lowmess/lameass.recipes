@@ -21,9 +21,9 @@ export default {
   },
 
   'recipe-name': {
-    fontFamily: 'heading',
+    fontFamily: 'system-ui',
     fontSize: 3,
-    fontWeight: 'bold',
+    fontWeight: 'medium',
     lineHeight: 'solid',
   },
 }

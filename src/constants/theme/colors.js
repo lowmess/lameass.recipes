@@ -12,7 +12,7 @@ const palette = {
     '#abb4be',
     '#95a1ad',
     '#7f8a96',
-    '#646d76',
+    '#69737c',
     '#3a4045',
   ],
 
@@ -64,7 +64,7 @@ export default {
       accent: palette.pinks[6],
       highlight: palette.cyans[4],
       muted: palette.grays[9],
-      'muted-text': palette.grays[4],
+      'muted-text': palette.grays[5],
       border: palette.cyans[9],
       'card-shadow': 'rgba(0, 16, 16, 0.5)',
     },

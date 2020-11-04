@@ -258,8 +258,17 @@ const RecipePage: React.FC<RecipePageProps> = ({
           )}
 
           {notes && (
-            <React.Fragment>
-              <Heading mt={[5, null, 6]} mb={3}>
+            <Box pl={4}>
+              <Heading
+                sx={{
+                  marginTop: [4, null, 5],
+                  marginBottom: 3,
+                  fontFamily: 'system-ui',
+                  fontSize: [2, null, 3],
+                  fontWeight: 'bold',
+                  color: 'muted-text',
+                }}
+              >
                 Notes
               </Heading>
 
@@ -288,7 +297,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
                   __html: notes,
                 }}
               />
-            </React.Fragment>
+            </Box>
           )}
 
           {similarRecipes.length > 0 && (

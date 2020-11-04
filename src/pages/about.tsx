@@ -64,8 +64,8 @@ const AboutPage: React.FC<AboutPageProps> = ({
         lineHeight: 'heading',
       }}
     >
-      The website is by by <Link href="https://lowmess.com">Alec Lomas</Link>.
-      It is made with <Link href="https://nextjs.org">Next.js</Link> &{' '}
+      The website is by <Link href="https://lowmess.com">Alec Lomas</Link>. It
+      is made with <Link href="https://nextjs.org">Next.js</Link> &{' '}
       <Link href="https://www.datocms.com">DatoCMS</Link>, and hosted on{' '}
       <Link href="https://vercel.com">Vercel</Link>. The headline font is{' '}
       <Link href="https://regularbolditalic.com/fonts/staat">Staat</Link>, and

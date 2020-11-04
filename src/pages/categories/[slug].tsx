@@ -31,11 +31,11 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
       <meta name="description" content={description} />
     </Head>
 
-    <Flex sx={{ alignItems: 'center', marginY: [5, null, 6] }}>
+    <Flex sx={{ alignItems: 'baseline', marginY: [5, null, 6] }}>
       <Text
         sx={{
           position: 'relative',
-          top: -1,
+          top: 1,
           marginRight: 3,
           fontSize: [5, null, 6],
           lineHeight: 'solid',
@@ -52,7 +52,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
     {recipes.length > 0 ? (
       <RecipeGrid mb={5} recipes={recipes} />
     ) : (
-      <Text as="p" sx={{ fontSize: [2, null, 3] }}>
+      <Text as="p" sx={{ marginBottom: 5, fontSize: [2, null, 3] }}>
         We&rsquo;ve been too busy enjoying our {category.title.toLowerCase()}{' '}
         recipes to write them down. We&rsquo;ll put some up after we do one more
         test batch. (Or two. Or three&hellip;)

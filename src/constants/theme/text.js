@@ -24,6 +24,6 @@ export default {
     fontFamily: 'system-ui',
     fontSize: 3,
     fontWeight: 'medium',
-    lineHeight: 'solid',
+    lineHeight: 'heading',
   },
 }

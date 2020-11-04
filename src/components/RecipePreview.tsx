@@ -2,6 +2,7 @@ import * as React from 'react'
 import { default as NextLink } from 'next/link'
 import { Box, Flex, Card, Heading, Text, Link } from 'theme-ui'
 import { Clock } from 'phosphor-react'
+import unwidow from '../../lib/unwidow'
 import minutesToHours from '../../lib/minutesToHours'
 import { ThemeUIProps } from '../types/ThemeUIComponent'
 import { Recipe } from '../types/Recipe'
@@ -42,9 +43,9 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
           {category.emoji}
         </Text>
 
-        <Heading as={level} variant="recipe-name" mt={3}>
+        <Heading as={level} variant="recipe-name" mt={2}>
           <NextLink href={`/recipes/${slug}`} passHref>
-            <Link variant="ui">{title}</Link>
+            <Link variant="ui">{unwidow(title)}</Link>
           </NextLink>
         </Heading>
 

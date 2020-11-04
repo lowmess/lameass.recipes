@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { useThemeUI, Box, Flex, Text, Heading, Link } from 'theme-ui'
 import { FolderSimple, Tag, Clock, Users } from 'phosphor-react'
+import unwidow from '../../../lib/unwidow'
 import minutesToHours from '../../../lib/minutesToHours'
 import Stack from '../../components/Stack'
 import Inline from '../../components/Inline'
@@ -63,7 +64,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
 
           '.swash': {
             position: 'absolute',
-            top: [-4, null, '-5rem'],
+            top: [-4, null, '-6rem'],
             left: [-5, null, -6],
             width: [256, null, 512],
             height: [90, null, 180],
@@ -85,8 +86,8 @@ const RecipePage: React.FC<RecipePageProps> = ({
         />
 
         <Box sx={{ position: 'relative' }}>
-          <Heading as="h1" sx={{ fontSize: [5, null, 6] }}>
-            {title}
+          <Heading as="h1" variant="page-name">
+            {unwidow(title)}
           </Heading>
 
           <Stack gap={2} sx={{ marginTop: 3, fontSize: 2 }}>

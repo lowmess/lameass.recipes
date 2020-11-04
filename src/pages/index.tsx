@@ -37,13 +37,12 @@ const Homepage: React.FC<HomepageProps> = ({
       <Box
         sx={{
           marginTop: 5,
-          marginBottom: [3, null, 4],
-          paddingTop: [3, 4, 5],
+          paddingTop: [3, null, 4],
           paddingBottom: [3, null, 4],
           backgroundImage: `url(/images/headline-swash-${colorMode}.png)`,
           backgroundRepeat: 'no-repeat',
-          backgroundPosition: '15% center',
-          backgroundSize: '70%',
+          backgroundPosition: '20% center',
+          backgroundSize: 'contain',
 
           '@media (min-width: 44em), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)': {
             backgroundImage: `url(/images/headline-swash-${colorMode}@2x.png)`,

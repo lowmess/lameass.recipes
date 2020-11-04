@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
-import { Heading } from 'theme-ui'
+import { Text, Heading } from 'theme-ui'
 import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
 import { getAllTags, getTagBySlug, getAllRecipesByTag } from '../../../lib/api'
@@ -33,7 +33,15 @@ const TagPage: React.FC<TagPageProps> = ({
       <Highlight>&ldquo;{tag.title.toLowerCase()}&rdquo;</Highlight>
     </Heading>
 
-    <RecipeGrid mb={5} recipes={recipes} />
+    {recipes.length > 0 ? (
+      <RecipeGrid mb={5} recipes={recipes} />
+    ) : (
+      <Text as="p" sx={{ marginBottom: 5, fontSize: [2, null, 3] }}>
+        It doesn&rsquo;t look like we have any recipes tagged &ldquo;
+        {tag.title.toLowerCase()}&rdquo; yet. They&rsquo;re probably on the way
+        from the kitchen right now.
+      </Text>
+    )}
   </React.Fragment>
 )
 

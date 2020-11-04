@@ -28,7 +28,7 @@ const TagsPage: React.FC<TagsPageProps> = ({
       All Tags
     </HighlightHeading>
 
-    <Inline gap={3} mb={5}>
+    <Inline gap={3} pb={5}>
       {tags.map(({ id, title, slug }) => (
         <NextLink key={id} href={`/tags/${slug}`} passHref>
           <Link variant="tag" sx={{ fontSize: 2 }}>

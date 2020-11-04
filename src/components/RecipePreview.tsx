@@ -68,34 +68,36 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
           </NextLink>
         </Text>
 
-        {tags.length > 0 && (
-          <Inline gap={2} pb={totalTime > 0 ? 2 : 0}>
-            {tags.map((tag) => (
-              <NextLink key={tag.id} href={`/tags/${tag.slug}`} passHref>
-                <Link variant="tag">{tag.title}</Link>
-              </NextLink>
-            ))}
-          </Inline>
-        )}
+        <Box mt="auto">
+          {tags.length > 0 && (
+            <Inline gap={2}>
+              {tags.map((tag) => (
+                <NextLink key={tag.id} href={`/tags/${tag.slug}`} passHref>
+                  <Link variant="tag">{tag.title}</Link>
+                </NextLink>
+              ))}
+            </Inline>
+          )}
 
-        {totalTime > 0 && (
-          <Text
-            sx={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              marginTop: 'auto',
-              fontSize: 0,
-              color: 'muted-text',
+          {totalTime > 0 && (
+            <Text
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                marginTop: tags.length > 0 ? 2 : null,
+                fontSize: 0,
+                color: 'muted-text',
 
-              svg: {
-                marginRight: 2,
-                fontSize: 1,
-              },
-            }}
-          >
-            <Clock /> {minutesToHours(totalTime)}
-          </Text>
-        )}
+                svg: {
+                  marginRight: 2,
+                  fontSize: 1,
+                },
+              }}
+            >
+              <Clock /> {minutesToHours(totalTime)}
+            </Text>
+          )}
+        </Box>
       </Flex>
     </Card>
   )

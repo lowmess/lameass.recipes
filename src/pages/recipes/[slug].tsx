@@ -16,10 +16,11 @@ import {
 import { Recipe } from '../../types/Recipe'
 import { PageProps } from '../../types/Page'
 
-const removeWrappingP = (str: string) => {
-  const re = /^(<p>)|(<\/p>)$/g
+const paragraphToInline = (str: string) => {
+  const wrappers = /^(<p>)|(<\/p>)$/g
+  const breaks = /(<\/p>){1}[\s]*(<p>){1}/g
 
-  return str.replace(re, '')
+  return str.replace(wrappers, '').replace(breaks, '<br /><br />')
 }
 
 interface RecipePageProps extends PageProps {
@@ -245,7 +246,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
                       },
                     }}
                     dangerouslySetInnerHTML={{
-                      __html: removeWrappingP(value),
+                      __html: paragraphToInline(value),
                     }}
                   />
                 ))}

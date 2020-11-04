@@ -27,4 +27,5 @@ export interface Recipe {
   servingSize?: string
   ingredients?: RecipePiece[]
   steps?: RecipePiece[]
+  notes?: string
 }

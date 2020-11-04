@@ -7,14 +7,14 @@ module.exports = {
       url: [
         'http://localhost:3000/',
         'http://localhost:3000/recipes',
-        'http://localhost:3000/recipes/manhattan',
+        'http://localhost:3000/recipes/old-fashioned',
         'http://localhost:3000/categories',
         'http://localhost:3000/tags',
         'http://localhost:3000/about',
       ],
-      upload: {
-        target: 'temporary-public-storage',
-      },
+    },
+    upload: {
+      target: 'temporary-public-storage',
     },
     assert: {
       preset: 'lighthouse:no-pwa',

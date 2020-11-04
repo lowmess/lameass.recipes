@@ -44,6 +44,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
     servingSize,
     ingredients,
     steps,
+    notes,
     category,
     tags,
   } = recipe
@@ -253,6 +254,40 @@ const RecipePage: React.FC<RecipePageProps> = ({
                   />
                 ))}
               </Box>
+            </React.Fragment>
+          )}
+
+          {notes && (
+            <React.Fragment>
+              <Heading mt={[5, null, 6]} mb={3}>
+                Notes
+              </Heading>
+
+              <Box
+                sx={{
+                  p: {
+                    maxWidth: '55ch',
+                    margin: 0,
+                    fontSize: [1, null, 2],
+                  },
+
+                  'p + p': {
+                    marginTop: 3,
+                  },
+
+                  a: {
+                    color: 'text',
+                    textDecorationColor: (theme) => theme.colors.accent,
+
+                    '&:hover': {
+                      color: 'accent',
+                    },
+                  },
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: notes,
+                }}
+              />
             </React.Fragment>
           )}
 

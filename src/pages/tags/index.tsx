@@ -2,8 +2,8 @@ import * as React from 'react'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { default as NextLink } from 'next/link'
-import { Link } from 'theme-ui'
-import HighlightHeading from '../../components/HighlightHeading'
+import { Heading, Link } from 'theme-ui'
+import Highlight from '../../components/Highlight'
 import Inline from '../../components/Inline'
 import { getAllTags } from '../../../lib/api'
 import { Tag } from '../../types/Recipe'
@@ -20,13 +20,13 @@ const TagsPage: React.FC<TagsPageProps> = ({
 }) => (
   <React.Fragment>
     <Head>
-      <title key="title">All Tags{titleSuffix}</title>
+      <title key="title">All tags{titleSuffix}</title>
       <meta name="description" content={description} />
     </Head>
 
-    <HighlightHeading as="h1" variant="page-name" my={[5, null, 6]}>
-      All Tags
-    </HighlightHeading>
+    <Heading as="h1" variant="page-name" my={[5, null, 6]}>
+      <Highlight>All tags</Highlight>
+    </Heading>
 
     <Inline gap={3} pb={5}>
       {tags.map(({ id, title, slug }) => (

@@ -61,7 +61,7 @@ const Homepage: React.FC<HomepageProps> = ({
       <Stack gap={[5, null, 6]} my={[5, 6]}>
         {featuredRecipes.length > 0 && (
           <Box>
-            <Heading>Featured Recipes</Heading>
+            <Heading>Featured recipes</Heading>
 
             <RecipeGrid mt={4} recipes={featuredRecipes} />
           </Box>
@@ -75,7 +75,7 @@ const Homepage: React.FC<HomepageProps> = ({
               justifyContent: 'space-between',
             }}
           >
-            <Heading>Recent Recipes</Heading>
+            <Heading>Recent recipes</Heading>
 
             <NextLink href="/recipes" passHref>
               <Link variant="view-all">

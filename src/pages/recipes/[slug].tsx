@@ -9,6 +9,7 @@ import minutesToHours from '../../../lib/minutesToHours'
 import Stack from '../../components/Stack'
 import Inline from '../../components/Inline'
 import RecipeGrid from '../../components/RecipeGrid'
+import Highlight from '../../components/Highlight'
 import {
   getAllRecipes,
   getAllRecipesByCategory,
@@ -264,7 +265,8 @@ const RecipePage: React.FC<RecipePageProps> = ({
               }}
             >
               <Heading mt={[5, 6]} mb={4}>
-                Other {category.title} recipes:
+                Other <Highlight>{category.title.toLowerCase()}</Highlight>{' '}
+                recipes:
               </Heading>
 
               <RecipeGrid recipes={similarRecipes} />

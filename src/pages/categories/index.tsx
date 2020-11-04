@@ -2,8 +2,8 @@ import * as React from 'react'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { default as NextLink } from 'next/link'
-import { Grid, Text, Card, Link } from 'theme-ui'
-import HighlightHeading from '../../components/HighlightHeading'
+import { Grid, Text, Card, Heading, Link } from 'theme-ui'
+import Highlight from '../../components/Highlight'
 import { getAllCategories } from '../../../lib/api'
 import { Category } from '../../types/Recipe'
 import { PageProps } from '../../types/Page'
@@ -60,9 +60,9 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({
       <meta name="description" content={description} />
     </Head>
 
-    <HighlightHeading as="h1" variant="page-name" my={[5, null, 6]}>
-      Categories
-    </HighlightHeading>
+    <Heading as="h1" variant="page-name" my={[5, null, 6]}>
+      <Highlight>Categories</Highlight>
+    </Heading>
 
     <Grid columns={[1, null, null, 2]} gap={4} mb={5}>
       {categories.map((category) => (

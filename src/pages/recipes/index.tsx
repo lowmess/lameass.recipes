@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import HighlightHeading from '../../components/HighlightHeading'
+import { Heading } from 'theme-ui'
+import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
 import { getAllRecipes } from '../../../lib/api'
 import { Recipe } from '../../types/Recipe'
@@ -22,9 +23,9 @@ const RecipePage: React.FC<RecipePageProps> = ({
       <meta name="description" content={description} />
     </Head>
 
-    <HighlightHeading as="h1" variant="page-name" my={[5, null, 6]}>
-      All Recipes
-    </HighlightHeading>
+    <Heading as="h1" variant="page-name" my={[5, null, 6]}>
+      <Highlight>All recipes</Highlight>
+    </Heading>
 
     <RecipeGrid mb={5} recipes={recipes} level="h2" />
   </React.Fragment>

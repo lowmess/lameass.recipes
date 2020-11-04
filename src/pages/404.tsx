@@ -2,9 +2,9 @@ import * as React from 'react'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { default as NextLink } from 'next/link'
-import { Text, Link } from 'theme-ui'
+import { Text, Heading, Link } from 'theme-ui'
 import { getAllRecipes } from '../../lib/api'
-import HighlightHeading from '../components/HighlightHeading'
+import Highlight from '../components/Highlight'
 import RecipeGrid from '../components/RecipeGrid'
 import { Recipe } from '../types/Recipe'
 import { PageProps } from '../types/Page'
@@ -24,9 +24,9 @@ const ErrorPage: React.FC<ErrorPageProps> = ({
       <meta name="description" content={description} />
     </Head>
 
-    <HighlightHeading as="h1" variant="page-name" my={[5, null, 6]}>
-      Error 404
-    </HighlightHeading>
+    <Heading as="h1" variant="page-name" my={[5, null, 6]}>
+      <Highlight>Error 404</Highlight>
+    </Heading>
 
     <Text as="p" sx={{ marginBottom: 5, fontSize: [3, null, 4] }}>
       Oops! We couldn&rsquo;t find that, but we&rsquo;re on the case. Maybe take

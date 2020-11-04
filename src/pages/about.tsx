@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import { Text, Link } from 'theme-ui'
+import { Text, Heading, Link } from 'theme-ui'
 import { getAboutPage } from '../../lib/api'
-import HighlightHeading from '../components/HighlightHeading'
+import Highlight from '../components/Highlight'
 import { PageProps } from '../types/Page'
 
 interface AboutPageProps extends PageProps {
@@ -26,9 +26,9 @@ const AboutPage: React.FC<AboutPageProps> = ({
       <meta name="description" content={description} />
     </Head>
 
-    <HighlightHeading as="h1" variant="page-name" my={[5, null, 6]}>
-      {title}
-    </HighlightHeading>
+    <Heading as="h1" variant="page-name" my={[5, null, 6]}>
+      <Highlight>{title}</Highlight>
+    </Heading>
 
     <Text
       sx={{

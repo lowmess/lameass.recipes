@@ -4,10 +4,12 @@ import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { useThemeUI, Box, Flex, Text, Heading, Link } from 'theme-ui'
 import { FolderSimple, Tag, Clock, Users } from 'phosphor-react'
+import unwidow from '../../../lib/unwidow'
 import minutesToHours from '../../../lib/minutesToHours'
 import Stack from '../../components/Stack'
 import Inline from '../../components/Inline'
 import RecipeGrid from '../../components/RecipeGrid'
+import Highlight from '../../components/Highlight'
 import {
   getAllRecipes,
   getAllRecipesByCategory,
@@ -16,10 +18,11 @@ import {
 import { Recipe } from '../../types/Recipe'
 import { PageProps } from '../../types/Page'
 
-const removeWrappingP = (str: string) => {
-  const re = /^(<p>)|(<\/p>)$/g
+const paragraphToInline = (str: string) => {
+  const wrappers = /^(<p>)|(<\/p>)$/g
+  const breaks = /(<\/p>){1}[\s]*(<p>){1}/g
 
-  return str.replace(re, '')
+  return str.replace(wrappers, '').replace(breaks, '<br /><br />')
 }
 
 interface RecipePageProps extends PageProps {
@@ -41,6 +44,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
     servingSize,
     ingredients,
     steps,
+    notes,
     category,
     tags,
   } = recipe
@@ -62,7 +66,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
 
           '.swash': {
             position: 'absolute',
-            top: [-4, null, '-5rem'],
+            top: [-4, null, '-6rem'],
             left: [-5, null, -6],
             width: [256, null, 512],
             height: [90, null, 180],
@@ -84,32 +88,53 @@ const RecipePage: React.FC<RecipePageProps> = ({
         />
 
         <Box sx={{ position: 'relative' }}>
-          <Heading as="h1" sx={{ fontSize: [5, null, 6] }}>
-            {title}
+          <Heading as="h1" variant="page-name">
+            {unwidow(title)}
           </Heading>
 
           <Stack gap={2} sx={{ marginTop: 3, fontSize: 2 }}>
             {(prepTime || cookTime) && (
-              <Flex sx={{ alignItems: 'center' }}>
+              <Flex
+                sx={{
+                  alignItems: ['baseline', 'center'],
+                  svg: {
+                    position: 'relative',
+                    top: [1, 0],
+                  },
+                }}
+              >
                 <Clock weight="bold" />
 
-                {prepTime > 0 && (
-                  <Text as="span" ml={3}>
-                    {minutesToHours(prepTime)} prep
-                  </Text>
-                )}
+                <Flex
+                  sx={{
+                    flexDirection: ['column', 'row'],
+                    alignItems: [null, 'center'],
+                    marginLeft: 3,
+                  }}
+                >
+                  {prepTime > 0 && (
+                    <Text as="span">{minutesToHours(prepTime)} prep</Text>
+                  )}
 
-                {prepTime > 0 && cookTime > 0 && (
-                  <Text as="span" ml={3} color="accent">
-                    &bull;
-                  </Text>
-                )}
+                  {prepTime > 0 && cookTime > 0 && (
+                    <Text
+                      as="span"
+                      sx={{
+                        display: ['none', 'inline'],
+                        marginLeft: 3,
+                        color: 'accent',
+                      }}
+                    >
+                      &bull;
+                    </Text>
+                  )}
 
-                {cookTime > 0 && (
-                  <Text as="span" ml={3}>
-                    {minutesToHours(cookTime)} cook
-                  </Text>
-                )}
+                  {cookTime > 0 && (
+                    <Text as="span" ml={prepTime > 0 ? [null, 3] : null}>
+                      {minutesToHours(cookTime)} cook
+                    </Text>
+                  )}
+                </Flex>
               </Flex>
             )}
 
@@ -224,11 +249,45 @@ const RecipePage: React.FC<RecipePageProps> = ({
                       },
                     }}
                     dangerouslySetInnerHTML={{
-                      __html: removeWrappingP(value),
+                      __html: paragraphToInline(value),
                     }}
                   />
                 ))}
               </Box>
+            </React.Fragment>
+          )}
+
+          {notes && (
+            <React.Fragment>
+              <Heading mt={[5, null, 6]} mb={3}>
+                Notes
+              </Heading>
+
+              <Box
+                sx={{
+                  p: {
+                    maxWidth: '55ch',
+                    margin: 0,
+                    fontSize: [1, null, 2],
+                  },
+
+                  'p + p': {
+                    marginTop: 3,
+                  },
+
+                  a: {
+                    color: 'text',
+                    textDecorationColor: (theme) => theme.colors.accent,
+
+                    '&:hover': {
+                      color: 'accent',
+                    },
+                  },
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: notes,
+                }}
+              />
             </React.Fragment>
           )}
 
@@ -241,7 +300,8 @@ const RecipePage: React.FC<RecipePageProps> = ({
               }}
             >
               <Heading mt={[5, 6]} mb={4}>
-                Other {category.title} recipes:
+                Other <Highlight>{category.title.toLowerCase()}</Highlight>{' '}
+                recipes:
               </Heading>
 
               <RecipeGrid recipes={similarRecipes} />

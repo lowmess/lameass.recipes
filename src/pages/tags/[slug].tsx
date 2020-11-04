@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
-import HighlightHeading from '../../components/HighlightHeading'
+import { Heading } from 'theme-ui'
+import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
 import { getAllTags, getTagBySlug, getAllRecipesByTag } from '../../../lib/api'
 import { Recipe, Tag } from '../../types/Recipe'
@@ -27,9 +28,10 @@ const TagPage: React.FC<TagPageProps> = ({
       <meta name="description" content={description} />
     </Head>
 
-    <HighlightHeading as="h1" variant="page-name" my={[5, null, 6]}>
-      {tag.title}
-    </HighlightHeading>
+    <Heading as="h1" variant="page-name" my={[5, null, 6]}>
+      Recipes tagged{' '}
+      <Highlight>&ldquo;{tag.title.toLowerCase()}&rdquo;</Highlight>
+    </Heading>
 
     <RecipeGrid mb={5} recipes={recipes} />
   </React.Fragment>

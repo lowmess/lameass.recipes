@@ -37,13 +37,12 @@ const Homepage: React.FC<HomepageProps> = ({
       <Box
         sx={{
           marginTop: 5,
-          marginBottom: [3, null, 4],
-          paddingTop: [3, 4, 5],
+          paddingTop: [3, null, 4],
           paddingBottom: [3, null, 4],
           backgroundImage: `url(/images/headline-swash-${colorMode}.png)`,
           backgroundRepeat: 'no-repeat',
-          backgroundPosition: '15% center',
-          backgroundSize: '70%',
+          backgroundPosition: '20% center',
+          backgroundSize: 'contain',
 
           '@media (min-width: 44em), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)': {
             backgroundImage: `url(/images/headline-swash-${colorMode}@2x.png)`,
@@ -62,7 +61,7 @@ const Homepage: React.FC<HomepageProps> = ({
       <Stack gap={[5, null, 6]} my={[5, 6]}>
         {featuredRecipes.length > 0 && (
           <Box>
-            <Heading>Featured Recipes</Heading>
+            <Heading>Featured recipes</Heading>
 
             <RecipeGrid mt={4} recipes={featuredRecipes} />
           </Box>
@@ -76,7 +75,7 @@ const Homepage: React.FC<HomepageProps> = ({
               justifyContent: 'space-between',
             }}
           >
-            <Heading>Recent Recipes</Heading>
+            <Heading>Recent recipes</Heading>
 
             <NextLink href="/recipes" passHref>
               <Link variant="view-all">

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
-import { Flex, Text } from 'theme-ui'
-import HighlightHeading from '../../components/HighlightHeading'
+import { Flex, Text, Heading } from 'theme-ui'
+import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
 import {
   getAllCategories,
@@ -44,9 +44,9 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
         {category.emoji}
       </Text>
 
-      <HighlightHeading as="h1" variant="page-name">
-        {category.title}
-      </HighlightHeading>
+      <Heading as="h1" variant="page-name">
+        <Highlight>{category.title}</Highlight> recipes
+      </Heading>
     </Flex>
 
     {recipes.length > 0 ? (

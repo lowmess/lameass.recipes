@@ -18,6 +18,15 @@ import {
 import { Recipe } from '../../types/Recipe'
 import { PageProps } from '../../types/Page'
 
+const infoStyles = {
+  alignItems: 'baseline',
+
+  svg: {
+    position: 'relative',
+    top: 1,
+  },
+}
+
 const paragraphToInline = (str: string) => {
   const wrappers = /^(<p>)|(<\/p>)$/g
   const breaks = /(<\/p>){1}[\s]*(<p>){1}/g
@@ -94,15 +103,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
 
           <Stack gap={2} sx={{ marginTop: 3, fontSize: 2 }}>
             {(prepTime || cookTime) && (
-              <Flex
-                sx={{
-                  alignItems: ['baseline', 'center'],
-                  svg: {
-                    position: 'relative',
-                    top: [1, 0],
-                  },
-                }}
-              >
+              <Flex sx={infoStyles}>
                 <Clock weight="bold" />
 
                 <Flex
@@ -139,7 +140,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
             )}
 
             {servingSize && (
-              <Flex sx={{ alignItems: 'center' }}>
+              <Flex sx={infoStyles}>
                 <Users weight="bold" />
 
                 <Text as="span" ml={3}>
@@ -148,7 +149,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
               </Flex>
             )}
 
-            <Flex sx={{ alignItems: 'center' }}>
+            <Flex sx={infoStyles}>
               <FolderSimple weight="bold" />
 
               <NextLink href={`/categories/${category.slug}`} passHref>
@@ -159,10 +160,10 @@ const RecipePage: React.FC<RecipePageProps> = ({
             </Flex>
 
             {tags.length > 0 && (
-              <Flex sx={{ alignItems: 'center' }}>
+              <Flex sx={infoStyles}>
                 <Tag weight="bold" />
 
-                <Inline gap={3} ml={3}>
+                <Inline gap={2} ml={3}>
                   {tags.map((tag) => (
                     <NextLink key={tag.id} href={`/tags/${tag.slug}`} passHref>
                       <Link variant="tag" sx={{ fontSize: 1 }}>

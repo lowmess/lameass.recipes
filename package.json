@@ -1,15 +1,13 @@
 {
   "name": "lameass.recipes",
-  "version": "0.0.0",
-  "description": "",
-  "main": "",
+  "version": "1.0.0",
+  "description": "A recipe site, but without the 2,500 word storytime recipes.",
   "scripts": {
     "start": "next dev",
     "build": "next build",
     "serve": "next start",
     "lint-staged": "lint-staged"
   },
-  "keywords": [],
   "author": "Alec Lomas <alec@lowmess.com>",
   "repository": {
     "type": "git",

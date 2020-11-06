@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { useThemeUI, Box, Flex, Text, Heading, Link } from 'theme-ui'
-import { FolderSimple, Tag, Clock, Users } from 'phosphor-react'
+import { FolderSimple, Tag, Clock, Users, Hash } from 'phosphor-react'
 import unwidow from '../../../lib/unwidow'
 import minutesToHours from '../../../lib/minutesToHours'
 import Stack from '../../components/Stack'
@@ -50,13 +50,16 @@ const RecipePage: React.FC<RecipePageProps> = ({
     title,
     prepTime,
     cookTime,
-    servingSize,
+    yieldAmount,
+    yieldType = 'servings',
     ingredients,
     steps,
     notes,
     category,
     tags,
   } = recipe
+
+  const YieldIcon = yieldType === 'servings' ? Users : Hash
 
   return (
     <React.Fragment>
@@ -139,12 +142,12 @@ const RecipePage: React.FC<RecipePageProps> = ({
               </Flex>
             )}
 
-            {servingSize && (
+            {yieldAmount && (
               <Flex sx={infoStyles}>
-                <Users weight="bold" />
+                <YieldIcon weight="bold" />
 
                 <Text as="span" ml={3}>
-                  {servingSize}
+                  {yieldAmount}
                 </Text>
               </Flex>
             )}

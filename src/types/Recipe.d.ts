@@ -24,7 +24,8 @@ export interface Recipe {
   tags?: Tag[]
   prepTime?: number
   cookTime?: number
-  servingSize?: string
+  yieldAmount?: string
+  yieldType?: 'servings' | 'amount'
   ingredients?: RecipePiece[]
   steps?: RecipePiece[]
   notes?: string

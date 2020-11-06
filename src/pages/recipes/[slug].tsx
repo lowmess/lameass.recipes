@@ -59,7 +59,18 @@ const RecipePage: React.FC<RecipePageProps> = ({
     tags,
   } = recipe
 
-  const YieldIcon = yieldType === 'servings' ? Users : Hash
+  let YieldIcon = Users
+
+  switch (yieldType) {
+    case 'servings':
+      YieldIcon = Users
+      break
+    case 'amount':
+      YieldIcon = Hash
+      break
+    default:
+      YieldIcon = Users
+  }
 
   return (
     <React.Fragment>

@@ -27,11 +27,15 @@ const infoStyles = {
   },
 }
 
-const paragraphToInline = (str: string) => {
-  const wrappers = /^(<p>)|(<\/p>)$/g
-  const breaks = /(<\/p>){1}[\s]*(<p>){1}/g
+const linkStyles = {
+  a: {
+    color: 'text',
+    textDecorationColor: (theme) => theme.colors.accent,
 
-  return str.replace(wrappers, '').replace(breaks, '<br /><br />')
+    '&:hover': {
+      color: 'accent',
+    },
+  },
 }
 
 interface RecipePageProps extends PageProps {
@@ -202,6 +206,8 @@ const RecipePage: React.FC<RecipePageProps> = ({
                   paddingLeft: 0,
                   listStyleType: 'none',
 
+                  ...linkStyles,
+
                   '@media print': {
                     paddingLeft: 4,
                     listStyleType: 'disc',
@@ -226,9 +232,10 @@ const RecipePage: React.FC<RecipePageProps> = ({
                         padding: 0,
                       },
                     }}
-                  >
-                    {value}
-                  </Text>
+                    dangerouslySetInnerHTML={{
+                      __html: value,
+                    }}
+                  />
                 ))}
               </Text>
             </React.Fragment>
@@ -250,21 +257,14 @@ const RecipePage: React.FC<RecipePageProps> = ({
                       paddingY: 2,
                       fontSize: [1, null, 2],
 
-                      a: {
-                        color: 'text',
-                        textDecorationColor: (theme) => theme.colors.accent,
-
-                        '&:hover': {
-                          color: 'accent',
-                        },
-                      },
+                      ...linkStyles,
 
                       '@media print': {
                         padding: 0,
                       },
                     }}
                     dangerouslySetInnerHTML={{
-                      __html: paragraphToInline(value),
+                      __html: value,
                     }}
                   />
                 ))}

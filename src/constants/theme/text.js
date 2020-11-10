@@ -18,7 +18,6 @@ export default {
     fontSize: [5, null, 6],
     fontWeight: 'bold',
     lineHeight: 'solid',
-    hyphens: 'auto',
   },
 
   'recipe-name': {

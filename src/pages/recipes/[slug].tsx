@@ -4,7 +4,6 @@ import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { useThemeUI, Box, Flex, Text, Heading, Link } from 'theme-ui'
 import { FolderSimple, Tag, Clock, Users, Hash } from 'phosphor-react'
-import unwidow from '../../../lib/unwidow'
 import minutesToHours from '../../../lib/minutesToHours'
 import Stack from '../../components/Stack'
 import Inline from '../../components/Inline'
@@ -115,8 +114,8 @@ const RecipePage: React.FC<RecipePageProps> = ({
         />
 
         <Box sx={{ position: 'relative' }}>
-          <Heading as="h1" variant="page-name">
-            {unwidow(title)}
+          <Heading as="h1" variant="page-name" sx={{ fontSize: [4, 5, 6] }}>
+            {title}
           </Heading>
 
           <Stack gap={2} sx={{ marginTop: 3, fontSize: 2 }}>

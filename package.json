@@ -22,7 +22,7 @@
     "react-dom": "^17.0.1",
     "remark": "^13.0.0",
     "remark-html": "^13.0.1",
-    "theme-ui": "^0.3.3"
+    "theme-ui": "^0.3.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.7",

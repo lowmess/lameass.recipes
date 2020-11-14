@@ -14,12 +14,14 @@ import { PageProps } from '../types/Page'
 
 interface HomepageProps extends PageProps {
 	headline: string
+	featuredRecipesHeading?: string
 	featuredRecipes?: Recipe[]
 	recentRecipes?: Recipe[]
 }
 
 const Homepage: React.FC<HomepageProps> = ({
 	headline,
+	featuredRecipesHeading = 'Featured recipes',
 	featuredRecipes = [],
 	recentRecipes = [],
 	siteName,
@@ -61,7 +63,7 @@ const Homepage: React.FC<HomepageProps> = ({
 			<Stack gap={[5, null, 6]} my={[5, 6]}>
 				{featuredRecipes.length > 0 && (
 					<Box>
-						<Heading>Featured recipes</Heading>
+						<Heading>{featuredRecipesHeading}</Heading>
 
 						<RecipeGrid mt={4} recipes={featuredRecipes} />
 					</Box>
@@ -93,7 +95,7 @@ const Homepage: React.FC<HomepageProps> = ({
 
 export const getStaticProps: GetStaticProps = async () => {
 	const {
-		homepage: { headline, featuredRecipes },
+		homepage: { headline, featuredRecipesHeading, featuredRecipes },
 		site: {
 			globalSeo: {
 				siteName,
@@ -111,6 +113,7 @@ export const getStaticProps: GetStaticProps = async () => {
 	return {
 		props: {
 			headline: formattedHeadline,
+			featuredRecipesHeading,
 			featuredRecipes,
 			recentRecipes,
 			siteName,

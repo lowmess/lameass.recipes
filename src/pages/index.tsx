@@ -116,7 +116,6 @@ export const getStaticProps: GetStaticProps = async () => {
 			siteName,
 			description,
 		},
-		revalidate: 60,
 	}
 }
 

@@ -88,7 +88,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
 	return {
 		props: { title, content, titleSuffix, description },
-		revalidate: 60,
 	}
 }
 

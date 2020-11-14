@@ -59,7 +59,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 	return {
 		props: { tag, recipes, titleSuffix, description },
-		revalidate: 60,
 	}
 }
 

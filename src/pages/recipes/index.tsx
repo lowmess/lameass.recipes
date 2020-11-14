@@ -9,43 +9,42 @@ import { Recipe } from '../../types/Recipe'
 import { PageProps } from '../../types/Page'
 
 interface RecipePageProps extends PageProps {
-  recipes: Recipe[]
+	recipes: Recipe[]
 }
 
 const RecipePage: React.FC<RecipePageProps> = ({
-  recipes,
-  titleSuffix,
-  description,
+	recipes,
+	titleSuffix,
+	description,
 }) => (
-  <React.Fragment>
-    <Head>
-      <title key="title">All recipes{titleSuffix}</title>
-      <meta name="description" content={description} />
-    </Head>
+	<React.Fragment>
+		<Head>
+			<title key="title">All recipes{titleSuffix}</title>
+			<meta name="description" content={description} />
+		</Head>
 
-    <Heading as="h1" variant="page-name" my={[5, null, 6]}>
-      <Highlight>All recipes</Highlight>
-    </Heading>
+		<Heading as="h1" variant="page-name" my={[5, null, 6]}>
+			<Highlight>All recipes</Highlight>
+		</Heading>
 
-    <RecipeGrid mb={5} recipes={recipes} level="h2" />
-  </React.Fragment>
+		<RecipeGrid mb={5} recipes={recipes} level="h2" />
+	</React.Fragment>
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-  const {
-    allRecipes: recipes,
-    site: {
-      globalSeo: {
-        titleSuffix,
-        fallbackSeo: { description },
-      },
-    },
-  } = await getAllRecipes()
+	const {
+		allRecipes: recipes,
+		site: {
+			globalSeo: {
+				titleSuffix,
+				fallbackSeo: { description },
+			},
+		},
+	} = await getAllRecipes()
 
-  return {
-    props: { recipes, titleSuffix, description },
-    revalidate: 60,
-  }
+	return {
+		props: { recipes, titleSuffix, description },
+	}
 }
 
 export default RecipePage

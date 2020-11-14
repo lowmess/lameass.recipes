@@ -16,25 +16,25 @@ import buttons from './buttons'
 const breakpoints = ['30em', '40em', '64em']
 
 export default {
-  // settings
-  useColorSchemeMediaQuery: true,
-  // primitives
-  breakpoints,
-  colors,
-  space,
-  borders,
-  radii,
-  fonts,
-  fontSizes,
-  fontWeights,
-  lineHeights,
-  sizes,
-  // variants
-  styles,
-  // variants,
-  layout,
-  cards,
-  text,
-  links,
-  buttons,
+	// settings
+	useColorSchemeMediaQuery: true,
+	// primitives
+	breakpoints,
+	colors,
+	space,
+	borders,
+	radii,
+	fonts,
+	fontSizes,
+	fontWeights,
+	lineHeights,
+	sizes,
+	// variants
+	styles,
+	// variants,
+	layout,
+	cards,
+	text,
+	links,
+	buttons,
 }

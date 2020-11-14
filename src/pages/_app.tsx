@@ -7,11 +7,11 @@ import Layout from '../components/Layout'
 import '../assets/fonts/staat/staat.css'
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (
-  <ThemeProvider theme={theme}>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  </ThemeProvider>
+	<ThemeProvider theme={theme}>
+		<Layout>
+			<Component {...pageProps} />
+		</Layout>
+	</ThemeProvider>
 )
 
 export default App

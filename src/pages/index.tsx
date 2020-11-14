@@ -13,111 +13,111 @@ import { Recipe } from '../types/Recipe'
 import { PageProps } from '../types/Page'
 
 interface HomepageProps extends PageProps {
-  headline: string
-  featuredRecipes?: Recipe[]
-  recentRecipes?: Recipe[]
+	headline: string
+	featuredRecipes?: Recipe[]
+	recentRecipes?: Recipe[]
 }
 
 const Homepage: React.FC<HomepageProps> = ({
-  headline,
-  featuredRecipes = [],
-  recentRecipes = [],
-  siteName,
-  description,
+	headline,
+	featuredRecipes = [],
+	recentRecipes = [],
+	siteName,
+	description,
 }) => {
-  const { colorMode } = useThemeUI()
+	const { colorMode } = useThemeUI()
 
-  return (
-    <React.Fragment>
-      <Head>
-        <title key="title">{siteName}</title>
-        <meta name="description" content={description} />
-      </Head>
+	return (
+		<React.Fragment>
+			<Head>
+				<title key="title">{siteName}</title>
+				<meta name="description" content={description} />
+			</Head>
 
-      <Box
-        sx={{
-          marginTop: 5,
-          paddingTop: [3, null, 4],
-          paddingBottom: [3, null, 4],
-          backgroundImage: `url(/images/headline-swash-${colorMode}.png)`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: '20% center',
-          backgroundSize: 'contain',
+			<Box
+				sx={{
+					marginTop: 5,
+					paddingTop: [3, null, 4],
+					paddingBottom: [3, null, 4],
+					backgroundImage: `url(/images/headline-swash-${colorMode}.png)`,
+					backgroundRepeat: 'no-repeat',
+					backgroundPosition: '20% center',
+					backgroundSize: 'contain',
 
-          '@media (min-width: 44em), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)': {
-            backgroundImage: `url(/images/headline-swash-${colorMode}@2x.png)`,
-          },
+					'@media (min-width: 44em), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)': {
+						backgroundImage: `url(/images/headline-swash-${colorMode}@2x.png)`,
+					},
 
-          '@media (min-width: 64em)': {
-            backgroundPosition: '25%',
-          },
-        }}
-      >
-        <Heading as="h1" variant="headline">
-          {headline}
-        </Heading>
-      </Box>
+					'@media (min-width: 64em)': {
+						backgroundPosition: '25%',
+					},
+				}}
+			>
+				<Heading as="h1" variant="headline">
+					{headline}
+				</Heading>
+			</Box>
 
-      <Stack gap={[5, null, 6]} my={[5, 6]}>
-        {featuredRecipes.length > 0 && (
-          <Box>
-            <Heading>Featured recipes</Heading>
+			<Stack gap={[5, null, 6]} my={[5, 6]}>
+				{featuredRecipes.length > 0 && (
+					<Box>
+						<Heading>Featured recipes</Heading>
 
-            <RecipeGrid mt={4} recipes={featuredRecipes} />
-          </Box>
-        )}
+						<RecipeGrid mt={4} recipes={featuredRecipes} />
+					</Box>
+				)}
 
-        <Box>
-          <Flex
-            sx={{
-              flexDirection: ['column', 'row'],
-              alignItems: [null, 'center'],
-              justifyContent: 'space-between',
-            }}
-          >
-            <Heading>Recent recipes</Heading>
+				<Box>
+					<Flex
+						sx={{
+							flexDirection: ['column', 'row'],
+							alignItems: [null, 'center'],
+							justifyContent: 'space-between',
+						}}
+					>
+						<Heading>Recent recipes</Heading>
 
-            <NextLink href="/recipes" passHref>
-              <Link variant="view-all">
-                View All <ArrowRight weight="bold" />
-              </Link>
-            </NextLink>
-          </Flex>
+						<NextLink href="/recipes" passHref>
+							<Link variant="view-all">
+								View All <ArrowRight weight="bold" />
+							</Link>
+						</NextLink>
+					</Flex>
 
-          <RecipeGrid mt={4} recipes={recentRecipes} />
-        </Box>
-      </Stack>
-    </React.Fragment>
-  )
+					<RecipeGrid mt={4} recipes={recentRecipes} />
+				</Box>
+			</Stack>
+		</React.Fragment>
+	)
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const {
-    homepage: { headline, featuredRecipes },
-    site: {
-      globalSeo: {
-        siteName,
-        fallbackSeo: { description },
-      },
-    },
-  } = await getHomepage()
+	const {
+		homepage: { headline, featuredRecipes },
+		site: {
+			globalSeo: {
+				siteName,
+				fallbackSeo: { description },
+			},
+		},
+	} = await getHomepage()
 
-  const { allRecipes } = await getAllRecipes()
+	const { allRecipes } = await getAllRecipes()
 
-  const formattedHeadline = unwidow(smartypants(headline))
+	const formattedHeadline = unwidow(smartypants(headline))
 
-  const recentRecipes = allRecipes?.slice(0, 6) || []
+	const recentRecipes = allRecipes?.slice(0, 6) || []
 
-  return {
-    props: {
-      headline: formattedHeadline,
-      featuredRecipes,
-      recentRecipes,
-      siteName,
-      description,
-    },
-    revalidate: 60,
-  }
+	return {
+		props: {
+			headline: formattedHeadline,
+			featuredRecipes,
+			recentRecipes,
+			siteName,
+			description,
+		},
+		revalidate: 60,
+	}
 }
 
 export default Homepage

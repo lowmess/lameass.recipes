@@ -10,54 +10,54 @@ import { Recipe } from '../types/Recipe'
 import { PageProps } from '../types/Page'
 
 interface ErrorPageProps extends PageProps {
-  recipes: Recipe[]
+	recipes: Recipe[]
 }
 
 const ErrorPage: React.FC<ErrorPageProps> = ({
-  recipes,
-  titleSuffix,
-  description,
+	recipes,
+	titleSuffix,
+	description,
 }) => (
-  <React.Fragment>
-    <Head>
-      <title key="title">Oops!{titleSuffix}</title>
-      <meta name="description" content={description} />
-    </Head>
+	<React.Fragment>
+		<Head>
+			<title key="title">Oops!{titleSuffix}</title>
+			<meta name="description" content={description} />
+		</Head>
 
-    <Heading as="h1" variant="page-name" my={[5, null, 6]}>
-      <Highlight>Error 404</Highlight>
-    </Heading>
+		<Heading as="h1" variant="page-name" my={[5, null, 6]}>
+			<Highlight>Error 404</Highlight>
+		</Heading>
 
-    <Text as="p" sx={{ marginBottom: 5, fontSize: [3, null, 4] }}>
-      Oops! We couldn&rsquo;t find that, but we&rsquo;re on the case. Maybe take
-      a peek at one of these new{' '}
-      <NextLink href="/recipes" passHref>
-        <Link>recipes</Link>
-      </NextLink>{' '}
-      in the mean&nbsp;time:
-    </Text>
+		<Text as="p" sx={{ marginBottom: 5, fontSize: [3, null, 4] }}>
+			Oops! We couldn&rsquo;t find that, but we&rsquo;re on the case. Maybe take
+			a peek at one of these new{' '}
+			<NextLink href="/recipes" passHref>
+				<Link>recipes</Link>
+			</NextLink>{' '}
+			in the mean&nbsp;time:
+		</Text>
 
-    <RecipeGrid mb={5} recipes={recipes} />
-  </React.Fragment>
+		<RecipeGrid mb={5} recipes={recipes} />
+	</React.Fragment>
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-  const {
-    allRecipes,
-    site: {
-      globalSeo: {
-        titleSuffix,
-        fallbackSeo: { description },
-      },
-    },
-  } = await getAllRecipes()
+	const {
+		allRecipes,
+		site: {
+			globalSeo: {
+				titleSuffix,
+				fallbackSeo: { description },
+			},
+		},
+	} = await getAllRecipes()
 
-  const recipes = allRecipes?.slice(0, 6) || []
+	const recipes = allRecipes?.slice(0, 6) || []
 
-  return {
-    props: { recipes, titleSuffix, description },
-    revalidate: 60,
-  }
+	return {
+		props: { recipes, titleSuffix, description },
+		revalidate: 60,
+	}
 }
 
 export default ErrorPage

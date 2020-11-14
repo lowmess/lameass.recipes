@@ -10,361 +10,361 @@ import Inline from '../../components/Inline'
 import RecipeGrid from '../../components/RecipeGrid'
 import Highlight from '../../components/Highlight'
 import {
-  getAllRecipes,
-  getAllRecipesByCategory,
-  getRecipeBySlug,
+	getAllRecipes,
+	getAllRecipesByCategory,
+	getRecipeBySlug,
 } from '../../../lib/api'
 import { Recipe } from '../../types/Recipe'
 import { PageProps } from '../../types/Page'
 
 const infoStyles = {
-  alignItems: 'baseline',
+	alignItems: 'baseline',
 
-  svg: {
-    position: 'relative',
-    top: 1,
-  },
+	svg: {
+		position: 'relative',
+		top: 1,
+	},
 }
 
 const linkStyles = {
-  a: {
-    color: 'text',
-    textDecorationColor: (theme) => theme.colors.accent,
+	a: {
+		color: 'text',
+		textDecorationColor: (theme) => theme.colors.accent,
 
-    '&:hover': {
-      color: 'accent',
-    },
-  },
+		'&:hover': {
+			color: 'accent',
+		},
+	},
 }
 
 interface RecipePageProps extends PageProps {
-  recipe: Recipe
-  similarRecipes: Recipe[]
+	recipe: Recipe
+	similarRecipes: Recipe[]
 }
 
 const RecipePage: React.FC<RecipePageProps> = ({
-  recipe,
-  similarRecipes,
-  titleSuffix,
-  description,
+	recipe,
+	similarRecipes,
+	titleSuffix,
+	description,
 }) => {
-  const { colorMode } = useThemeUI()
-  const {
-    title,
-    prepTime,
-    cookTime,
-    yieldAmount,
-    yieldType = 'servings',
-    ingredients,
-    steps,
-    notes,
-    category,
-    tags,
-  } = recipe
+	const { colorMode } = useThemeUI()
+	const {
+		title,
+		prepTime,
+		cookTime,
+		yieldAmount,
+		yieldType = 'servings',
+		ingredients,
+		steps,
+		notes,
+		category,
+		tags,
+	} = recipe
 
-  let YieldIcon = Users
+	let YieldIcon = Users
 
-  switch (yieldType) {
-    case 'servings':
-      YieldIcon = Users
-      break
-    case 'amount':
-      YieldIcon = Hash
-      break
-    default:
-      YieldIcon = Users
-  }
+	switch (yieldType) {
+		case 'servings':
+			YieldIcon = Users
+			break
+		case 'amount':
+			YieldIcon = Hash
+			break
+		default:
+			YieldIcon = Users
+	}
 
-  return (
-    <React.Fragment>
-      <Head>
-        <title key="title">
-          {recipe.title}
-          {titleSuffix}
-        </title>
-        <meta name="description" content={description} />
-      </Head>
+	return (
+		<React.Fragment>
+			<Head>
+				<title key="title">
+					{recipe.title}
+					{titleSuffix}
+				</title>
+				<meta name="description" content={description} />
+			</Head>
 
-      <Box
-        sx={{
-          position: 'relative',
-          marginY: [5, null, 6],
+			<Box
+				sx={{
+					position: 'relative',
+					marginY: [5, null, 6],
 
-          '.swash': {
-            position: 'absolute',
-            top: [-4, null, '-6rem'],
-            left: [-5, null, -6],
-            width: [256, null, 512],
-            height: [90, null, 180],
-            userSelect: 'none',
+					'.swash': {
+						position: 'absolute',
+						top: [-4, null, '-6rem'],
+						left: [-5, null, -6],
+						width: [256, null, 512],
+						height: [90, null, 180],
+						userSelect: 'none',
 
-            '@media print': {
-              display: 'none',
-            },
-          },
-        }}
-      >
-        <img
-          width="512"
-          height="182"
-          alt=""
-          src={`/images/recipe-swash-${colorMode}.png`}
-          srcSet={`/images/recipe-swash-${colorMode}@2x.png 2x`}
-          className="swash"
-        />
+						'@media print': {
+							display: 'none',
+						},
+					},
+				}}
+			>
+				<img
+					width="512"
+					height="182"
+					alt=""
+					src={`/images/recipe-swash-${colorMode}.png`}
+					srcSet={`/images/recipe-swash-${colorMode}@2x.png 2x`}
+					className="swash"
+				/>
 
-        <Box sx={{ position: 'relative' }}>
-          <Heading as="h1" variant="page-name" sx={{ fontSize: [4, 5, 6] }}>
-            {title}
-          </Heading>
+				<Box sx={{ position: 'relative' }}>
+					<Heading as="h1" variant="page-name" sx={{ fontSize: [4, 5, 6] }}>
+						{title}
+					</Heading>
 
-          <Stack gap={2} sx={{ marginTop: 3, fontSize: 2 }}>
-            {(prepTime || cookTime) && (
-              <Flex sx={infoStyles}>
-                <Clock weight="bold" />
+					<Stack gap={2} sx={{ marginTop: 3, fontSize: 2 }}>
+						{(prepTime || cookTime) && (
+							<Flex sx={infoStyles}>
+								<Clock weight="bold" />
 
-                <Flex
-                  sx={{
-                    flexDirection: ['column', 'row'],
-                    alignItems: [null, 'center'],
-                    marginLeft: 3,
-                  }}
-                >
-                  {prepTime > 0 && (
-                    <Text as="span">{minutesToHours(prepTime)} prep</Text>
-                  )}
+								<Flex
+									sx={{
+										flexDirection: ['column', 'row'],
+										alignItems: [null, 'center'],
+										marginLeft: 3,
+									}}
+								>
+									{prepTime > 0 && (
+										<Text as="span">{minutesToHours(prepTime)} prep</Text>
+									)}
 
-                  {prepTime > 0 && cookTime > 0 && (
-                    <Text
-                      as="span"
-                      sx={{
-                        display: ['none', 'inline'],
-                        marginLeft: 3,
-                        color: 'accent',
-                      }}
-                    >
-                      &bull;
-                    </Text>
-                  )}
+									{prepTime > 0 && cookTime > 0 && (
+										<Text
+											as="span"
+											sx={{
+												display: ['none', 'inline'],
+												marginLeft: 3,
+												color: 'accent',
+											}}
+										>
+											&bull;
+										</Text>
+									)}
 
-                  {cookTime > 0 && (
-                    <Text as="span" ml={prepTime > 0 ? [null, 3] : null}>
-                      {minutesToHours(cookTime)} cook
-                    </Text>
-                  )}
-                </Flex>
-              </Flex>
-            )}
+									{cookTime > 0 && (
+										<Text as="span" ml={prepTime > 0 ? [null, 3] : null}>
+											{minutesToHours(cookTime)} cook
+										</Text>
+									)}
+								</Flex>
+							</Flex>
+						)}
 
-            {yieldAmount && (
-              <Flex sx={infoStyles}>
-                <YieldIcon weight="bold" />
+						{yieldAmount && (
+							<Flex sx={infoStyles}>
+								<YieldIcon weight="bold" />
 
-                <Text as="span" ml={3}>
-                  {yieldAmount}
-                </Text>
-              </Flex>
-            )}
+								<Text as="span" ml={3}>
+									{yieldAmount}
+								</Text>
+							</Flex>
+						)}
 
-            <Flex sx={infoStyles}>
-              <FolderSimple weight="bold" />
+						<Flex sx={infoStyles}>
+							<FolderSimple weight="bold" />
 
-              <NextLink href={`/categories/${category.slug}`} passHref>
-                <Link variant="ui" ml={3}>
-                  {category.title}
-                </Link>
-              </NextLink>
-            </Flex>
+							<NextLink href={`/categories/${category.slug}`} passHref>
+								<Link variant="ui" ml={3}>
+									{category.title}
+								</Link>
+							</NextLink>
+						</Flex>
 
-            {tags.length > 0 && (
-              <Flex sx={infoStyles}>
-                <Tag weight="bold" />
+						{tags.length > 0 && (
+							<Flex sx={infoStyles}>
+								<Tag weight="bold" />
 
-                <Inline gap={2} ml={3}>
-                  {tags.map((tag) => (
-                    <NextLink key={tag.id} href={`/tags/${tag.slug}`} passHref>
-                      <Link variant="tag" sx={{ fontSize: 1 }}>
-                        {tag.title}
-                      </Link>
-                    </NextLink>
-                  ))}
-                </Inline>
-              </Flex>
-            )}
-          </Stack>
+								<Inline gap={2} ml={3}>
+									{tags.map((tag) => (
+										<NextLink key={tag.id} href={`/tags/${tag.slug}`} passHref>
+											<Link variant="tag" sx={{ fontSize: 1 }}>
+												{tag.title}
+											</Link>
+										</NextLink>
+									))}
+								</Inline>
+							</Flex>
+						)}
+					</Stack>
 
-          {ingredients.length > 0 && (
-            <React.Fragment>
-              <Heading mt={[5, null, 6]} mb={3}>
-                Ingredients
-              </Heading>
+					{ingredients.length > 0 && (
+						<React.Fragment>
+							<Heading mt={[5, null, 6]} mb={3}>
+								Ingredients
+							</Heading>
 
-              <Text
-                as="ul"
-                sx={{
-                  paddingLeft: 0,
-                  listStyleType: 'none',
+							<Text
+								as="ul"
+								sx={{
+									paddingLeft: 0,
+									listStyleType: 'none',
 
-                  ...linkStyles,
+									...linkStyles,
 
-                  '@media print': {
-                    paddingLeft: 4,
-                    listStyleType: 'disc',
-                  },
-                }}
-              >
-                {ingredients.map(({ id, value }) => (
-                  <Text
-                    key={id}
-                    as="li"
-                    sx={{
-                      paddingY: 2,
-                      paddingX: 3,
-                      borderRadius: 2,
-                      fontSize: [1, null, 2],
+									'@media print': {
+										paddingLeft: 4,
+										listStyleType: 'disc',
+									},
+								}}
+							>
+								{ingredients.map(({ id, value }) => (
+									<Text
+										key={id}
+										as="li"
+										sx={{
+											paddingY: 2,
+											paddingX: 3,
+											borderRadius: 2,
+											fontSize: [1, null, 2],
 
-                      '&:nth-of-type(even)': {
-                        backgroundColor: 'muted',
-                      },
+											'&:nth-of-type(even)': {
+												backgroundColor: 'muted',
+											},
 
-                      '@media print': {
-                        padding: 0,
-                      },
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: value,
-                    }}
-                  />
-                ))}
-              </Text>
-            </React.Fragment>
-          )}
+											'@media print': {
+												padding: 0,
+											},
+										}}
+										dangerouslySetInnerHTML={{
+											__html: value,
+										}}
+									/>
+								))}
+							</Text>
+						</React.Fragment>
+					)}
 
-          {steps.length > 0 && (
-            <React.Fragment>
-              <Heading mt={[5, null, 6]} mb={3}>
-                Directions
-              </Heading>
+					{steps.length > 0 && (
+						<React.Fragment>
+							<Heading mt={[5, null, 6]} mb={3}>
+								Directions
+							</Heading>
 
-              <Box as="ol" sx={{ paddingLeft: 4 }}>
-                {steps.map(({ id, value }) => (
-                  <Text
-                    key={id}
-                    as="li"
-                    sx={{
-                      maxWidth: '55ch',
-                      paddingY: 2,
-                      fontSize: [1, null, 2],
+							<Box as="ol" sx={{ paddingLeft: 4 }}>
+								{steps.map(({ id, value }) => (
+									<Text
+										key={id}
+										as="li"
+										sx={{
+											maxWidth: '55ch',
+											paddingY: 2,
+											fontSize: [1, null, 2],
 
-                      ...linkStyles,
+											...linkStyles,
 
-                      '@media print': {
-                        padding: 0,
-                      },
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: value,
-                    }}
-                  />
-                ))}
-              </Box>
-            </React.Fragment>
-          )}
+											'@media print': {
+												padding: 0,
+											},
+										}}
+										dangerouslySetInnerHTML={{
+											__html: value,
+										}}
+									/>
+								))}
+							</Box>
+						</React.Fragment>
+					)}
 
-          {notes && (
-            <Box pl={4}>
-              <Heading
-                sx={{
-                  marginTop: [4, null, 5],
-                  marginBottom: 3,
-                  fontFamily: 'system-ui',
-                  fontSize: [2, null, 3],
-                  fontWeight: 'bold',
-                  color: 'muted-text',
-                }}
-              >
-                Notes
-              </Heading>
+					{notes && (
+						<Box pl={4}>
+							<Heading
+								sx={{
+									marginTop: [4, null, 5],
+									marginBottom: 3,
+									fontFamily: 'system-ui',
+									fontSize: [2, null, 3],
+									fontWeight: 'bold',
+									color: 'muted-text',
+								}}
+							>
+								Notes
+							</Heading>
 
-              <Box
-                sx={{
-                  p: {
-                    maxWidth: '55ch',
-                    margin: 0,
-                    fontSize: [1, null, 2],
-                  },
+							<Box
+								sx={{
+									p: {
+										maxWidth: '55ch',
+										margin: 0,
+										fontSize: [1, null, 2],
+									},
 
-                  'p + p': {
-                    marginTop: 3,
-                  },
+									'p + p': {
+										marginTop: 3,
+									},
 
-                  a: {
-                    color: 'text',
-                    textDecorationColor: (theme) => theme.colors.accent,
+									a: {
+										color: 'text',
+										textDecorationColor: (theme) => theme.colors.accent,
 
-                    '&:hover': {
-                      color: 'accent',
-                    },
-                  },
-                }}
-                dangerouslySetInnerHTML={{
-                  __html: notes,
-                }}
-              />
-            </Box>
-          )}
+										'&:hover': {
+											color: 'accent',
+										},
+									},
+								}}
+								dangerouslySetInnerHTML={{
+									__html: notes,
+								}}
+							/>
+						</Box>
+					)}
 
-          {similarRecipes.length > 0 && (
-            <Box
-              sx={{
-                '@media print': {
-                  display: 'none',
-                },
-              }}
-            >
-              <Heading mt={[5, 6]} mb={4}>
-                Other <Highlight>{category.title.toLowerCase()}</Highlight>{' '}
-                recipes:
-              </Heading>
+					{similarRecipes.length > 0 && (
+						<Box
+							sx={{
+								'@media print': {
+									display: 'none',
+								},
+							}}
+						>
+							<Heading mt={[5, 6]} mb={4}>
+								Other <Highlight>{category.title.toLowerCase()}</Highlight>{' '}
+								recipes:
+							</Heading>
 
-              <RecipeGrid recipes={similarRecipes} />
-            </Box>
-          )}
-        </Box>
-      </Box>
-    </React.Fragment>
-  )
+							<RecipeGrid recipes={similarRecipes} />
+						</Box>
+					)}
+				</Box>
+			</Box>
+		</React.Fragment>
+	)
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const {
-    recipe,
-    site: {
-      globalSeo: {
-        titleSuffix,
-        fallbackSeo: { description },
-      },
-    },
-  } = await getRecipeBySlug(params.slug)
-  const { allRecipes } = await getAllRecipesByCategory(recipe.category.slug)
+	const {
+		recipe,
+		site: {
+			globalSeo: {
+				titleSuffix,
+				fallbackSeo: { description },
+			},
+		},
+	} = await getRecipeBySlug(params.slug)
+	const { allRecipes } = await getAllRecipesByCategory(recipe.category.slug)
 
-  const similarRecipes =
-    allRecipes?.filter((r) => r.id !== recipe.id).slice(0, 6) || []
+	const similarRecipes =
+		allRecipes?.filter((r) => r.id !== recipe.id).slice(0, 6) || []
 
-  return {
-    props: { recipe, similarRecipes, titleSuffix, description },
-    revalidate: 60,
-  }
+	return {
+		props: { recipe, similarRecipes, titleSuffix, description },
+		revalidate: 60,
+	}
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { allRecipes } = await getAllRecipes()
-  const paths = allRecipes?.map((r) => ({ params: { slug: r.slug } })) || []
+	const { allRecipes } = await getAllRecipes()
+	const paths = allRecipes?.map((r) => ({ params: { slug: r.slug } })) || []
 
-  return {
-    paths,
-    fallback: false,
-  }
+	return {
+		paths,
+		fallback: false,
+	}
 }
 
 export default RecipePage

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { default as NextLink } from 'next/link'
 import { Link } from 'theme-ui'
-import VisuallyHidden from '@reach/visually-hidden'
+import { VisuallyHidden } from '@reach/visually-hidden'
 import type { ThemeUIProps } from '../../types/ThemeUIComponent'
 
 const Logo: React.FC<ThemeUIProps> = ({ sx, ...props }) => (

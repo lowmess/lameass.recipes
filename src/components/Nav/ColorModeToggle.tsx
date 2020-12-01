@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useColorMode, Button } from 'theme-ui'
 import { Sun, Moon } from 'phosphor-react'
-import VisuallyHidden from '@reach/visually-hidden'
+import { VisuallyHidden } from '@reach/visually-hidden'
 
 const ColorModeToggle: React.FC = () => {
 	const [colorMode, setColorMode] = useColorMode()

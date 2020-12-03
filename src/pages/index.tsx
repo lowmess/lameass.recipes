@@ -6,34 +6,30 @@ import { useThemeUI, Box, Flex, Heading, Link } from 'theme-ui'
 import { ArrowRight } from 'phosphor-react'
 import Stack from '../components/Stack'
 import RecipeGrid from '../components/RecipeGrid'
-import { getHomepage, getAllRecipes } from '../../lib/api'
-import unwidow from '../../lib/unwidow'
-import smartypants from '../../lib/smartypants'
+import metadata from '../constants/metadata.json'
+import { getHomepage } from '../../lib/api'
 import { Recipe } from '../types/Recipe'
-import { PageProps } from '../types/Page'
 
-interface HomepageProps extends PageProps {
+interface HomepageProps {
 	headline: string
-	featuredRecipesHeading?: string
-	featuredRecipes?: Recipe[]
+	// featuredMealHeading?: string
+	// featuredMeal?: Meal
 	recentRecipes?: Recipe[]
 }
 
 const Homepage: React.FC<HomepageProps> = ({
 	headline,
-	featuredRecipesHeading = 'Featured recipes',
-	featuredRecipes = [],
+	// featuredMealHeading = 'Featured meal',
+	// featuredMeal,
 	recentRecipes = [],
-	siteName,
-	description,
 }) => {
 	const { colorMode } = useThemeUI()
 
 	return (
 		<React.Fragment>
 			<Head>
-				<title key="title">{siteName}</title>
-				<meta name="description" content={description} />
+				<title key="title">{metadata.title}</title>
+				<meta name="description" content={metadata.description} />
 			</Head>
 
 			<Box
@@ -61,13 +57,13 @@ const Homepage: React.FC<HomepageProps> = ({
 			</Box>
 
 			<Stack gap={[5, null, 6]} my={[5, 6]}>
-				{featuredRecipes.length > 0 && (
+				{/* {featuredRecipes.length > 0 && (
 					<Box>
 						<Heading>{featuredRecipesHeading}</Heading>
 
 						<RecipeGrid mt={4} recipes={featuredRecipes} />
 					</Box>
-				)}
+				)} */}
 
 				<Box>
 					<Flex
@@ -94,30 +90,14 @@ const Homepage: React.FC<HomepageProps> = ({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-	const {
-		homepage: { headline, featuredRecipesHeading, featuredRecipes },
-		site: {
-			globalSeo: {
-				siteName,
-				fallbackSeo: { description },
-			},
-		},
-	} = await getHomepage()
-
-	const { allRecipes } = await getAllRecipes()
-
-	const formattedHeadline = unwidow(smartypants(headline))
-
-	const recentRecipes = allRecipes?.slice(0, 6) || []
+	const { headline, recentRecipes } = await getHomepage()
 
 	return {
 		props: {
-			headline: formattedHeadline,
-			featuredRecipesHeading,
-			featuredRecipes,
+			headline,
+			// featuredMealHeading,
+			// featuredMeal,
 			recentRecipes,
-			siteName,
-			description,
 		},
 	}
 }

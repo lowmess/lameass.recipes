@@ -9,13 +9,9 @@ import Stack from '../../components/Stack'
 import Inline from '../../components/Inline'
 import RecipeGrid from '../../components/RecipeGrid'
 import Highlight from '../../components/Highlight'
-import {
-	getAllRecipes,
-	getAllRecipesByCategory,
-	getRecipeBySlug,
-} from '../../../lib/api'
+import { getAllRecipes, getRecipeBySlug } from '../../../lib/api'
+import metadata from '../../constants/metadata.json'
 import { Recipe } from '../../types/Recipe'
-import { PageProps } from '../../types/Page'
 
 const infoStyles = {
 	alignItems: 'baseline',
@@ -37,17 +33,11 @@ const linkStyles = {
 	},
 }
 
-interface RecipePageProps extends PageProps {
+interface RecipePageProps {
 	recipe: Recipe
-	similarRecipes: Recipe[]
 }
 
-const RecipePage: React.FC<RecipePageProps> = ({
-	recipe,
-	similarRecipes,
-	titleSuffix,
-	description,
-}) => {
+const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 	const { colorMode } = useThemeUI()
 	const {
 		title,
@@ -55,11 +45,12 @@ const RecipePage: React.FC<RecipePageProps> = ({
 		cookTime,
 		yieldAmount,
 		yieldType = 'servings',
-		ingredients,
-		steps,
+		ingredients = [],
+		sections = [],
 		notes,
 		category,
-		tags,
+		tags = [],
+		similarRecipes = [],
 	} = recipe
 
 	let YieldIcon = Users
@@ -79,10 +70,10 @@ const RecipePage: React.FC<RecipePageProps> = ({
 		<React.Fragment>
 			<Head>
 				<title key="title">
-					{recipe.title}
-					{titleSuffix}
+					{recipe.title} {metadata.titleSuffix}
 				</title>
-				<meta name="description" content={description} />
+
+				<meta name="description" content={metadata.description} />
 			</Head>
 
 			<Box
@@ -182,7 +173,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
 
 								<Inline gap={2} ml={3}>
 									{tags.map((tag) => (
-										<NextLink key={tag.id} href={`/tags/${tag.slug}`} passHref>
+										<NextLink key={tag._id} href={`/tags/${tag.slug}`} passHref>
 											<Link variant="tag" sx={{ fontSize: 1 }}>
 												{tag.title}
 											</Link>
@@ -213,9 +204,9 @@ const RecipePage: React.FC<RecipePageProps> = ({
 									},
 								}}
 							>
-								{ingredients.map(({ id, value }) => (
+								{ingredients.map((ingredient, index) => (
 									<Text
-										key={id}
+										key={index}
 										as="li"
 										sx={{
 											paddingY: 2,
@@ -232,7 +223,7 @@ const RecipePage: React.FC<RecipePageProps> = ({
 											},
 										}}
 										dangerouslySetInnerHTML={{
-											__html: value,
+											__html: ingredient,
 										}}
 									/>
 								))}
@@ -240,78 +231,79 @@ const RecipePage: React.FC<RecipePageProps> = ({
 						</React.Fragment>
 					)}
 
-					{steps.length > 0 && (
+					{sections.length > 0 && (
 						<React.Fragment>
-							<Heading mt={[5, null, 6]} mb={3}>
+							<Heading mt={[5, null, 6]} mb={sections.length > 1 ? 4 : 3}>
 								Directions
 							</Heading>
 
-							<Box as="ol" sx={{ paddingLeft: 4 }}>
-								{steps.map(({ id, value }) => (
-									<Text
-										key={id}
-										as="li"
-										sx={{
-											maxWidth: '55ch',
-											paddingY: 2,
-											fontSize: [1, null, 2],
+							<Stack gap={4}>
+								{sections.map((section) => (
+									<React.Fragment key={section._key}>
+										{section.title && sections.length > 1 && (
+											<Heading variant="section-heading" as="h3">
+												{section.title}
+											</Heading>
+										)}
 
-											...linkStyles,
+										<Box as="ol" pl={0}>
+											{section.steps.map((step, index) => (
+												<Text
+													key={index}
+													as="li"
+													sx={{
+														maxWidth: '55ch',
+														paddingY: 2,
+														fontSize: [1, null, 2],
 
-											'@media print': {
-												padding: 0,
-											},
-										}}
-										dangerouslySetInnerHTML={{
-											__html: value,
-										}}
-									/>
+														...linkStyles,
+
+														'@media print': {
+															padding: 0,
+														},
+													}}
+													dangerouslySetInnerHTML={{
+														__html: step,
+													}}
+												/>
+											))}
+										</Box>
+									</React.Fragment>
 								))}
-							</Box>
+
+								{notes && (
+									<Box>
+										<Heading variant="section-heading">Notes</Heading>
+
+										<Box
+											sx={{
+												p: {
+													maxWidth: '55ch',
+													margin: 0,
+													fontSize: [1, null, 2],
+												},
+
+												'p + p': {
+													marginTop: 3,
+												},
+
+												a: {
+													color: 'text',
+													textDecorationColor: (theme) => theme.colors.accent,
+
+													'&:hover': {
+														color: 'accent',
+													},
+												},
+											}}
+											dangerouslySetInnerHTML={{
+												__html: notes,
+											}}
+										/>
+									</Box>
+								)}
+							</Stack>
 						</React.Fragment>
-					)}
-
-					{notes && (
-						<Box pl={4}>
-							<Heading
-								sx={{
-									marginTop: [4, null, 5],
-									marginBottom: 3,
-									fontFamily: 'system-ui',
-									fontSize: [2, null, 3],
-									fontWeight: 'bold',
-									color: 'muted-text',
-								}}
-							>
-								Notes
-							</Heading>
-
-							<Box
-								sx={{
-									p: {
-										maxWidth: '55ch',
-										margin: 0,
-										fontSize: [1, null, 2],
-									},
-
-									'p + p': {
-										marginTop: 3,
-									},
-
-									a: {
-										color: 'text',
-										textDecorationColor: (theme) => theme.colors.accent,
-
-										'&:hover': {
-											color: 'accent',
-										},
-									},
-								}}
-								dangerouslySetInnerHTML={{
-									__html: notes,
-								}}
-							/>
-						</Box>
 					)}
 
 					{similarRecipes.length > 0 && (
@@ -337,28 +329,18 @@ const RecipePage: React.FC<RecipePageProps> = ({
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const {
-		recipe,
-		site: {
-			globalSeo: {
-				titleSuffix,
-				fallbackSeo: { description },
-			},
-		},
-	} = await getRecipeBySlug(params.slug)
-	const { allRecipes } = await getAllRecipesByCategory(recipe.category.slug)
-
-	const similarRecipes =
-		allRecipes?.filter((r) => r.id !== recipe.id).slice(0, 6) || []
+	const recipe = await getRecipeBySlug(params.slug)
 
 	return {
-		props: { recipe, similarRecipes, titleSuffix, description },
+		props: { recipe },
 	}
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const { allRecipes } = await getAllRecipes()
-	const paths = allRecipes?.map((r) => ({ params: { slug: r.slug } })) || []
+	const allRecipes = await getAllRecipes()
+
+	const paths =
+		allRecipes?.map((r: Recipe) => ({ params: { slug: r.slug } })) || []
 
 	return {
 		paths,

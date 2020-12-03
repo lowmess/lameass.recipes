@@ -5,22 +5,18 @@ import { Heading } from 'theme-ui'
 import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
 import { getAllRecipes } from '../../../lib/api'
+import metadata from '../../constants/metadata.json'
 import { Recipe } from '../../types/Recipe'
-import { PageProps } from '../../types/Page'
 
-interface RecipePageProps extends PageProps {
+interface RecipePageProps {
 	recipes: Recipe[]
 }
 
-const RecipePage: React.FC<RecipePageProps> = ({
-	recipes,
-	titleSuffix,
-	description,
-}) => (
+const RecipePage: React.FC<RecipePageProps> = ({ recipes }) => (
 	<React.Fragment>
 		<Head>
-			<title key="title">All recipes{titleSuffix}</title>
-			<meta name="description" content={description} />
+			<title key="title">All recipes {metadata.titleSuffix}</title>
+			<meta name="description" content={metadata.description} />
 		</Head>
 
 		<Heading as="h1" variant="page-name" my={[5, null, 6]}>
@@ -32,18 +28,10 @@ const RecipePage: React.FC<RecipePageProps> = ({
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-	const {
-		allRecipes: recipes,
-		site: {
-			globalSeo: {
-				titleSuffix,
-				fallbackSeo: { description },
-			},
-		},
-	} = await getAllRecipes()
+	const recipes = await getAllRecipes()
 
 	return {
-		props: { recipes, titleSuffix, description },
+		props: { recipes },
 	}
 }
 

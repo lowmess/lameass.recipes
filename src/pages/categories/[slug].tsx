@@ -4,31 +4,21 @@ import Head from 'next/head'
 import { Flex, Text, Heading } from 'theme-ui'
 import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
-import {
-	getAllCategories,
-	getCategoryBySlug,
-	getAllRecipesByCategory,
-} from '../../../lib/api'
-import { Recipe, Category } from '../../types/Recipe'
-import { PageProps } from '../../types/Page'
+import { getAllCategories, getCategoryBySlug } from '../../../lib/api'
+import metadata from '../../constants/metadata.json'
+import { Category } from '../../types/Recipe'
 
-interface CategoryPageProps extends PageProps {
+interface CategoryPageProps {
 	category: Category
-	recipes: Recipe[]
 }
 
-const CategoryPage: React.FC<CategoryPageProps> = ({
-	category,
-	recipes,
-	titleSuffix,
-	description,
-}) => (
+const CategoryPage: React.FC<CategoryPageProps> = ({ category }) => (
 	<React.Fragment>
 		<Head>
 			<title key="title">
-				{category.title} recipes{titleSuffix}
+				{category.title} recipes {metadata.titleSuffix}
 			</title>
-			<meta name="description" content={description} />
+			<meta name="description" content={metadata.description} />
 		</Head>
 
 		<Flex sx={{ alignItems: 'baseline', marginY: [5, null, 6] }}>
@@ -49,8 +39,8 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
 			</Heading>
 		</Flex>
 
-		{recipes.length > 0 ? (
-			<RecipeGrid mb={5} recipes={recipes} />
+		{category.recipes?.length > 0 ? (
+			<RecipeGrid mb={5} recipes={category.recipes} />
 		) : (
 			<Text as="p" sx={{ marginBottom: 5, fontSize: [2, null, 3] }}>
 				We&rsquo;ve been too busy enjoying our {category.title.toLowerCase()}{' '}
@@ -62,26 +52,18 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
 )
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const {
-		category,
-		site: {
-			globalSeo: {
-				titleSuffix,
-				fallbackSeo: { description },
-			},
-		},
-	} = await getCategoryBySlug(params.slug)
-	const { allRecipes: recipes } = await getAllRecipesByCategory(params.slug)
+	const category = await getCategoryBySlug(params.slug)
 
 	return {
-		props: { category, recipes, titleSuffix, description },
+		props: { category },
 	}
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const { allCategories } = await getAllCategories()
+	const allCategories = await getAllCategories()
 
-	const paths = allCategories?.map((c) => ({ params: { slug: c.slug } })) || []
+	const paths =
+		allCategories?.map((c: Category) => ({ params: { slug: c.slug } })) || []
 
 	return {
 		paths,

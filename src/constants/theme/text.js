@@ -26,4 +26,12 @@ export default {
 		fontWeight: 'medium',
 		lineHeight: 'heading',
 	},
+
+	'section-heading': {
+		marginBottom: 3,
+		fontFamily: 'system-ui',
+		fontSize: [2, null, 3],
+		fontWeight: 'bold',
+		color: 'secondary',
+	},
 }

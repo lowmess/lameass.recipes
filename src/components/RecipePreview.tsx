@@ -19,7 +19,14 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
 	sx,
 	...props
 }) => {
-	const { title, slug, category, tags, prepTime = 0, cookTime = 0 } = recipe
+	const {
+		title,
+		slug,
+		category,
+		tags = [],
+		prepTime = 0,
+		cookTime = 0,
+	} = recipe
 
 	const totalTime = prepTime + cookTime
 
@@ -72,7 +79,7 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
 					{tags.length > 0 && (
 						<Inline gap={2}>
 							{tags.map((tag) => (
-								<NextLink key={tag.id} href={`/tags/${tag.slug}`} passHref>
+								<NextLink key={tag._id} href={`/tags/${tag.slug}`} passHref>
 									<Link variant="tag">{tag.title}</Link>
 								</NextLink>
 							))}

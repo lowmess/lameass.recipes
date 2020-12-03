@@ -246,7 +246,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 											</Heading>
 										)}
 
-										<Box as="ol" pl={0}>
+										<Box as="ol" pl={['1.5em', null, '1.75em']}>
 											{section.steps.map((step, index) => (
 												<Text
 													key={index}

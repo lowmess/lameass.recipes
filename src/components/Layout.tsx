@@ -52,6 +52,7 @@ const Layout: React.FC = ({ children }) => {
 						vertical-align: baseline;
 						position: relative;
 						top: -0.4em;
+						font-size: 0.75em;
 					}
 				`}
 			/>

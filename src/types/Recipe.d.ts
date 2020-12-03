@@ -29,6 +29,7 @@ export interface Recipe {
 	cookTime?: number
 	yieldAmount?: string
 	yieldType?: 'servings' | 'amount'
+	equipment?: string[]
 	ingredients?: string[]
 	sections?: RecipePiece[]
 	notes?: string

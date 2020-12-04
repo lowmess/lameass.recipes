@@ -17,7 +17,7 @@
   "dependencies": {
     "@reach/visually-hidden": "^0.12.0",
     "@sanity/client": "^2.0.9",
-    "next": "^10.0.2",
+    "next": "^10.0.3",
     "phosphor-react": "^1.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -26,7 +26,7 @@
     "theme-ui": "^0.3.1"
   },
   "devDependencies": {
-    "@types/node": "^14.14.9",
+    "@types/node": "^14.14.10",
     "@types/react": "^17.0.0",
     "@types/styled-system": "^5.1.10",
     "@types/theme-ui": "^0.3.7",

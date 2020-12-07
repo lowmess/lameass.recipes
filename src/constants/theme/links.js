@@ -106,10 +106,11 @@ export default {
 
 		border: 1,
 		borderColor: 'muted-text',
+		color: 'text',
 
 		'&:hover': {
-			borderColor: 'text',
-			color: 'text',
+			borderColor: 'accent',
+			color: 'accent',
 		},
 	},
 }

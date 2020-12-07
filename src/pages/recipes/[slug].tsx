@@ -330,7 +330,6 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 														p: {
 															maxWidth: '55ch',
 															margin: 0,
-															fontSize: [1, null, 2],
 														},
 
 														'p + p': {

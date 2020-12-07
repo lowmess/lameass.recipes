@@ -2,7 +2,7 @@ import * as React from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { default as NextLink } from 'next/link'
-import { useThemeUI, Box, Flex, Text, Heading, Link } from 'theme-ui'
+import { useThemeUI, Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
 import { FolderSimple, Tag, Clock, Users, Hash } from 'phosphor-react'
 import minutesToHours from '../../../lib/minutesToHours'
 import Stack from '../../components/Stack'
@@ -17,8 +17,9 @@ const infoStyles = {
 	alignItems: 'baseline',
 
 	svg: {
+		flexShrink: 0,
 		position: 'relative',
-		top: 1,
+		top: '2px',
 	},
 }
 
@@ -45,6 +46,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 		cookTime,
 		yieldAmount,
 		yieldType = 'servings',
+		equipment = [],
 		ingredients = [],
 		sections = [],
 		notes,
@@ -109,202 +111,253 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 						{title}
 					</Heading>
 
-					<Stack gap={2} sx={{ marginTop: 3, fontSize: 2 }}>
-						{(prepTime || cookTime) && (
-							<Flex sx={infoStyles}>
-								<Clock weight="bold" />
-
-								<Flex
-									sx={{
-										flexDirection: ['column', 'row'],
-										alignItems: [null, 'center'],
-										marginLeft: 3,
-									}}
-								>
-									{prepTime > 0 && (
-										<Text as="span">{minutesToHours(prepTime)} prep</Text>
-									)}
-
-									{prepTime > 0 && cookTime > 0 && (
-										<Text
-											as="span"
-											sx={{
-												display: ['none', 'inline'],
-												marginLeft: 3,
-												color: 'accent',
-											}}
-										>
-											&bull;
-										</Text>
-									)}
-
-									{cookTime > 0 && (
-										<Text as="span" ml={prepTime > 0 ? [null, 3] : null}>
-											{minutesToHours(cookTime)} cook
-										</Text>
-									)}
-								</Flex>
-							</Flex>
-						)}
-
-						{yieldAmount && (
-							<Flex sx={infoStyles}>
-								<YieldIcon weight="bold" />
-
-								<Text as="span" ml={3}>
-									{yieldAmount}
-								</Text>
-							</Flex>
-						)}
-
-						<Flex sx={infoStyles}>
-							<FolderSimple weight="bold" />
-
-							<NextLink href={`/categories/${category.slug}`} passHref>
-								<Link variant="ui" ml={3}>
-									{category.title}
-								</Link>
-							</NextLink>
-						</Flex>
-
-						{tags.length > 0 && (
-							<Flex sx={infoStyles}>
-								<Tag weight="bold" />
-
-								<Inline gap={2} ml={3}>
-									{tags.map((tag) => (
-										<NextLink key={tag._id} href={`/tags/${tag.slug}`} passHref>
-											<Link variant="tag" sx={{ fontSize: 1 }}>
-												{tag.title}
-											</Link>
-										</NextLink>
-									))}
-								</Inline>
-							</Flex>
-						)}
-					</Stack>
-
-					{ingredients.length > 0 && (
-						<React.Fragment>
-							<Heading mt={[5, null, 6]} mb={3}>
-								Ingredients
-							</Heading>
-
-							<Text
-								as="ul"
+					<Grid columns={[1, null, null, '20rem 1fr']} gap={4} mt={4}>
+						<div>
+							<Box
 								sx={{
-									paddingLeft: 0,
-									listStyleType: 'none',
-
-									...linkStyles,
-
-									'@media print': {
-										paddingLeft: 4,
-										listStyleType: 'disc',
-									},
+									position: 'sticky',
+									top: 3,
+									width: (theme) => [
+										`calc(100% + ${theme.space[4]} * 2)`,
+										null,
+										null,
+										'auto',
+									],
+									marginX: [-4, null, null, 0],
+									borderRadius: [null, null, null, 3],
+									paddingY: 3,
+									paddingX: 4,
+									backgroundColor: 'muted',
 								}}
 							>
-								{ingredients.map((ingredient, index) => (
-									<Text
-										key={index}
-										as="li"
-										sx={{
-											paddingY: 2,
-											paddingX: 3,
-											borderRadius: 2,
-											fontSize: [1, null, 2],
+								<Heading variant="section-heading" mt={2}>
+									Info
+								</Heading>
 
-											'&:nth-of-type(even)': {
-												backgroundColor: 'muted',
-											},
+								<Stack gap={2}>
+									{(prepTime || cookTime) && (
+										<Flex sx={infoStyles}>
+											<Clock />
 
-											'@media print': {
-												padding: 0,
-											},
-										}}
-										dangerouslySetInnerHTML={{
-											__html: ingredient,
-										}}
-									/>
-								))}
-							</Text>
-						</React.Fragment>
-					)}
+											<Flex
+												sx={{
+													flexDirection: 'column',
+													marginLeft: 3,
+												}}
+											>
+												{prepTime > 0 && (
+													<Text as="span">{minutesToHours(prepTime)} prep</Text>
+												)}
 
-					{sections.length > 0 && (
-						<React.Fragment>
-							<Heading mt={[5, null, 6]} mb={sections.length > 1 ? 4 : 3}>
-								Directions
-							</Heading>
+												{cookTime > 0 && (
+													<Text as="span">{minutesToHours(cookTime)} cook</Text>
+												)}
+											</Flex>
+										</Flex>
+									)}
 
-							<Stack gap={4}>
-								{sections.map((section) => (
-									<React.Fragment key={section._key}>
-										{section.title && sections.length > 1 && (
-											<Heading variant="section-heading" as="h3">
-												{section.title}
-											</Heading>
-										)}
+									{yieldAmount && (
+										<Flex sx={infoStyles}>
+											<YieldIcon />
 
-										<Box as="ol" pl={['1.5em', null, '1.75em']}>
-											{section.steps.map((step, index) => (
-												<Text
+											<Text as="span" ml={3}>
+												{yieldAmount}
+											</Text>
+										</Flex>
+									)}
+
+									<Flex sx={infoStyles}>
+										<FolderSimple />
+
+										<NextLink href={`/categories/${category.slug}`} passHref>
+											<Link variant="ui" ml={3}>
+												{category.title}
+											</Link>
+										</NextLink>
+									</Flex>
+
+									{tags.length > 0 && (
+										<Flex sx={infoStyles}>
+											<Tag />
+
+											<Inline gap={2} ml={3}>
+												{tags.map((tag) => (
+													<NextLink
+														key={tag._id}
+														href={`/tags/${tag.slug}`}
+														passHref
+													>
+														<Link variant="tag-info" sx={{ fontSize: 1 }}>
+															{tag.title}
+														</Link>
+													</NextLink>
+												))}
+											</Inline>
+										</Flex>
+									)}
+								</Stack>
+
+								{equipment.length > 0 && (
+									<React.Fragment>
+										<Heading variant="section-heading" mt={4}>
+											Equipment
+										</Heading>
+
+										<Box
+											as="ul"
+											sx={{ paddingLeft: 0, listStyleType: 'none ' }}
+										>
+											{equipment.map((implement, index) => (
+												<Box
 													key={index}
 													as="li"
 													sx={{
-														maxWidth: '55ch',
+														width: (theme) =>
+															`calc(100% + ${theme.space[3]} * 2)`,
+														marginX: -3,
 														paddingY: 2,
-														fontSize: [1, null, 2],
+														paddingX: 3,
+														borderRadius: 2,
 
 														...linkStyles,
 
-														'@media print': {
-															padding: 0,
+														'&:nth-of-type(even)': {
+															backgroundColor: 'background',
 														},
 													}}
 													dangerouslySetInnerHTML={{
-														__html: step,
+														__html: implement,
 													}}
 												/>
 											))}
 										</Box>
 									</React.Fragment>
-								))}
-
-								{notes && (
-									<Box>
-										<Heading variant="section-heading">Notes</Heading>
-
-										<Box
-											sx={{
-												p: {
-													maxWidth: '55ch',
-													margin: 0,
-													fontSize: [1, null, 2],
-												},
-
-												'p + p': {
-													marginTop: 3,
-												},
-
-												a: {
-													color: 'text',
-													textDecorationColor: (theme) => theme.colors.accent,
-
-													'&:hover': {
-														color: 'accent',
-													},
-												},
-											}}
-											dangerouslySetInnerHTML={{
-												__html: notes,
-											}}
-										/>
-									</Box>
 								)}
-							</Stack>
-						</React.Fragment>
-					)}
+							</Box>
+						</div>
+
+						<Stack gap={[4, null, 5]} sx={{ fontSize: [null, null, null, 2] }}>
+							{ingredients.length > 0 && (
+								<React.Fragment>
+									<Heading mb={3}>Ingredients</Heading>
+
+									<Text
+										as="ul"
+										sx={{
+											paddingLeft: 0,
+											listStyleType: 'none',
+
+											...linkStyles,
+
+											'@media print': {
+												paddingLeft: 4,
+												listStyleType: 'disc',
+											},
+										}}
+									>
+										{ingredients.map((ingredient, index) => (
+											<Text
+												key={index}
+												as="li"
+												sx={{
+													width: (theme) =>
+														`calc(100% + ${theme.space[3]} * 2)`,
+													marginX: -3,
+													paddingY: 2,
+													paddingX: 3,
+													borderRadius: 2,
+
+													'&:nth-of-type(even)': {
+														backgroundColor: 'muted',
+													},
+
+													'@media print': {
+														padding: 0,
+													},
+												}}
+												dangerouslySetInnerHTML={{
+													__html: ingredient,
+												}}
+											/>
+										))}
+									</Text>
+								</React.Fragment>
+							)}
+
+							{sections.length > 0 && (
+								<React.Fragment>
+									<Heading mb={sections.length > 1 ? 4 : 3}>Directions</Heading>
+
+									<Stack gap={4}>
+										{sections.map((section) => (
+											<React.Fragment key={section._key}>
+												{section.title && sections.length > 1 && (
+													<Heading variant="section-heading" as="h3">
+														{section.title}
+													</Heading>
+												)}
+
+												<Box as="ol" pl={['1.5em', null, '1.75em']}>
+													{section.steps.map((step, index) => (
+														<Text
+															key={index}
+															as="li"
+															sx={{
+																maxWidth: '55ch',
+																paddingY: 2,
+
+																...linkStyles,
+
+																'@media print': {
+																	padding: 0,
+																},
+															}}
+															dangerouslySetInnerHTML={{
+																__html: step,
+															}}
+														/>
+													))}
+												</Box>
+											</React.Fragment>
+										))}
+
+										{notes && (
+											<Box>
+												<Heading variant="section-heading">Notes</Heading>
+
+												<Box
+													sx={{
+														p: {
+															maxWidth: '55ch',
+															margin: 0,
+															fontSize: [1, null, 2],
+														},
+
+														'p + p': {
+															marginTop: 3,
+														},
+
+														a: {
+															color: 'text',
+															textDecorationColor: (theme) =>
+																theme.colors.accent,
+
+															'&:hover': {
+																color: 'accent',
+															},
+														},
+													}}
+													dangerouslySetInnerHTML={{
+														__html: notes,
+													}}
+												/>
+											</Box>
+										)}
+									</Stack>
+								</React.Fragment>
+							)}
+						</Stack>
+					</Grid>
 
 					{similarRecipes.length > 0 && (
 						<Box

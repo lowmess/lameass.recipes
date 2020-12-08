@@ -301,13 +301,13 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 													</Heading>
 												)}
 
-												<Box as="ol" pl={['1.5em', null, '1.75em']}>
+												<Box as="ol" pl="1.25em">
 													{section.steps.map((step, index) => (
 														<Text
 															key={index}
 															as="li"
 															sx={{
-																maxWidth: '55ch',
+																maxWidth: 'measure',
 																paddingY: 2,
 
 																...linkStyles,
@@ -332,7 +332,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 												<Box
 													sx={{
 														p: {
-															maxWidth: '55ch',
+															maxWidth: 'measure',
 															margin: 0,
 														},
 
@@ -348,6 +348,15 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 															'&:hover': {
 																color: 'accent',
 															},
+														},
+
+														'ul, ol': {
+															paddingLeft: '1.25em',
+														},
+
+														li: {
+															maxWidth: 'measure',
+															paddingY: 2,
 														},
 													}}
 													dangerouslySetInnerHTML={{

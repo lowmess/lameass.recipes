@@ -118,15 +118,15 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 									position: 'sticky',
 									top: 3,
 									width: (theme) => [
+										`calc(100% + ${theme.space[3]} * 2)`,
 										`calc(100% + ${theme.space[4]} * 2)`,
-										null,
 										null,
 										'auto',
 									],
-									marginX: [-4, null, null, 0],
+									marginX: [-3, -4, null, 0],
 									borderRadius: [null, null, null, 3],
 									paddingY: 3,
-									paddingX: 4,
+									paddingX: [3, 4],
 									backgroundColor: 'muted',
 								}}
 							>

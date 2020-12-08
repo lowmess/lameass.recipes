@@ -212,11 +212,13 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 													key={index}
 													as="li"
 													sx={{
-														width: (theme) =>
+														width: (theme) => [
+															`calc(100% + ${theme.space[2]} * 2)`,
 															`calc(100% + ${theme.space[3]} * 2)`,
-														marginX: -3,
+														],
+														marginX: [-2, -3],
 														paddingY: 2,
-														paddingX: 3,
+														paddingX: [2, 3],
 														borderRadius: 2,
 
 														...linkStyles,
@@ -260,11 +262,13 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 												key={index}
 												as="li"
 												sx={{
-													width: (theme) =>
+													width: (theme) => [
+														`calc(100% + ${theme.space[2]} * 2)`,
 														`calc(100% + ${theme.space[3]} * 2)`,
-													marginX: -3,
+													],
+													marginX: [-2, -3],
 													paddingY: 2,
-													paddingX: 3,
+													paddingX: [2, 3],
 													borderRadius: 2,
 
 													'&:nth-of-type(even)': {

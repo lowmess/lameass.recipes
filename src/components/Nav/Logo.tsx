@@ -13,7 +13,7 @@ const Logo: React.FC<ThemeUIProps> = ({ sx, ...props }) => (
 					justifySelf: 'flex-end',
 					position: 'relative',
 					top: '0.625rem',
-					left: [4, null, null, 0],
+					left: 4,
 					height: '2rem',
 					transform: 'scale(1.75)',
 				},

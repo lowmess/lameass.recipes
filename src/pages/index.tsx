@@ -63,7 +63,7 @@ const Homepage: React.FC<HomepageProps> = ({
 					<Box>
 						<Heading>{featuredMealHeading}</Heading>
 
-						<MealPreview meal={featuredMeal} />
+						<MealPreview meal={featuredMeal} mt={4} />
 					</Box>
 				)}
 

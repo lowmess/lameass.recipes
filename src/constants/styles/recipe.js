@@ -1,3 +1,12 @@
+import { link } from './link'
+
+export {
+	stripedList,
+	stripedListItem,
+	getStripedListItemStyles,
+} from './stripedList'
+export { link }
+
 export const swash = {
 	marginY: [5, null, 6],
 
@@ -37,44 +46,6 @@ export const info = {
 		flexShrink: 0,
 		position: 'relative',
 		top: '2px',
-	},
-}
-
-export const link = {
-	a: {
-		color: 'text',
-		textDecorationColor: (theme) => theme.colors.accent,
-
-		'&:hover': {
-			color: 'accent',
-		},
-	},
-}
-
-export const stripedList = {
-	paddingLeft: 0,
-	listStyleType: 'none',
-
-	...link,
-
-	'@media print': {
-		paddingLeft: 4,
-		listStyleType: 'disc',
-	},
-}
-
-export const stripedListItem = {
-	width: (theme) => [
-		`calc(100% + ${theme.space[2]} * 2)`,
-		`calc(100% + ${theme.space[3]} * 2)`,
-	],
-	marginX: [-2, -3],
-	paddingY: 2,
-	paddingX: [2, 3],
-	borderRadius: 2,
-
-	'@media print': {
-		padding: 0,
 	},
 }
 

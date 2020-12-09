@@ -14,14 +14,6 @@ import metadata from '../../constants/metadata.json'
 import * as styles from '../../constants/styles/recipe'
 import { Recipe } from '../../types/Recipe'
 
-const getStripedListItemStyles = (stripeColor: string) => ({
-	...styles.stripedListItem,
-
-	'&:nth-of-type(even)': {
-		backgroundColor: stripeColor,
-	},
-})
-
 interface RecipePageProps {
 	recipe: Recipe
 }
@@ -174,7 +166,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 												<Box
 													key={index}
 													as="li"
-													sx={getStripedListItemStyles('background')}
+													sx={styles.getStripedListItemStyles('background')}
 													dangerouslySetInnerHTML={{
 														__html: implement,
 													}}
@@ -203,7 +195,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 											<Text
 												key={index}
 												as="li"
-												sx={getStripedListItemStyles('muted')}
+												sx={styles.getStripedListItemStyles('muted')}
 												dangerouslySetInnerHTML={{
 													__html: ingredient,
 												}}

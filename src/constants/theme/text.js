@@ -27,6 +27,14 @@ export default {
 		lineHeight: 'heading',
 	},
 
+	'meal-name': {
+		fontFamily: 'system-ui',
+		fontSize: [3, 4],
+		fontWeight: 'bold',
+		lineHeight: 'heading',
+		color: 'secondary',
+	},
+
 	'recipe-heading': {
 		fontFamily: 'system-ui',
 		fontSize: [4, null, 5],

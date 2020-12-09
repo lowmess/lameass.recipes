@@ -11,28 +11,16 @@ import RecipeGrid from '../../components/RecipeGrid'
 import Highlight from '../../components/Highlight'
 import { getAllRecipes, getRecipeBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
+import * as styles from '../../constants/styles/recipe'
 import { Recipe } from '../../types/Recipe'
 
-const infoStyles = {
-	alignItems: 'baseline',
+const getStripedListItemStyles = (stripeColor: string) => ({
+	...styles.stripedListItem,
 
-	svg: {
-		flexShrink: 0,
-		position: 'relative',
-		top: '2px',
+	'&:nth-of-type(even)': {
+		backgroundColor: stripeColor,
 	},
-}
-
-const linkStyles = {
-	a: {
-		color: 'text',
-		textDecorationColor: (theme) => theme.colors.accent,
-
-		'&:hover': {
-			color: 'accent',
-		},
-	},
-}
+})
 
 interface RecipePageProps {
 	recipe: Recipe
@@ -80,21 +68,10 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 
 			<Box
 				sx={{
+					// For some reason, TS doesn't seem to like the `position` declaration
+					// being moved to the external style object
 					position: 'relative',
-					marginY: [5, null, 6],
-
-					'.swash': {
-						position: 'absolute',
-						top: [-4, null, '-6rem'],
-						left: [-5, null, -6],
-						width: [256, null, 512],
-						height: [90, null, 180],
-						userSelect: 'none',
-
-						'@media print': {
-							display: 'none',
-						},
-					},
+					...styles.swash,
 				}}
 			>
 				<img
@@ -116,18 +93,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 							<Box
 								sx={{
 									position: 'sticky',
-									top: 3,
-									width: (theme) => [
-										`calc(100% + ${theme.space[3]} * 2)`,
-										`calc(100% + ${theme.space[4]} * 2)`,
-										null,
-										'auto',
-									],
-									marginX: [-3, -4, null, 0],
-									borderRadius: [null, null, null, 3],
-									paddingY: 3,
-									paddingX: [3, 4],
-									backgroundColor: 'muted',
+									...styles.sidebar,
 								}}
 							>
 								<Heading variant="section-heading" mt={2}>
@@ -136,7 +102,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 
 								<Stack gap={2}>
 									{(prepTime || cookTime) && (
-										<Flex sx={infoStyles}>
+										<Flex sx={styles.info}>
 											<Clock />
 
 											<Flex
@@ -157,7 +123,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 									)}
 
 									{yieldAmount && (
-										<Flex sx={infoStyles}>
+										<Flex sx={styles.info}>
 											<YieldIcon />
 
 											<Text as="span" ml={3}>
@@ -166,7 +132,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 										</Flex>
 									)}
 
-									<Flex sx={infoStyles}>
+									<Flex sx={styles.info}>
 										<FolderSimple />
 
 										<NextLink href={`/categories/${category.slug}`} passHref>
@@ -177,7 +143,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 									</Flex>
 
 									{tags.length > 0 && (
-										<Flex sx={infoStyles}>
+										<Flex sx={styles.info}>
 											<Tag />
 
 											<Inline gap={2} ml={3}>
@@ -203,30 +169,12 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 											Equipment
 										</Heading>
 
-										<Box
-											as="ul"
-											sx={{ paddingLeft: 0, listStyleType: 'none ' }}
-										>
+										<Box as="ul" sx={styles.stripedList}>
 											{equipment.map((implement, index) => (
 												<Box
 													key={index}
 													as="li"
-													sx={{
-														width: (theme) => [
-															`calc(100% + ${theme.space[2]} * 2)`,
-															`calc(100% + ${theme.space[3]} * 2)`,
-														],
-														marginX: [-2, -3],
-														paddingY: 2,
-														paddingX: [2, 3],
-														borderRadius: 2,
-
-														...linkStyles,
-
-														'&:nth-of-type(even)': {
-															backgroundColor: 'background',
-														},
-													}}
+													sx={getStripedListItemStyles('background')}
 													dangerouslySetInnerHTML={{
 														__html: implement,
 													}}
@@ -238,47 +186,24 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 							</Box>
 						</div>
 
-						<Stack gap={[4, null, 5]} sx={{ fontSize: [null, null, null, 2] }}>
+						<Stack
+							gap={[4, null, 5]}
+							sx={{
+								fontSize: [null, null, null, 2],
+							}}
+						>
 							{ingredients.length > 0 && (
 								<React.Fragment>
-									<Heading mb={3}>Ingredients</Heading>
+									<Heading variant="recipe-heading" mb={3}>
+										Ingredients
+									</Heading>
 
-									<Text
-										as="ul"
-										sx={{
-											paddingLeft: 0,
-											listStyleType: 'none',
-
-											...linkStyles,
-
-											'@media print': {
-												paddingLeft: 4,
-												listStyleType: 'disc',
-											},
-										}}
-									>
+									<Text as="ul" sx={styles.stripedList}>
 										{ingredients.map((ingredient, index) => (
 											<Text
 												key={index}
 												as="li"
-												sx={{
-													width: (theme) => [
-														`calc(100% + ${theme.space[2]} * 2)`,
-														`calc(100% + ${theme.space[3]} * 2)`,
-													],
-													marginX: [-2, -3],
-													paddingY: 2,
-													paddingX: [2, 3],
-													borderRadius: 2,
-
-													'&:nth-of-type(even)': {
-														backgroundColor: 'muted',
-													},
-
-													'@media print': {
-														padding: 0,
-													},
-												}}
+												sx={getStripedListItemStyles('muted')}
 												dangerouslySetInnerHTML={{
 													__html: ingredient,
 												}}
@@ -290,7 +215,12 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 
 							{sections.length > 0 && (
 								<React.Fragment>
-									<Heading mb={sections.length > 1 ? 4 : 3}>Directions</Heading>
+									<Heading
+										variant="recipe-heading"
+										mb={sections.length > 1 ? 4 : 3}
+									>
+										Directions
+									</Heading>
 
 									<Stack gap={4}>
 										{sections.map((section) => (
@@ -306,16 +236,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 														<Text
 															key={index}
 															as="li"
-															sx={{
-																maxWidth: 'measure',
-																paddingY: 2,
-
-																...linkStyles,
-
-																'@media print': {
-																	padding: 0,
-																},
-															}}
+															sx={styles.sectionListItem}
 															dangerouslySetInnerHTML={{
 																__html: step,
 															}}
@@ -330,35 +251,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 												<Heading variant="section-heading">Notes</Heading>
 
 												<Box
-													sx={{
-														p: {
-															maxWidth: 'measure',
-															margin: 0,
-														},
-
-														'p + p': {
-															marginTop: 3,
-														},
-
-														a: {
-															color: 'text',
-															textDecorationColor: (theme) =>
-																theme.colors.accent,
-
-															'&:hover': {
-																color: 'accent',
-															},
-														},
-
-														'ul, ol': {
-															paddingLeft: '1.25em',
-														},
-
-														li: {
-															maxWidth: 'measure',
-															paddingY: 2,
-														},
-													}}
+													sx={styles.notes}
 													dangerouslySetInnerHTML={{
 														__html: notes,
 													}}

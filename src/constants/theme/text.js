@@ -27,6 +27,14 @@ export default {
 		lineHeight: 'heading',
 	},
 
+	'recipe-heading': {
+		fontFamily: 'system-ui',
+		fontSize: [4, null, 5],
+		fontWeight: 'bold',
+		lineHeight: 'heading',
+		color: 'secondary',
+	},
+
 	'section-heading': {
 		marginBottom: 3,
 		fontFamily: 'system-ui',

@@ -14,14 +14,12 @@ import { Meal } from '../types/Meal'
 
 interface HomepageProps {
 	headline: string
-	featuredMealHeading?: string
 	featuredMeal?: Meal
 	recentRecipes?: Recipe[]
 }
 
 const Homepage: React.FC<HomepageProps> = ({
 	headline,
-	featuredMealHeading = 'Featured meal',
 	featuredMeal,
 	recentRecipes = [],
 }) => {
@@ -61,7 +59,21 @@ const Homepage: React.FC<HomepageProps> = ({
 			<Stack gap={[5, null, 6]} my={[5, 6]}>
 				{featuredMeal && (
 					<Box>
-						<Heading>{featuredMealHeading}</Heading>
+						<Flex
+							sx={{
+								flexDirection: ['column', 'row'],
+								alignItems: [null, 'center'],
+								justifyContent: 'space-between',
+							}}
+						>
+							<Heading>Featured meal</Heading>
+
+							<NextLink href="/meals" passHref>
+								<Link variant="view-all">
+									View All <ArrowRight weight="bold" />
+								</Link>
+							</NextLink>
+						</Flex>
 
 						<MealPreview meal={featuredMeal} mt={4} />
 					</Box>
@@ -92,17 +104,11 @@ const Homepage: React.FC<HomepageProps> = ({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-	const {
-		headline,
-		featuredMealHeading,
-		featuredMeal,
-		recentRecipes,
-	} = await getHomepage()
+	const { headline, featuredMeal, recentRecipes } = await getHomepage()
 
 	return {
 		props: {
 			headline,
-			featuredMealHeading,
 			featuredMeal,
 			recentRecipes,
 		},

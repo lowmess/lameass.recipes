@@ -3,6 +3,7 @@ import { Recipe, RecipeSection, Tag } from './Recipe'
 type MealRecipe = Pick<Recipe, '_id' | 'title' | 'slug'>
 
 export interface Meal {
+	_id: string
 	title: string
 	slug: string
 	description?: string

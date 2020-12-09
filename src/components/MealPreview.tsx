@@ -9,11 +9,18 @@ import { Meal } from '../types/Meal'
 import { ThemeUIProps } from '../types/ThemeUIComponent'
 import Inline from './Inline'
 
+type level = 'h2' | 'h3' | 'h4' | 'h5' | 'h5'
+
 interface MealPreviewProps extends ThemeUIProps {
 	meal: Meal
+	levels?: [level, level]
 }
 
-const MealPreview: React.FC<MealPreviewProps> = ({ meal, ...props }) => {
+const MealPreview: React.FC<MealPreviewProps> = ({
+	meal,
+	levels = ['h3', 'h4'],
+	...props
+}) => {
 	const {
 		title,
 		slug,
@@ -26,6 +33,8 @@ const MealPreview: React.FC<MealPreviewProps> = ({ meal, ...props }) => {
 	} = meal
 
 	const totalTime = prepTime + cookTime
+
+	const [level, nestedLevel] = levels
 
 	return (
 		<Card {...props}>
@@ -60,6 +69,7 @@ const MealPreview: React.FC<MealPreviewProps> = ({ meal, ...props }) => {
 					}}
 				>
 					<Heading
+						as={level}
 						variant="meal-name"
 						sx={{
 							// match baseline to "Recipes" in sidebar:
@@ -129,7 +139,9 @@ const MealPreview: React.FC<MealPreviewProps> = ({ meal, ...props }) => {
 						backgroundColor: 'muted',
 					}}
 				>
-					<Heading variant="section-heading">Recipes</Heading>
+					<Heading as={nestedLevel} variant="section-heading">
+						Recipes
+					</Heading>
 
 					<Box as="ul" sx={listStyles.stripedList}>
 						{recipes.map((recipe) => (

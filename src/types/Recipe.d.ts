@@ -1,5 +1,5 @@
 type RecipeSection = {
-	_id: string
+	_key: string
 	title: string
 	steps: string[]
 }
@@ -31,7 +31,7 @@ export interface Recipe {
 	yieldType?: 'servings' | 'amount'
 	equipment?: string[]
 	ingredients?: string[]
-	sections?: RecipePiece[]
+	sections?: RecipeSection[]
 	notes?: string
 	similarRecipes?: Recipe[]
 }

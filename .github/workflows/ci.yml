@@ -34,9 +34,11 @@ jobs:
         run: npx tsc
 
   lighthouse:
-    name: Run Lighthouse tests
+    name: Run Lighthouse audit
 
     runs-on: ubuntu-latest
+
+    needs: [lint, typecheck]
 
     steps:
       - uses: actions/checkout@v2

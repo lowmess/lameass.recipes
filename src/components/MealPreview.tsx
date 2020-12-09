@@ -32,12 +32,15 @@ const MealPreview: React.FC<MealPreviewProps> = ({ meal, ...props }) => {
 			<Box
 				sx={{
 					position: 'absolute',
-					top: 0,
-					right: [0, null, 'auto'],
-					bottom: [null, null, 0],
-					left: 0,
+					top: '-1px',
+					right: ['-1px', null, 'auto'],
+					bottom: [null, null, '-1px'],
+					left: '-1px',
 					width: [null, null, '2rem'],
 					height: ['2rem', null, 'auto'],
+					borderTopLeftRadius: 2,
+					borderTopRightRadius: [2, null, 0],
+					borderBottomLeftRadius: [null, null, 2],
 					backgroundColor: 'primary',
 				}}
 			/>

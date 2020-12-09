@@ -35,10 +35,12 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
 			<Box
 				sx={{
 					position: 'absolute',
-					top: 0,
-					right: 0,
-					left: 0,
+					top: '-1px',
+					right: '-1px',
+					left: '-1px',
 					height: '2rem',
+					borderTopLeftRadius: 2,
+					borderTopRightRadius: 2,
 					backgroundColor: 'primary',
 				}}
 			/>

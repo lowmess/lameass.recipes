@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { default as NextLink } from 'next/link'
-import { Box, Flex, Grid, Text, Heading, Link } from 'theme-ui'
+import { Box, Flex, Grid, Text, Card, Heading, Link } from 'theme-ui'
 import { Clock } from 'phosphor-react'
 import minutesToHours from '../../lib/minutesToHours'
-import * as styles from '../constants/styles/stripedList'
+import * as listStyles from '../constants/styles/stripedList'
+import * as nestedStyles from '../constants/styles/nested'
 import { Meal } from '../types/Meal'
 import { ThemeUIProps } from '../types/ThemeUIComponent'
 import Inline from './Inline'
@@ -12,7 +13,7 @@ interface MealPreviewProps extends ThemeUIProps {
 	meal: Meal
 }
 
-const MealPreview: React.FC<MealPreviewProps> = ({ meal, sx, ...props }) => {
+const MealPreview: React.FC<MealPreviewProps> = ({ meal, ...props }) => {
 	const {
 		title,
 		slug,
@@ -27,17 +28,7 @@ const MealPreview: React.FC<MealPreviewProps> = ({ meal, sx, ...props }) => {
 	const totalTime = prepTime + cookTime
 
 	return (
-		<Box
-			sx={{
-				position: 'relative',
-				border: 1,
-				borderColor: 'border',
-				borderRadius: 2,
-
-				...sx,
-			}}
-			{...props}
-		>
+		<Card {...props}>
 			<Box
 				sx={{
 					position: 'absolute',
@@ -65,27 +56,35 @@ const MealPreview: React.FC<MealPreviewProps> = ({ meal, sx, ...props }) => {
 						paddingLeft: [3, 4, 5],
 					}}
 				>
-					<Heading variant="meal-name">
+					<Heading
+						variant="meal-name"
+						sx={{
+							// match baseline to "Recipes" in sidebar:
+							marginTop: [null, null, null, '-0.75rem'],
+						}}
+					>
 						<NextLink href={`/meals/${slug}`} passHref>
 							<Link variant="ui">{title}</Link>
 						</NextLink>
 					</Heading>
 
-					<Text as="p" sx={{ marginTop: 2, marginBottom: 1, fontSize: 2 }}>
+					<Text as="p" sx={{ marginTop: 2, marginBottom: 3, fontSize: 2 }}>
 						{emojis.map((emoji) => (
 							<span key={emoji}>{emoji}</span>
 						))}
 					</Text>
 
-					<Text
-						as="p"
-						sx={{
-							maxWidth: 'measure',
-							marginTop: 0,
-							marginBottom: tags.length || totalTime > 0 ? 4 : 0,
-						}}
-						dangerouslySetInnerHTML={{ __html: description }}
-					/>
+					{description && (
+						<Box
+							sx={{
+								marginTop: 0,
+								marginBottom: tags.length || totalTime > 0 ? 4 : 0,
+
+								...nestedStyles.paragraphs,
+							}}
+							dangerouslySetInnerHTML={{ __html: description }}
+						/>
+					)}
 
 					<Box mt="auto">
 						{tags.length > 0 && (
@@ -129,12 +128,12 @@ const MealPreview: React.FC<MealPreviewProps> = ({ meal, sx, ...props }) => {
 				>
 					<Heading variant="section-heading">Recipes</Heading>
 
-					<Box as="ul" sx={styles.stripedList}>
+					<Box as="ul" sx={listStyles.stripedList}>
 						{recipes.map((recipe) => (
 							<Box
 								key={recipe._id}
 								as="li"
-								sx={styles.getStripedListItemStyles('background')}
+								sx={listStyles.getStripedListItemStyles('background')}
 							>
 								<NextLink href={`/recipes/${recipe.slug}`} passHref>
 									<Link variant="ui">{recipe.title}</Link>
@@ -144,7 +143,7 @@ const MealPreview: React.FC<MealPreviewProps> = ({ meal, sx, ...props }) => {
 					</Box>
 				</Box>
 			</Grid>
-		</Box>
+		</Card>
 	)
 }
 

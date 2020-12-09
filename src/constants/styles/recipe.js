@@ -1,11 +1,10 @@
-import { link } from './link'
+import { links, paragraphs } from './nested'
 
 export {
 	stripedList,
 	stripedListItem,
 	getStripedListItemStyles,
 } from './stripedList'
-export { link }
 
 export const swash = {
 	marginY: [5, null, 6],
@@ -53,7 +52,7 @@ export const sectionListItem = {
 	maxWidth: 'measure',
 	paddingY: 2,
 
-	...link,
+	...links,
 
 	'@media print': {
 		padding: 0,
@@ -61,23 +60,9 @@ export const sectionListItem = {
 }
 
 export const notes = {
-	p: {
-		maxWidth: 'measure',
-		margin: 0,
-	},
+	...paragraphs,
 
-	'p + p': {
-		marginTop: 3,
-	},
-
-	a: {
-		color: 'text',
-		textDecorationColor: (theme) => theme.colors.accent,
-
-		'&:hover': {
-			color: 'accent',
-		},
-	},
+	...links,
 
 	'ul, ol': {
 		paddingLeft: '1.25em',

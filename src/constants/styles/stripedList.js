@@ -1,10 +1,10 @@
-import { link } from './link'
+import { links } from './nested'
 
 export const stripedList = {
 	paddingLeft: 0,
 	listStyleType: 'none',
 
-	...link,
+	...links,
 
 	'@media print': {
 		paddingLeft: 4,

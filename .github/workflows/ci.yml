@@ -31,9 +31,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-      - needs: install
+    needs: install
 
+    steps:
       - name: Run ESLint
         run: npx eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0
 
@@ -42,9 +42,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-      - needs: install
+    needs: install
 
+    steps:
       - name: Run TypeScript
         run: npx tsc
 
@@ -53,9 +53,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-      - needs: install
+    needs: install
 
+    steps:
       - name: Get Next.js build cache
         uses: actions/cache@v2
         with:

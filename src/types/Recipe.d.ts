@@ -1,4 +1,4 @@
-type RecipeSection = {
+export type RecipeSection = {
 	_key: string
 	title: string
 	steps: string[]

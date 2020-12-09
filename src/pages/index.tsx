@@ -5,22 +5,24 @@ import { default as NextLink } from 'next/link'
 import { useThemeUI, Box, Flex, Heading, Link } from 'theme-ui'
 import { ArrowRight } from 'phosphor-react'
 import Stack from '../components/Stack'
+import MealPreview from '../components/MealPreview'
 import RecipeGrid from '../components/RecipeGrid'
 import metadata from '../constants/metadata.json'
 import { getHomepage } from '../../lib/api'
 import { Recipe } from '../types/Recipe'
+import { Meal } from '../types/Meal'
 
 interface HomepageProps {
 	headline: string
-	// featuredMealHeading?: string
-	// featuredMeal?: Meal
+	featuredMealHeading?: string
+	featuredMeal?: Meal
 	recentRecipes?: Recipe[]
 }
 
 const Homepage: React.FC<HomepageProps> = ({
 	headline,
-	// featuredMealHeading = 'Featured meal',
-	// featuredMeal,
+	featuredMealHeading = 'Featured meal',
+	featuredMeal,
 	recentRecipes = [],
 }) => {
 	const { colorMode } = useThemeUI()
@@ -57,13 +59,13 @@ const Homepage: React.FC<HomepageProps> = ({
 			</Box>
 
 			<Stack gap={[5, null, 6]} my={[5, 6]}>
-				{/* {featuredRecipes.length > 0 && (
+				{featuredMeal && (
 					<Box>
-						<Heading>{featuredRecipesHeading}</Heading>
+						<Heading>{featuredMealHeading}</Heading>
 
-						<RecipeGrid mt={4} recipes={featuredRecipes} />
+						<MealPreview meal={featuredMeal} />
 					</Box>
-				)} */}
+				)}
 
 				<Box>
 					<Flex
@@ -90,13 +92,18 @@ const Homepage: React.FC<HomepageProps> = ({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-	const { headline, recentRecipes } = await getHomepage()
+	const {
+		headline,
+		featuredMealHeading,
+		featuredMeal,
+		recentRecipes,
+	} = await getHomepage()
 
 	return {
 		props: {
 			headline,
-			// featuredMealHeading,
-			// featuredMeal,
+			featuredMealHeading,
+			featuredMeal,
 			recentRecipes,
 		},
 	}

@@ -55,6 +55,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 						position: 'absolute',
 						top: 'calc(50% - 0.5em)',
 						left: 3,
+						color: 'muted-text',
 					}}
 				/>
 

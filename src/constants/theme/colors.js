@@ -64,7 +64,7 @@ export default {
 			accent: palette.pinks[6],
 			highlight: palette.cyans[4],
 			muted: palette.grays[9],
-			'muted-text': palette.grays[5],
+			'muted-text': palette.grays[6],
 			border: palette.cyans[9],
 			'card-shadow': 'rgba(0, 16, 16, 0.5)',
 		},

@@ -10,6 +10,8 @@ import { getAllRecipes } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
 import { Recipe } from '../../types/Recipe'
 
+const PUNC_RE = /[^ \w]/g
+
 type SearchItem = {
 	_id: string
 	data: string
@@ -24,7 +26,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 	const [value, setValue] = React.useState('')
 
 	const matchingIds = searchData
-		.filter((d) => d.data.includes(value.toLowerCase()))
+		.filter((d) => d.data.includes(value.replace(PUNC_RE, '').toLowerCase()))
 		.map((d) => d._id)
 
 	const filteredRecipes = recipes.filter((r) => matchingIds.includes(r._id))
@@ -139,7 +141,9 @@ export const getStaticProps: GetStaticProps = async () => {
 	const searchData = recipes.map((recipe) => {
 		const tags = recipe.tags?.map((t) => t.title).join(' ') || ''
 
-		const data = `${recipe.title} ${recipe.category.title} ${recipe.category.emoji} ${tags}`.toLowerCase()
+		const data = `${recipe.title} ${recipe.category.title} ${recipe.category.emoji} ${tags}`
+			.replace(PUNC_RE, '')
+			.toLowerCase()
 
 		return {
 			_id: recipe._id,

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Link from 'next/link'
-import { Box, Flex, Text, Container, NavLink } from 'theme-ui'
-import { ListNumbers, FolderSimple, ForkKnife } from 'phosphor-react'
+import { Box, Flex, Grid, Text, Container, NavLink } from 'theme-ui'
+import { ListNumbers, ForkKnife } from 'phosphor-react'
 import SkipNavLink from './SkipNavLink'
 import Logo from './Logo'
 import ColorModeToggle from './ColorModeToggle'
@@ -17,11 +17,12 @@ const Nav: React.FC = () => (
 			backgroundColor: 'primary',
 		}}
 	>
-		<Flex
+		<Grid
 			as={Container}
+			columns={['1fr 1fr min-content', null, null, 3]}
+			gap={3}
 			sx={{
 				alignItems: 'center',
-				justifyContent: 'space-between',
 				position: 'relative',
 				marginX: 'auto', // have to override
 				paddingY: 1,
@@ -29,65 +30,52 @@ const Nav: React.FC = () => (
 		>
 			<SkipNavLink />
 
-			<Box sx={{ marginRight: 4 }}>
+			<Box
+				sx={{
+					order: [1, null, null, 2],
+					textAlign: ['left', null, null, 'center'],
+				}}
+			>
 				<Logo />
 			</Box>
 
-			<Flex sx={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
-				<Flex
-					as="ul"
-					sx={{
-						justifyContent: 'flex-end',
-						marginRight: [3, null, 2, 3],
-						paddingLeft: 0,
-						listStyleType: 'none',
-					}}
-				>
-					<Box as="li" mr={[3, null, null, 4]}>
-						<Link href="/recipes" passHref>
-							<NavLink>
-								<ListNumbers weight="bold" />{' '}
-								<Text as="span" sx={{ display: ['none', null, 'inline'] }}>
-									Recipes
-								</Text>
-							</NavLink>
-						</Link>
-					</Box>
+			<Flex
+				as="ul"
+				sx={{
+					order: [2, null, null, 1],
+					justifyContent: ['flex-end', null, null, 'flex-start'],
+					marginRight: [0, 3, null, 0],
+					paddingLeft: 0,
+					listStyleType: 'none',
+				}}
+			>
+				<Box as="li" mr={[3, 4]}>
+					<Link href="/recipes" passHref>
+						<NavLink>
+							<ListNumbers weight="bold" />{' '}
+							<Text as="span" sx={{ display: ['none', null, 'inline'] }}>
+								Recipes
+							</Text>
+						</NavLink>
+					</Link>
+				</Box>
 
-					<Box
-						as="li"
-						sx={{
-							display: ['none', 'inline-block'],
-							marginRight: [3, null, null, 4],
-						}}
-					>
-						<Link href="/meals" passHref>
-							<NavLink>
-								<ForkKnife weight="bold" />{' '}
-								<Text as="span" sx={{ display: ['none', null, 'inline'] }}>
-									Meals
-								</Text>
-							</NavLink>
-						</Link>
-					</Box>
-
-					<Box as="li">
-						<Link href="/categories" passHref>
-							<NavLink>
-								<FolderSimple weight="bold" />{' '}
-								<Text as="span" sx={{ display: ['none', null, 'inline'] }}>
-									Categories
-								</Text>
-							</NavLink>
-						</Link>
-					</Box>
-				</Flex>
-
-				<Box sx={{ order: 3, fontSize: 3, textAlign: 'right' }}>
-					<ColorModeToggle />
+				<Box as="li">
+					<Link href="/meals" passHref>
+						<NavLink>
+							<ForkKnife weight="bold" />{' '}
+							<Text as="span" sx={{ display: ['none', null, 'inline'] }}>
+								Meals
+							</Text>
+						</NavLink>
+					</Link>
 				</Box>
 			</Flex>
-		</Flex>
+
+			<Box sx={{ order: 3, fontSize: 3, textAlign: 'right' }}>
+				<ColorModeToggle />
+			</Box>
+		</Grid>
 	</Box>
 )
 

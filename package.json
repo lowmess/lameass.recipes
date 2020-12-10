@@ -1,6 +1,6 @@
 {
   "name": "lameass.recipes",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A recipe site, but without the 2,500 word storytime recipes.",
   "scripts": {
     "start": "next dev",

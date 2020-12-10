@@ -4,8 +4,8 @@
   "description": "A recipe site, but without the 2,500 word storytime recipes.",
   "scripts": {
     "start": "next dev",
-    "build": "next build",
-    "serve": "next start -p 3000",
+    "build": "next build && next export",
+    "serve": "next start",
     "lint-staged": "lint-staged"
   },
   "author": "Alec Lomas <alec@lowmess.com>",

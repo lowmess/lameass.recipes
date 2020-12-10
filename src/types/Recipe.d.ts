@@ -34,4 +34,5 @@ export interface Recipe {
 	sections?: RecipeSection[]
 	notes?: string
 	similarRecipes?: Recipe[]
+	searchTerms?: string
 }

@@ -138,10 +138,12 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 export const getStaticProps: GetStaticProps = async () => {
 	const recipes = await getAllRecipes()
 
-	const searchData = recipes.map((recipe) => {
+	const searchData = recipes.map((recipe: Recipe) => {
 		const tags = recipe.tags?.map((t) => t.title).join(' ') || ''
 
-		const data = `${recipe.title} ${recipe.category.title} ${recipe.category.emoji} ${tags}`
+		const data = `${recipe.title} ${recipe.category.title} ${
+			recipe.category.emoji
+		} ${tags} ${recipe.searchTerms || ''}`
 			.replace(PUNC_RE, '')
 			.toLowerCase()
 

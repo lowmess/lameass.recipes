@@ -50,14 +50,19 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 				}}
 			>
 				<Box
-					as={MagnifyingGlass}
 					sx={{
-						position: 'absolute',
-						top: 'calc(50% - 0.5em)',
-						left: 3,
-						color: 'muted-text',
+						display: 'contents',
+
+						svg: {
+							position: 'absolute',
+							top: 'calc(50% - 0.5em)',
+							left: 3,
+							color: 'muted-text',
+						},
 					}}
-				/>
+				>
+					<MagnifyingGlass weight="bold" />
+				</Box>
 
 				<VisuallyHidden as="label" htmlFor="recipe-search">
 					Search

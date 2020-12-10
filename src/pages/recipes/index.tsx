@@ -88,7 +88,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 					}}
 					sx={{
 						position: 'absolute',
-						top: 'calc(50% - 0.625rem)',
+						top: 'calc(50% - 0.75rem)',
 						right: 3,
 						display: value ? 'inline-flex' : 'none',
 						width: '1.5rem',
@@ -108,6 +108,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 						svg: {
 							margin: 'auto',
 							fontSize: '0.75rem',
+							color: 'muted-text',
 						},
 					}}
 				>

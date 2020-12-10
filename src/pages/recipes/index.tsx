@@ -80,7 +80,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 					sx={{
 						appearance: 'none',
 						border: 0,
-						borderRadius: 0,
+						borderRadius: 2,
 						paddingLeft: (theme) =>
 							`calc(${theme.space[3]} + ${theme.space[4]})`,
 						paddingRight: (theme) =>

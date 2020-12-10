@@ -5,7 +5,7 @@ it's a recipe site, only the recipes are good and don't come with a whole-ass li
 Made with
 
 - [Next.js](https://nextjs.org)
-- [DatoCMS](https://www.datocms.com)
+- [Sanity](https://www.sanity.io)
 - [Vercel](https://vercel.com)
 - [Staat](https://regularbolditalic.com/fonts/staat)
 - [Phosphor](https://phosphoricons.com)
@@ -24,11 +24,11 @@ Install dependencies:
 npm install
 ```
 
-Add your Dato token to the application:
+Add your Sanity project id to the application:
 
 ```env
 # .env.local
-DATOCMS_API_TOKEN={{ YOUR TOKEN HERE }}
+SANITY_PROJECT_ID={{ YOUR PROJECT ID HERE }}
 ```
 
 Start a local dev environment:

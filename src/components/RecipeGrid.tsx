@@ -16,7 +16,7 @@ const RecipeGrid: React.FC<RecipeGridProps> = ({
 }) => (
 	<Grid columns={[1, null, 2, 3]} gap={4} {...props}>
 		{recipes.map((recipe) => (
-			<RecipePreview key={recipe.id} recipe={recipe} level={level} />
+			<RecipePreview key={recipe._id} recipe={recipe} level={level} />
 		))}
 	</Grid>
 )

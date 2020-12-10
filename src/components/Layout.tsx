@@ -46,6 +46,14 @@ const Layout: React.FC = ({ children }) => {
 						margin: 0;
 						cursor: default;
 					}
+
+					sub,
+					sup {
+						vertical-align: baseline;
+						position: relative;
+						top: -0.4em;
+						font-size: 0.75em;
+					}
 				`}
 			/>
 

@@ -4,26 +4,20 @@ import Head from 'next/head'
 import { Text, Heading, Link } from 'theme-ui'
 import { getAboutPage } from '../../lib/api'
 import Highlight from '../components/Highlight'
-import { PageProps } from '../types/Page'
+import metadata from '../constants/metadata.json'
 
-interface AboutPageProps extends PageProps {
+interface AboutPageProps {
 	title: string
 	content: string
 }
 
-const AboutPage: React.FC<AboutPageProps> = ({
-	title = 'About',
-	content,
-	titleSuffix,
-	description,
-}) => (
+const AboutPage: React.FC<AboutPageProps> = ({ title = 'About', content }) => (
 	<React.Fragment>
 		<Head>
 			<title key="title">
-				{title}
-				{titleSuffix}
+				{title} {metadata.titleSuffix}
 			</title>
-			<meta name="description" content={description} />
+			<meta name="description" content={metadata.description} />
 		</Head>
 
 		<Heading as="h1" variant="page-name" my={[5, null, 6]}>
@@ -66,7 +60,7 @@ const AboutPage: React.FC<AboutPageProps> = ({
 		>
 			The website is by <Link href="https://lowmess.com">Alec Lomas</Link>. It
 			is made with <Link href="https://nextjs.org">Next.js</Link> &{' '}
-			<Link href="https://www.datocms.com">DatoCMS</Link>, and hosted on{' '}
+			<Link href="https://www.sanity.io">Sanity</Link>, and hosted on{' '}
 			<Link href="https://vercel.com">Vercel</Link>. The headline font is{' '}
 			<Link href="https://regularbolditalic.com/fonts/staat">Staat</Link>, and
 			the icon set is&nbsp;
@@ -76,18 +70,10 @@ const AboutPage: React.FC<AboutPageProps> = ({
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-	const {
-		aboutPage: { title, content },
-		site: {
-			globalSeo: {
-				titleSuffix,
-				fallbackSeo: { description },
-			},
-		},
-	} = await getAboutPage()
+	const { title, content } = await getAboutPage()
 
 	return {
-		props: { title, content, titleSuffix, description },
+		props: { title, content },
 	}
 }
 

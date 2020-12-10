@@ -23,12 +23,12 @@ const Footer: React.FC<ThemeUIProps> = ({ sx, ...props }) => (
 					textAlign: 'center',
 
 					'li + li': {
-						marginLeft: [0, null, 4],
+						marginLeft: [0, null, 3, 4],
 
 						'&::before': {
 							content: [null, null, '"\u2022"'],
 							color: 'accent',
-							marginRight: 4,
+							marginRight: [3, null, null, 4],
 						},
 					},
 				}}
@@ -42,6 +42,12 @@ const Footer: React.FC<ThemeUIProps> = ({ sx, ...props }) => (
 				<li>
 					<NextLink href="/recipes" passHref>
 						<Link variant="ui">Recipes</Link>
+					</NextLink>
+				</li>
+
+				<li>
+					<NextLink href="/meals" passHref>
+						<Link variant="ui">Meals</Link>
 					</NextLink>
 				</li>
 

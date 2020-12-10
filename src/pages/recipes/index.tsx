@@ -59,8 +59,8 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 					}}
 				/>
 
-				<VisuallyHidden>
-					<label htmlFor="recipe-search">Search</label>
+				<VisuallyHidden as="label" htmlFor="recipe-search">
+					Search
 				</VisuallyHidden>
 
 				<Input

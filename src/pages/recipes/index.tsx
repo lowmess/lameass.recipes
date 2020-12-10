@@ -59,7 +59,12 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 					}}
 				/>
 
+				<VisuallyHidden>
+					<label htmlFor="recipe-search">Search</label>
+				</VisuallyHidden>
+
 				<Input
+					id="recipe-search"
 					value={value}
 					onChange={(event) => {
 						setValue(event.target.value)

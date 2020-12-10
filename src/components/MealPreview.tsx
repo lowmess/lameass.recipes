@@ -134,8 +134,8 @@ const MealPreview: React.FC<MealPreviewProps> = ({
 				<Box
 					sx={{
 						display: ['none', null, null, 'block'],
-						padding: [3, 4],
-						paddingBottom: 3,
+						padding: 4, // [3, 4]
+						paddingBottom: 3, // [3, 3]
 						backgroundColor: 'muted',
 					}}
 				>

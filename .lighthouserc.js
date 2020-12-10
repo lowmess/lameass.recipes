@@ -4,11 +4,11 @@ module.exports = {
 			staticDistDir: 'out',
 			url: [
 				'http://localhost/',
-				'http://localhost/recipes',
-				'http://localhost/recipes/old-fashioned',
-				'http://localhost/categories',
-				'http://localhost/tags',
-				'http://localhost/about',
+				'http://localhost/recipes.html',
+				'http://localhost/recipes/old-fashioned.html',
+				'http://localhost/categories.html',
+				'http://localhost/tags.html',
+				'http://localhost/about.html',
 			],
 		},
 		upload: {

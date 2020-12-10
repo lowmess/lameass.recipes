@@ -26,7 +26,6 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 		cookTime,
 		yieldAmount,
 		tags = [],
-		equipment = [],
 		recipes = [],
 		sections = [],
 	} = meal
@@ -141,27 +140,6 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 										</Flex>
 									)}
 								</Stack>
-
-								{equipment.length > 0 && (
-									<React.Fragment>
-										<Heading variant="section-heading" mt={4}>
-											Equipment
-										</Heading>
-
-										<Box as="ul" sx={styles.stripedList}>
-											{equipment.map((implement, index) => (
-												<Box
-													key={index}
-													as="li"
-													sx={styles.getStripedListItemStyles('background')}
-													dangerouslySetInnerHTML={{
-														__html: implement,
-													}}
-												/>
-											))}
-										</Box>
-									</React.Fragment>
-								)}
 
 								{recipes.length > 0 && (
 									<React.Fragment>

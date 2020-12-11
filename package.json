@@ -1,10 +1,10 @@
 {
   "name": "lameass.recipes",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "A recipe site, but without the 2,500 word storytime recipes.",
   "scripts": {
     "start": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "serve": "next start",
     "lint-staged": "lint-staged"
   },
@@ -15,9 +15,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@reach/visually-hidden": "^0.11.1",
-    "next": "^10.0.1",
-    "phosphor-react": "^1.0.0",
+    "@reach/visually-hidden": "^0.12.0",
+    "@sanity/client": "^2.0.9",
+    "next": "^10.0.3",
+    "phosphor-react": "^1.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "remark": "^13.0.0",
@@ -25,17 +26,17 @@
     "theme-ui": "^0.3.1"
   },
   "devDependencies": {
-    "@types/node": "^14.14.7",
-    "@types/react": "^16.9.56",
+    "@types/node": "^14.14.12",
+    "@types/react": "^17.0.0",
     "@types/styled-system": "^5.1.10",
     "@types/theme-ui": "^0.3.7",
-    "eslint": "^7.13.0",
+    "eslint": "^7.15.0",
     "eslint-config-lowmess": "^4.0.0",
     "husky": "^4.3.0",
-    "lint-staged": "^10.5.1",
-    "prettier": "^2.1.2",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
     "prettier-config-lowmess": "^0.3.0",
-    "typescript": "^4.0.5"
+    "typescript": "^4.1.2"
   },
   "husky": {
     "hooks": {

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { Box, Flex, Grid, Text, Container, NavLink } from 'theme-ui'
-import { ListNumbers, FolderSimple } from 'phosphor-react'
+import { ListNumbers, ForkKnife } from 'phosphor-react'
 import SkipNavLink from './SkipNavLink'
 import Logo from './Logo'
 import ColorModeToggle from './ColorModeToggle'
@@ -61,11 +61,11 @@ const Nav: React.FC = () => (
 				</Box>
 
 				<Box as="li">
-					<Link href="/categories" passHref>
+					<Link href="/meals" passHref>
 						<NavLink>
-							<FolderSimple weight="bold" />{' '}
+							<ForkKnife weight="bold" />{' '}
 							<Text as="span" sx={{ display: ['none', null, 'inline'] }}>
-								Categories
+								Meals
 							</Text>
 						</NavLink>
 					</Link>

@@ -6,22 +6,18 @@ import { Text, Heading, Link } from 'theme-ui'
 import { getAllRecipes } from '../../lib/api'
 import Highlight from '../components/Highlight'
 import RecipeGrid from '../components/RecipeGrid'
+import metadata from '../constants/metadata.json'
 import { Recipe } from '../types/Recipe'
-import { PageProps } from '../types/Page'
 
-interface ErrorPageProps extends PageProps {
+interface ErrorPageProps {
 	recipes: Recipe[]
 }
 
-const ErrorPage: React.FC<ErrorPageProps> = ({
-	recipes,
-	titleSuffix,
-	description,
-}) => (
+const ErrorPage: React.FC<ErrorPageProps> = ({ recipes }) => (
 	<React.Fragment>
 		<Head>
-			<title key="title">Oops!{titleSuffix}</title>
-			<meta name="description" content={description} />
+			<title key="title">Oops! {metadata.titleSuffix}</title>
+			<meta name="description" content={metadata.description} />
 		</Head>
 
 		<Heading as="h1" variant="page-name" my={[5, null, 6]}>
@@ -42,20 +38,12 @@ const ErrorPage: React.FC<ErrorPageProps> = ({
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-	const {
-		allRecipes,
-		site: {
-			globalSeo: {
-				titleSuffix,
-				fallbackSeo: { description },
-			},
-		},
-	} = await getAllRecipes()
+	const allRecipes = await getAllRecipes()
 
 	const recipes = allRecipes?.slice(0, 6) || []
 
 	return {
-		props: { recipes, titleSuffix, description },
+		props: { recipes },
 	}
 }
 

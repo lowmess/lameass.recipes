@@ -5,8 +5,8 @@ import { default as NextLink } from 'next/link'
 import { Grid, Text, Card, Heading, Link } from 'theme-ui'
 import Highlight from '../../components/Highlight'
 import { getAllCategories } from '../../../lib/api'
+import metadata from '../../constants/metadata.json'
 import { Category } from '../../types/Recipe'
-import { PageProps } from '../../types/Page'
 
 interface CategoryPreviewProps {
 	category: Category
@@ -45,19 +45,15 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = ({ category }) => {
 	)
 }
 
-interface CategoriesPageProps extends PageProps {
+interface CategoriesPageProps {
 	categories: Category[]
 }
 
-const CategoriesPage: React.FC<CategoriesPageProps> = ({
-	categories,
-	titleSuffix,
-	description,
-}) => (
+const CategoriesPage: React.FC<CategoriesPageProps> = ({ categories }) => (
 	<React.Fragment>
 		<Head>
-			<title key="title">All categories{titleSuffix}</title>
-			<meta name="description" content={description} />
+			<title key="title">All categories {metadata.titleSuffix}</title>
+			<meta name="description" content={metadata.description} />
 		</Head>
 
 		<Heading as="h1" variant="page-name" my={[5, null, 6]}>
@@ -66,25 +62,17 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({
 
 		<Grid columns={[1, null, null, 2]} gap={4} mb={5}>
 			{categories.map((category) => (
-				<CategoryPreview key={category.id} category={category} />
+				<CategoryPreview key={category._id} category={category} />
 			))}
 		</Grid>
 	</React.Fragment>
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-	const {
-		allCategories: categories,
-		site: {
-			globalSeo: {
-				titleSuffix,
-				fallbackSeo: { description },
-			},
-		},
-	} = await getAllCategories()
+	const categories = await getAllCategories()
 
 	return {
-		props: { categories, titleSuffix, description },
+		props: { categories },
 	}
 }
 

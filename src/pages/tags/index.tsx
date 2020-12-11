@@ -6,22 +6,18 @@ import { Heading, Link } from 'theme-ui'
 import Highlight from '../../components/Highlight'
 import Inline from '../../components/Inline'
 import { getAllTags } from '../../../lib/api'
+import metadata from '../../constants/metadata.json'
 import { Tag } from '../../types/Recipe'
-import { PageProps } from '../../types/Page'
 
-interface TagsPageProps extends PageProps {
+interface TagsPageProps {
 	tags: Tag[]
 }
 
-const TagsPage: React.FC<TagsPageProps> = ({
-	tags,
-	titleSuffix,
-	description,
-}) => (
+const TagsPage: React.FC<TagsPageProps> = ({ tags }) => (
 	<React.Fragment>
 		<Head>
-			<title key="title">All tags{titleSuffix}</title>
-			<meta name="description" content={description} />
+			<title key="title">All tags {metadata.titleSuffix}</title>
+			<meta name="description" content={metadata.description} />
 		</Head>
 
 		<Heading as="h1" variant="page-name" my={[5, null, 6]}>
@@ -29,8 +25,8 @@ const TagsPage: React.FC<TagsPageProps> = ({
 		</Heading>
 
 		<Inline gap={3} pb={5}>
-			{tags.map(({ id, title, slug }) => (
-				<NextLink key={id} href={`/tags/${slug}`} passHref>
+			{tags.map(({ _id, title, slug }) => (
+				<NextLink key={_id} href={`/tags/${slug}`} passHref>
 					<Link variant="tag" sx={{ fontSize: 2 }}>
 						{title}
 					</Link>
@@ -41,18 +37,10 @@ const TagsPage: React.FC<TagsPageProps> = ({
 )
 
 export const getStaticProps: GetStaticProps = async () => {
-	const {
-		allTags: tags,
-		site: {
-			globalSeo: {
-				titleSuffix,
-				fallbackSeo: { description },
-			},
-		},
-	} = await getAllTags()
+	const tags = await getAllTags()
 
 	return {
-		props: { tags, titleSuffix, description },
+		props: { tags },
 	}
 }
 

@@ -1,3 +1,24 @@
+const tag = {
+	display: 'inline-block',
+	borderRadius: 2,
+	paddingY: 1,
+	paddingX: 2,
+	backgroundColor: 'muted',
+	fontSize: 0,
+	color: 'muted-text',
+	textDecoration: 'none',
+	transition: '0.2s ease color',
+
+	'&:hover': {
+		color: 'text',
+	},
+
+	'@media print': {
+		padding: 0,
+		fontSize: 'inherit',
+	},
+}
+
 export default {
 	nav: {
 		display: 'inline-flex',
@@ -78,24 +99,18 @@ export default {
 		},
 	},
 
-	tag: {
-		display: 'inline-block',
-		borderRadius: 2,
-		paddingY: 1,
-		paddingX: 2,
-		backgroundColor: 'muted',
-		fontSize: 0,
-		color: 'muted-text',
-		textDecoration: 'none',
-		transition: '0.2s ease color',
+	tag,
+
+	'tag-info': {
+		...tag,
+
+		border: 1,
+		borderColor: 'muted-text',
+		color: 'text',
 
 		'&:hover': {
-			color: 'text',
-		},
-
-		'@media print': {
-			padding: 0,
-			fontSize: 'inherit',
+			borderColor: 'accent',
+			color: 'accent',
 		},
 	},
 }

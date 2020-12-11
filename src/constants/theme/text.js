@@ -26,4 +26,28 @@ export default {
 		fontWeight: 'medium',
 		lineHeight: 'heading',
 	},
+
+	'meal-name': {
+		fontFamily: 'system-ui',
+		fontSize: [3, 4],
+		fontWeight: 'bold',
+		lineHeight: 'heading',
+		color: 'secondary',
+	},
+
+	'recipe-heading': {
+		fontFamily: 'system-ui',
+		fontSize: [4, null, 5],
+		fontWeight: 'bold',
+		lineHeight: 'heading',
+		color: 'secondary',
+	},
+
+	'section-heading': {
+		marginBottom: 3,
+		fontFamily: 'system-ui',
+		fontSize: [2, null, 3],
+		fontWeight: 'bold',
+		color: 'secondary',
+	},
 }

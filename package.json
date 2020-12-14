@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "@reach/visually-hidden": "^0.12.0",
-    "@sanity/client": "^2.0.9",
+    "@sanity/client": "^2.1.0",
     "next": "^10.0.3",
     "phosphor-react": "^1.1.2",
     "react": "^17.0.1",

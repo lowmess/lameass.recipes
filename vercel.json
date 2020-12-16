@@ -1,0 +1,25 @@
+{
+	"version": 2,
+	"redirects": [
+		{
+			"source": "/categories/dinner",
+			"destination": "/categories/main-dish"
+		},
+		{
+			"source": "/categories/pasta",
+			"destination": "/categories/main-dish"
+		},
+		{
+			"source": "/categories/burger",
+			"destination": "/categories/main-dish"
+		},
+		{
+			"source": "/categories/breakfast",
+			"destination": "/categories/main-dish"
+		},
+		{
+			"source": "/categories/salad",
+			"destination": "/categories/side-dish"
+		}
+	]
+}

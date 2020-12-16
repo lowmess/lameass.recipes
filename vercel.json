@@ -7,19 +7,19 @@
 		},
 		{
 			"source": "/categories/pasta",
-			"destination": "/categories/main-dish"
+			"destination": "/tags/pasta"
 		},
 		{
 			"source": "/categories/burger",
-			"destination": "/categories/main-dish"
+			"destination": "/tags/burger"
 		},
 		{
 			"source": "/categories/breakfast",
-			"destination": "/categories/main-dish"
+			"destination": "/tags/breakfast"
 		},
 		{
 			"source": "/categories/salad",
-			"destination": "/categories/side-dish"
+			"destination": "/tags/salad"
 		}
 	]
 }

@@ -30,7 +30,7 @@
     "@types/react": "^17.0.0",
     "@types/styled-system": "^5.1.10",
     "@types/theme-ui": "^0.3.7",
-    "eslint": "^7.16.0",
+    "eslint": "^7.17.0",
     "eslint-config-lowmess": "^4.0.0",
     "husky": "^4.3.6",
     "lint-staged": "^10.5.3",

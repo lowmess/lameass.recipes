@@ -12,6 +12,7 @@ import cards from './cards'
 import text from './text'
 import links from './links'
 import buttons from './buttons'
+import forms from './forms'
 
 const breakpoints = ['30em', '40em', '64em']
 
@@ -37,4 +38,5 @@ export default {
 	text,
 	links,
 	buttons,
+	forms,
 }

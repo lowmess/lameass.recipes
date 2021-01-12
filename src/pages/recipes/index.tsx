@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import { Box, Heading, Button, Input } from 'theme-ui'
+import { Box, Flex, Text, Heading, Button, Label, Input } from 'theme-ui'
 import { MagnifyingGlass, X } from 'phosphor-react'
 import { VisuallyHidden } from '@reach/visually-hidden'
 import Highlight from '../../components/Highlight'
@@ -42,12 +42,40 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 				<Highlight>All recipes</Highlight>
 			</Heading>
 
+			<Flex
+				sx={{
+					flexDirection: ['column', 'row'],
+					alignItems: 'baseline',
+					marginBottom: 2,
+				}}
+			>
+				<Label
+					htmlFor="recipe-search"
+					sx={{
+						width: 'max-content',
+						marginRight: [null, 2, 3],
+					}}
+				>
+					Search {recipes.length} recipes
+				</Label>
+
+				<Text
+					as="p"
+					variant="forms.hint"
+					id="recipe-search-hint"
+					sx={{
+						flex: 1,
+					}}
+				>
+					e.g. &ldquo;Mexican&rdquo; or &ldquo;chicken&rdquo;
+				</Text>
+			</Flex>
+
 			<Box
+				variant="forms.input"
 				sx={{
 					position: 'relative',
 					marginBottom: 4,
-					borderRadius: 2,
-					backgroundColor: 'muted',
 					fontSize: 2,
 				}}
 			>
@@ -66,30 +94,16 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 					<MagnifyingGlass weight="bold" />
 				</Box>
 
-				<VisuallyHidden as="label" htmlFor="recipe-search">
-					Search
-				</VisuallyHidden>
-
 				<Input
+					variant="invisible-input"
 					id="recipe-search"
 					value={value}
 					onChange={(event) => {
 						setValue(event.target.value)
 					}}
-					placeholder="Search by title, category, or tag"
+					aria-describedby="recipe-search-hint"
 					sx={{
-						appearance: 'none',
-						border: 0,
-						borderRadius: 2,
-						paddingLeft: (theme) =>
-							`calc(${theme.space[3]} + ${theme.space[4]})`,
-						paddingRight: (theme) =>
-							value ? `calc(${theme.space[3]} + ${theme.space[4]})` : 3,
-						backgroundColor: 'transparent',
-
-						'&::placeholder': {
-							color: 'muted-text',
-						},
+						paddingX: (theme) => `calc(${theme.space[3]} + ${theme.space[4]})`,
 					}}
 				/>
 

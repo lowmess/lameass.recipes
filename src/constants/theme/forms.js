@@ -20,7 +20,6 @@ export default {
 
 	hint: {
 		fontSize: 0,
-		color: 'muted-text',
 	},
 
 	input,

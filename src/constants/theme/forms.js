@@ -11,15 +11,15 @@ const input = {
 
 export default {
 	label: {
-		fontSize: 1,
+		fontSize: 2,
 		fontFamily: 'system-ui',
 		fontWeight: 'bold',
-		textTransform: 'uppercase',
 		color: 'secondary',
 	},
 
 	hint: {
 		fontSize: 0,
+		color: 'muted-text',
 	},
 
 	input,

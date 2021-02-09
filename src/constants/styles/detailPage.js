@@ -73,3 +73,9 @@ export const notes = {
 		paddingY: 2,
 	},
 }
+
+export const printHidden = {
+	'@media print': {
+		display: 'none',
+	},
+}

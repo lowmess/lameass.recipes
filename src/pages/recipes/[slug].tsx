@@ -124,7 +124,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 										</Flex>
 									)}
 
-									<Flex sx={styles.info}>
+									<Flex sx={{ ...styles.info, ...styles.printHidden }}>
 										<FolderSimple />
 
 										<NextLink href={`/categories/${category.slug}`} passHref>
@@ -135,7 +135,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 									</Flex>
 
 									{tags.length > 0 && (
-										<Flex sx={styles.info}>
+										<Flex sx={{ ...styles.info, ...styles.printHidden }}>
 											<Tag />
 
 											<Inline gap={2} ml={3}>

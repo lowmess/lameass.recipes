@@ -71,6 +71,8 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 
 								...nestedStyles.paragraphs,
 								...nestedStyles.links,
+
+								...styles.printHidden,
 							}}
 							dangerouslySetInnerHTML={{ __html: description }}
 						/>
@@ -121,7 +123,7 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 									)}
 
 									{tags.length > 0 && (
-										<Flex sx={styles.info}>
+										<Flex sx={{ ...styles.info, ...styles.printHidden }}>
 											<Tag />
 
 											<Inline gap={2} ml={3}>

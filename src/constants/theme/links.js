@@ -14,6 +14,7 @@ const tag = {
 	},
 
 	'@media print': {
+		border: 0,
 		padding: 0,
 		fontSize: 'inherit',
 	},

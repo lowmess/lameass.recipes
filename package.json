@@ -7,9 +7,7 @@
     "build": "next build && next export",
     "serve": "next start",
     "lint-staged": "lint-staged",
-    "postinstall": "husky install",
-    "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "prepare": "husky install"
   },
   "author": "Alec Lomas <alec@lowmess.com>",
   "repository": {

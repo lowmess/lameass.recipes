@@ -1,17 +1,17 @@
 import * as React from 'react'
 import { default as NextLink } from 'next/link'
 import { Box, Flex, Grid, Text, Card, Heading, Link } from 'theme-ui'
+import { CardProps } from '@theme-ui/components'
 import { Clock } from 'phosphor-react'
 import minutesToHours from '../../lib/minutesToHours'
 import * as listStyles from '../constants/styles/stripedList'
 import * as nestedStyles from '../constants/styles/nested'
 import { Meal } from '../types/Meal'
-import { ThemeUIProps } from '../types/ThemeUIComponent'
 import Inline from './Inline'
 
 type level = 'h2' | 'h3' | 'h4' | 'h5' | 'h5'
 
-interface MealPreviewProps extends ThemeUIProps {
+interface MealPreviewProps extends CardProps {
 	meal: Meal
 	levels?: [level, level]
 }

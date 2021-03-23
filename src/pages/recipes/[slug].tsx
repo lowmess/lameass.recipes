@@ -58,14 +58,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 				<meta name="description" content={metadata.description} />
 			</Head>
 
-			<Box
-				sx={{
-					// For some reason, TS doesn't seem to like the `position` declaration
-					// being moved to the external style object
-					position: 'relative',
-					...styles.swash,
-				}}
-			>
+			<Box sx={styles.swash}>
 				<img
 					width="512"
 					height="182"

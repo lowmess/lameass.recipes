@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Head from 'next/head'
-import { Global, css } from '@emotion/core'
+import { Global, css } from '@emotion/react'
 import { useThemeUI, Flex, Container } from 'theme-ui'
 import Nav from './Nav'
 import Footer from './Footer'

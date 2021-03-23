@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { default as NextLink } from 'next/link'
 import { Box, Flex, Card, Heading, Text, Link } from 'theme-ui'
+import { CardProps } from '@theme-ui/components'
 import { Clock } from 'phosphor-react'
 import unwidow from '../../lib/unwidow'
 import minutesToHours from '../../lib/minutesToHours'
-import { ThemeUIProps } from '../types/ThemeUIComponent'
 import { Recipe } from '../types/Recipe'
 import Inline from './Inline'
 
-interface RecipePreviewProps extends ThemeUIProps {
+interface RecipePreviewProps extends CardProps {
 	recipe: Recipe
 	level?: 'h2' | 'h3' | 'h4' | 'h5' | 'h5'
 }

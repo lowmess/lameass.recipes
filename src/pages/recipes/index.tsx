@@ -121,7 +121,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 						height: '1.5rem',
 						appearance: 'none',
 						border: 0,
-						borderRadius: 'circle',
+						borderRadius: '100%',
 						padding: 0,
 						backgroundColor: 'rgba(0, 0, 0, 0.25)',
 						color: 'muted-text',

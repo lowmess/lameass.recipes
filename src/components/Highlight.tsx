@@ -1,13 +1,12 @@
 import * as React from 'react'
 import { useThemeUI, Text } from 'theme-ui'
-import { ThemeUIProps } from '../types/ThemeUIComponent'
+import { TextProps } from '@theme-ui/components'
 
-const Highlight: React.FC<ThemeUIProps> = ({ sx, ...props }) => {
+const Highlight: React.FC<TextProps> = ({ sx, ...props }) => {
 	const { colorMode } = useThemeUI()
 
 	return (
 		<Text
-			as="span"
 			sx={{
 				display: 'inline-block',
 				position: 'relative',

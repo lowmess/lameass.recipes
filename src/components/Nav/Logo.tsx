@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { default as NextLink } from 'next/link'
 import { Link } from 'theme-ui'
+import { LinkProps } from '@theme-ui/components'
 import { VisuallyHidden } from '@reach/visually-hidden'
-import type { ThemeUIProps } from '../../types/ThemeUIComponent'
 
-const Logo: React.FC<ThemeUIProps> = ({ sx, ...props }) => (
+const Logo: React.FC<LinkProps> = ({ sx, ...props }) => (
 	<NextLink href="/" passHref>
 		<Link
 			variant="logo"
@@ -23,6 +23,7 @@ const Logo: React.FC<ThemeUIProps> = ({ sx, ...props }) => (
 			{...props}
 		>
 			<VisuallyHidden>Go to homepage</VisuallyHidden>
+
 			<svg
 				viewBox="0 0 500 150"
 				xmlns="http://www.w3.org/2000/svg"

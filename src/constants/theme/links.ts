@@ -1,4 +1,7 @@
-const tag = {
+import { Theme, ThemeUICSSObject } from '@theme-ui/css'
+import { NestedThemeUICSSObject } from './'
+
+const tag: ThemeUICSSObject = {
 	display: 'inline-block',
 	borderRadius: 2,
 	paddingY: 1,
@@ -20,12 +23,12 @@ const tag = {
 	},
 }
 
-export default {
+const links: NestedThemeUICSSObject = {
 	nav: {
 		display: 'inline-flex',
 		alignItems: 'center',
 		position: 'relative',
-		top: (theme) => `calc(${theme.space[1]} * 0.5)`,
+		top: (theme: Theme): string => `calc(${theme.space[1]} * 0.5)`,
 		fontWeight: 'semi-bold',
 		color: 'text',
 		transition: '0.2s ease opacity',
@@ -115,3 +118,5 @@ export default {
 		},
 	},
 }
+
+export default links

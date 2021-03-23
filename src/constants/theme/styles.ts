@@ -1,6 +1,9 @@
-export default {
+import { Theme, ColorOrNestedColorScale } from '@theme-ui/css'
+import { NestedThemeUICSSObject } from './'
+
+const styles: NestedThemeUICSSObject = {
 	root: {
-		fontSize: 'base',
+		fontSize: 1,
 		fontFamily: 'system-ui',
 		lineHeight: 'copy',
 		textRendering: 'optimizeLegibility',
@@ -11,10 +14,13 @@ export default {
 	a: {
 		color: 'text',
 		textDecoration: 'underline',
-		textDecorationColor: (theme) => theme.colors.accent,
+		textDecorationColor: (theme: Theme): ColorOrNestedColorScale =>
+			theme.colors.accent,
 
 		'&:hover': {
 			color: 'accent',
 		},
 	},
 }
+
+export default styles

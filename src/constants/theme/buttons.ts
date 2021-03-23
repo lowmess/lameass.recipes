@@ -1,4 +1,6 @@
-export default {
+import { NestedThemeUICSSObject } from './'
+
+const buttons: NestedThemeUICSSObject = {
 	'color-mode-toggle': {
 		display: 'inline-flex',
 		borderRadius: 0,
@@ -10,3 +12,5 @@ export default {
 		appearance: 'none',
 	},
 }
+
+export default buttons

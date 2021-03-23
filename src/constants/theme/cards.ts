@@ -1,4 +1,7 @@
-export default {
+import { Theme } from '@theme-ui/css'
+import { NestedThemeUICSSObject } from './'
+
+const cards: NestedThemeUICSSObject = {
 	primary: {
 		position: 'relative',
 		border: 1,
@@ -17,7 +20,7 @@ export default {
 			left: 0,
 			width: '100%',
 			height: '100%',
-			boxShadow: (theme) =>
+			boxShadow: (theme: Theme): string =>
 				`0 2rem 4rem -0.5rem ${theme.colors['card-shadow']}`,
 			opacity: 0,
 			transition: '0.2s ease opacity',
@@ -28,7 +31,7 @@ export default {
 		},
 
 		'&:hover': {
-			transform: (theme) => `translateY(-${theme.space[3]})`,
+			transform: (theme: Theme): string => `translateY(-${theme.space[3]})`,
 
 			'@media (prefers-reduced-motion: reduce), (any-hover: none)': {
 				transform: 'none',
@@ -40,3 +43,5 @@ export default {
 		},
 	},
 }
+
+export default cards

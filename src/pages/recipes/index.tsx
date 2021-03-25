@@ -8,7 +8,7 @@ import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
 import { getAllRecipes } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Recipe } from '../../types/Recipe'
+import { Recipe } from '../../../lib/types'
 
 const PUNC_RE = /[^ \w]/g
 
@@ -121,7 +121,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipes, searchData }) => {
 						height: '1.5rem',
 						appearance: 'none',
 						border: 0,
-						borderRadius: 'circle',
+						borderRadius: '100%',
 						padding: 0,
 						backgroundColor: 'rgba(0, 0, 0, 0.25)',
 						color: 'muted-text',

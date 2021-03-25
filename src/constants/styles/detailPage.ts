@@ -1,3 +1,4 @@
+import { ThemeUICSSObject } from 'theme-ui'
 import { links, paragraphs } from './nested'
 
 export {
@@ -6,7 +7,8 @@ export {
 	getStripedListItemStyles,
 } from './stripedList'
 
-export const swash = {
+export const swash: ThemeUICSSObject = {
+	position: 'relative',
 	marginY: [5, null, 6],
 
 	'.swash': {
@@ -23,7 +25,7 @@ export const swash = {
 	},
 }
 
-export const sidebar = {
+export const sidebar: ThemeUICSSObject = {
 	top: 3,
 	width: (theme) => [
 		`calc(100% + ${theme.space[3]} * 2)`,
@@ -38,7 +40,7 @@ export const sidebar = {
 	backgroundColor: 'muted',
 }
 
-export const info = {
+export const info: ThemeUICSSObject = {
 	alignItems: 'baseline',
 
 	svg: {
@@ -48,7 +50,7 @@ export const info = {
 	},
 }
 
-export const sectionListItem = {
+export const sectionListItem: ThemeUICSSObject = {
 	maxWidth: 'measure',
 	paddingY: 2,
 
@@ -59,7 +61,7 @@ export const sectionListItem = {
 	},
 }
 
-export const notes = {
+export const notes: ThemeUICSSObject = {
 	...paragraphs,
 
 	...links,
@@ -74,7 +76,7 @@ export const notes = {
 	},
 }
 
-export const printHidden = {
+export const printHidden: ThemeUICSSObject = {
 	'@media print': {
 		display: 'none',
 	},

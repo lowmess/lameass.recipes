@@ -1,3 +1,5 @@
+/* eslint-disable import/exports-last */
+import { Theme, ThemeUICSSObject } from '@theme-ui/css'
 // primitives
 import colors from './colors'
 import space from './space'
@@ -6,7 +8,6 @@ import { fonts, fontSizes, fontWeights, lineHeights } from './typography'
 import sizes from './sizes'
 // variants
 import styles from './styles'
-// import variants from './variants'
 import layout from './layout'
 import cards from './cards'
 import text from './text'
@@ -14,9 +15,13 @@ import links from './links'
 import buttons from './buttons'
 import forms from './forms'
 
+export type NestedThemeUICSSObject = {
+	[k: string]: ThemeUICSSObject
+}
+
 const breakpoints = ['30em', '40em', '64em']
 
-export default {
+const theme: Theme = {
 	// settings
 	useColorSchemeMediaQuery: true,
 	// primitives
@@ -32,7 +37,6 @@ export default {
 	sizes,
 	// variants
 	styles,
-	// variants,
 	layout,
 	cards,
 	text,
@@ -40,3 +44,5 @@ export default {
 	buttons,
 	forms,
 }
+
+export default theme

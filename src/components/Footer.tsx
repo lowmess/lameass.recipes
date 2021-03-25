@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { default as NextLink } from 'next/link'
 import { Box, Flex, Container, Link } from 'theme-ui'
-import { ThemeUIProps } from '../types/ThemeUIComponent'
+import { BoxProps } from '@theme-ui/components'
 
-const Footer: React.FC<ThemeUIProps> = ({ sx, ...props }) => (
+const Footer: React.FC<BoxProps> = ({ sx, ...props }) => (
 	<Box
 		as="footer"
 		sx={{ paddingY: 4, backgroundColor: 'muted', ...sx }}

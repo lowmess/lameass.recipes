@@ -2,7 +2,7 @@ import * as React from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { default as NextLink } from 'next/link'
-import { useThemeUI, Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
+import { Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
 import { Tag, Clock, Users } from 'phosphor-react'
 import minutesToHours from '../../../lib/minutesToHours'
 import Stack from '../../components/Stack'
@@ -11,14 +11,13 @@ import { getAllMeals, getMealBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
 import * as styles from '../../constants/styles/detailPage'
 import * as nestedStyles from '../../constants/styles/nested'
-import { Meal } from '../../types/Meal'
+import { Meal } from '../../../lib/types'
 
 interface MealPageProps {
 	meal: Meal
 }
 
 const MealPage: React.FC<MealPageProps> = ({ meal }) => {
-	const { colorMode } = useThemeUI()
 	const {
 		title,
 		description,
@@ -40,20 +39,13 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 				<meta name="description" content={metadata.description} />
 			</Head>
 
-			<Box
-				sx={{
-					// For some reason, TS doesn't seem to like the `position` declaration
-					// being moved to the external style object
-					position: 'relative',
-					...styles.swash,
-				}}
-			>
+			<Box sx={styles.swash}>
 				<img
 					width="512"
 					height="182"
 					alt=""
-					src={`/images/recipe-swash-${colorMode}.png`}
-					srcSet={`/images/recipe-swash-${colorMode}@2x.png 2x`}
+					src={`/images/recipe-swash.png`}
+					srcSet={`/images/recipe-swash@2x.png 2x`}
 					className="swash"
 				/>
 
@@ -216,7 +208,9 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const meal = await getMealBySlug(params.slug)
+	const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug
+
+	const meal = await getMealBySlug(slug)
 
 	return {
 		props: { meal },

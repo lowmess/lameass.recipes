@@ -2,7 +2,7 @@ import * as React from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { default as NextLink } from 'next/link'
-import { useThemeUI, Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
+import { Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
 import { FolderSimple, Tag, Clock, Users, Hash } from 'phosphor-react'
 import minutesToHours from '../../../lib/minutesToHours'
 import Stack from '../../components/Stack'
@@ -12,14 +12,13 @@ import Highlight from '../../components/Highlight'
 import { getAllRecipes, getRecipeBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
 import * as styles from '../../constants/styles/detailPage'
-import { Recipe } from '../../types/Recipe'
+import { Recipe } from '../../../lib/types'
 
 interface RecipePageProps {
 	recipe: Recipe
 }
 
 const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
-	const { colorMode } = useThemeUI()
 	const {
 		title,
 		prepTime,
@@ -58,20 +57,13 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 				<meta name="description" content={metadata.description} />
 			</Head>
 
-			<Box
-				sx={{
-					// For some reason, TS doesn't seem to like the `position` declaration
-					// being moved to the external style object
-					position: 'relative',
-					...styles.swash,
-				}}
-			>
+			<Box sx={styles.swash}>
 				<img
 					width="512"
 					height="182"
 					alt=""
-					src={`/images/recipe-swash-${colorMode}.png`}
-					srcSet={`/images/recipe-swash-${colorMode}@2x.png 2x`}
+					src={`/images/recipe-swash.png`}
+					srcSet={`/images/recipe-swash@2x.png 2x`}
 					className="swash"
 				/>
 
@@ -279,7 +271,9 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const recipe = await getRecipeBySlug(params.slug)
+	const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug
+
+	const recipe = await getRecipeBySlug(slug)
 
 	return {
 		props: { recipe },

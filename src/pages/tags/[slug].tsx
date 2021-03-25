@@ -6,7 +6,7 @@ import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
 import { getAllTags, getTagBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Tag } from '../../types/Recipe'
+import { Tag } from '../../../lib/types'
 
 interface TagPageProps {
 	tag: Tag
@@ -40,7 +40,9 @@ const TagPage: React.FC<TagPageProps> = ({ tag }) => (
 )
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const tag = await getTagBySlug(params.slug)
+	const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug
+
+	const tag = await getTagBySlug(slug)
 
 	return {
 		props: { tag },

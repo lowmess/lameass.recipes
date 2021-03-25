@@ -1,7 +1,8 @@
 import smartypants from './smartypants'
 import mdToHTML from './markdown'
+import { Recipe } from './types'
 
-const formatRecipe = (recipe) => {
+const formatRecipe = (recipe: Recipe): Recipe => {
 	const equipment = recipe.equipment
 		? recipe.equipment.map((item) => mdToHTML(item, { inline: true }))
 		: []

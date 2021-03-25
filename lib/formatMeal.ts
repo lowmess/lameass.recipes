@@ -1,7 +1,12 @@
 import smartypants from './smartypants'
 import mdToHTML from './markdown'
+import { Meal, Recipe } from './types'
 
-const formatMeal = (meal) => {
+interface RawMeal extends Meal {
+	recipes: Recipe[]
+}
+
+const formatMeal = (meal: RawMeal): Meal => {
 	const recipes = meal.recipes.map((recipe) => ({
 		_id: recipe._id,
 		title: smartypants(recipe.title),

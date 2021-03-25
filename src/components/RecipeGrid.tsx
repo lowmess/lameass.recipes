@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { Grid } from 'theme-ui'
-import { ThemeUIProps } from '../types/ThemeUIComponent'
-import { Recipe } from '../types/Recipe'
+import { GridProps } from '@theme-ui/components'
+import { Recipe } from '../../lib/types'
 import RecipePreview from './RecipePreview'
 
-interface RecipeGridProps extends ThemeUIProps {
+interface RecipeGridProps extends GridProps {
 	recipes: Recipe[]
 	level?: 'h2' | 'h3' | 'h4' | 'h5' | 'h5'
 }

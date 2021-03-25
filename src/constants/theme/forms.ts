@@ -1,4 +1,7 @@
-const input = {
+import { ThemeUICSSObject } from '@theme-ui/css'
+import { NestedThemeUICSSObject } from './'
+
+const input: ThemeUICSSObject = {
 	border: 0,
 	borderRadius: 2,
 	backgroundColor: 'muted',
@@ -9,7 +12,7 @@ const input = {
 	},
 }
 
-export default {
+const forms: NestedThemeUICSSObject = {
 	label: {
 		fontSize: 2,
 		fontFamily: 'system-ui',
@@ -29,3 +32,5 @@ export default {
 		backgroundColor: 'transparent',
 	},
 }
+
+export default forms

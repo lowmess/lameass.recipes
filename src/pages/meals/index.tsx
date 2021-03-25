@@ -7,7 +7,7 @@ import Stack from '../../components/Stack'
 import MealPreview from '../../components/MealPreview'
 import { getAllMeals } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Meal } from '../../types/Meal'
+import { Meal } from '../../../lib/types'
 
 interface MealPageProps {
 	meals: Meal[]

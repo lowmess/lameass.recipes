@@ -6,7 +6,7 @@ import { Grid, Text, Card, Heading, Link } from 'theme-ui'
 import Highlight from '../../components/Highlight'
 import { getAllCategories } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Category } from '../../types/Recipe'
+import { Category } from '../../../lib/types'
 
 interface CategoryPreviewProps {
 	category: Category

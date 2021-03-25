@@ -9,8 +9,7 @@ import MealPreview from '../components/MealPreview'
 import RecipeGrid from '../components/RecipeGrid'
 import metadata from '../constants/metadata.json'
 import { getHomepage } from '../../lib/api'
-import { Recipe } from '../types/Recipe'
-import { Meal } from '../types/Meal'
+import { Recipe, Meal } from '../../lib/types'
 
 interface HomepageProps {
 	headline: string

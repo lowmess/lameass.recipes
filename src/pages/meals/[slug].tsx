@@ -11,7 +11,7 @@ import { getAllMeals, getMealBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
 import * as styles from '../../constants/styles/detailPage'
 import * as nestedStyles from '../../constants/styles/nested'
-import { Meal } from '../../types/Meal'
+import { Meal } from '../../../lib/types'
 
 interface MealPageProps {
 	meal: Meal
@@ -209,7 +209,9 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const meal = await getMealBySlug(params.slug)
+	const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug
+
+	const meal = await getMealBySlug(slug)
 
 	return {
 		props: { meal },

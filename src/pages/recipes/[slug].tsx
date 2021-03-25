@@ -12,7 +12,7 @@ import Highlight from '../../components/Highlight'
 import { getAllRecipes, getRecipeBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
 import * as styles from '../../constants/styles/detailPage'
-import { Recipe } from '../../types/Recipe'
+import { Recipe } from '../../../lib/types'
 
 interface RecipePageProps {
 	recipe: Recipe
@@ -271,7 +271,9 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const recipe = await getRecipeBySlug(params.slug)
+	const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug
+
+	const recipe = await getRecipeBySlug(slug)
 
 	return {
 		props: { recipe },

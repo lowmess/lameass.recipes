@@ -7,7 +7,7 @@ import Highlight from '../../components/Highlight'
 import Inline from '../../components/Inline'
 import { getAllTags } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Tag } from '../../types/Recipe'
+import { Tag } from '../../../lib/types'
 
 interface TagsPageProps {
 	tags: Tag[]

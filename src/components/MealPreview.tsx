@@ -6,7 +6,7 @@ import { Clock } from 'phosphor-react'
 import minutesToHours from '../../lib/minutesToHours'
 import * as listStyles from '../constants/styles/stripedList'
 import * as nestedStyles from '../constants/styles/nested'
-import { Meal } from '../types/Meal'
+import { Meal } from '../../lib/types'
 import Inline from './Inline'
 
 type level = 'h2' | 'h3' | 'h4' | 'h5' | 'h5'

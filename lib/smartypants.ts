@@ -1,6 +1,6 @@
 // Not really smartypants. Just a small subset of that functionality
 
-const smartypants = (str) => {
+const smartypants = (str: string): string => {
 	// replace primes in contractions with apostrophes
 	const aposRe = /(\w)[']{1}(\w)/g
 	// replace '--' with em dash

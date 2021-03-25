@@ -5,7 +5,7 @@ import { CardProps } from '@theme-ui/components'
 import { Clock } from 'phosphor-react'
 import unwidow from '../../lib/unwidow'
 import minutesToHours from '../../lib/minutesToHours'
-import { Recipe } from '../types/Recipe'
+import { Recipe } from '../../lib/types'
 import Inline from './Inline'
 
 interface RecipePreviewProps extends CardProps {

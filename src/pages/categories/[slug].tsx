@@ -6,7 +6,7 @@ import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
 import { getAllCategories, getCategoryBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Category } from '../../types/Recipe'
+import { Category } from '../../../lib/types'
 
 interface CategoryPageProps {
 	category: Category
@@ -52,7 +52,9 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ category }) => (
 )
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const category = await getCategoryBySlug(params.slug)
+	const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug
+
+	const category = await getCategoryBySlug(slug)
 
 	return {
 		props: { category },

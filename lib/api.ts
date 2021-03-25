@@ -4,6 +4,7 @@ import smartypants from './smartypants'
 import mdToHTML from './markdown'
 import formatRecipe from './formatRecipe'
 import formatMeal from './formatMeal'
+import { Category, Meal, Recipe, Tag } from './types'
 
 const client = sanityClient({
 	dataset: 'production',
@@ -31,7 +32,13 @@ const mealFields = `
 	recipes[]->{${recipeFields}}
 `
 
-export const getHomepage = async () => {
+type Homepage = {
+	headline: string
+	featuredMeal: Meal
+	recentRecipes: Recipe[]
+}
+
+export const getHomepage = async (): Promise<Homepage> => {
 	const data = await client.fetch(`
 		*[_type == 'homepage'] {
 			headline,
@@ -47,7 +54,12 @@ export const getHomepage = async () => {
 	}
 }
 
-export const getAboutPage = async () => {
+type AboutPage = {
+	title: string
+	content: string
+}
+
+export const getAboutPage = async (): Promise<AboutPage> => {
 	const data = await client.fetch(`
 		*[_type == 'about_page'] {
 			title,
@@ -61,7 +73,7 @@ export const getAboutPage = async () => {
 	}
 }
 
-export const getAllRecipes = async () => {
+export const getAllRecipes = async (): Promise<Recipe[]> => {
 	const data = await client.fetch(`
 		*[_type == 'recipe'] | order(_createdAt desc) {
 			${recipeFields},
@@ -75,7 +87,7 @@ export const getAllRecipes = async () => {
 	}))
 }
 
-export const getRecipeBySlug = async (slug) => {
+export const getRecipeBySlug = async (slug: string): Promise<Recipe> => {
 	const data = await client.fetch(
 		`
 			*[_type == 'recipe' && slug.current == $slug] {
@@ -95,7 +107,7 @@ export const getRecipeBySlug = async (slug) => {
 	return formatRecipe(data)
 }
 
-export const getAllMeals = async () => {
+export const getAllMeals = async (): Promise<Meal[]> => {
 	const data = await client.fetch(`
 		*[_type == 'meal'] | order(_createdAt desc) {
 			${mealFields}
@@ -105,7 +117,7 @@ export const getAllMeals = async () => {
 	return data.map(formatMeal)
 }
 
-export const getMealBySlug = async (slug) => {
+export const getMealBySlug = async (slug: string): Promise<Meal> => {
 	const data = await client.fetch(
 		`
 			*[_type == 'meal' && slug.current == $slug] {
@@ -120,7 +132,7 @@ export const getMealBySlug = async (slug) => {
 	return formatMeal(data)
 }
 
-export const getAllCategories = async () => {
+export const getAllCategories = async (): Promise<Category[]> => {
 	const data = await client.fetch(`
 		*[_type == 'category'] | order(title) {
 			_id,
@@ -133,7 +145,7 @@ export const getAllCategories = async () => {
 	return data
 }
 
-export const getCategoryBySlug = async (slug) => {
+export const getCategoryBySlug = async (slug: string): Promise<Category> => {
 	const data = await client.fetch(
 		`
 			*[_type == 'category' && slug.current == $slug] {
@@ -153,7 +165,7 @@ export const getCategoryBySlug = async (slug) => {
 	}
 }
 
-export const getAllTags = async () => {
+export const getAllTags = async (): Promise<Tag[]> => {
 	const data = await client.fetch(`
 		*[_type == 'tag'] | order(title) {
 			_id,
@@ -165,7 +177,7 @@ export const getAllTags = async () => {
 	return data
 }
 
-export const getTagBySlug = async (slug) => {
+export const getTagBySlug = async (slug: string): Promise<Tag> => {
 	const data = await client.fetch(
 		`
 			*[_type == 'tag' && slug.current == $slug] {

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { default as NextLink } from 'next/link'
-import { useThemeUI, Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
+import { Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
 import { FolderSimple, Tag, Clock, Users, Hash } from 'phosphor-react'
 import minutesToHours from '../../../lib/minutesToHours'
 import Stack from '../../components/Stack'
@@ -19,7 +19,6 @@ interface RecipePageProps {
 }
 
 const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
-	const { colorMode } = useThemeUI()
 	const {
 		title,
 		prepTime,
@@ -58,20 +57,13 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 				<meta name="description" content={metadata.description} />
 			</Head>
 
-			<Box
-				sx={{
-					// For some reason, TS doesn't seem to like the `position` declaration
-					// being moved to the external style object
-					position: 'relative',
-					...styles.swash,
-				}}
-			>
+			<Box sx={styles.swash}>
 				<img
 					width="512"
 					height="182"
 					alt=""
-					src={`/images/recipe-swash-${colorMode}.png`}
-					srcSet={`/images/recipe-swash-${colorMode}@2x.png 2x`}
+					src={`/images/recipe-swash.png`}
+					srcSet={`/images/recipe-swash@2x.png 2x`}
 					className="swash"
 				/>
 

@@ -1,6 +1,8 @@
+import { ThemeUICSSObject } from 'theme-ui'
+import { ResponsiveStyleValue } from '@theme-ui/css'
 import { links } from './nested'
 
-export const stripedList = {
+export const stripedList: ThemeUICSSObject = {
 	paddingLeft: 0,
 	listStyleType: 'none',
 
@@ -12,7 +14,7 @@ export const stripedList = {
 	},
 }
 
-export const stripedListItem = {
+export const stripedListItem: ThemeUICSSObject = {
 	width: (theme) => [
 		`calc(100% + ${theme.space[2]} * 2)`,
 		`calc(100% + ${theme.space[3]} * 2)`,
@@ -27,7 +29,9 @@ export const stripedListItem = {
 	},
 }
 
-export const getStripedListItemStyles = (stripeColor) => ({
+export const getStripedListItemStyles = (
+	stripeColor: ResponsiveStyleValue<string>
+): ThemeUICSSObject => ({
 	...stripedListItem,
 
 	'&:nth-of-type(even)': {

@@ -4,14 +4,14 @@ import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
 import { Tag, Clock, Users } from 'phosphor-react'
-import minutesToHours from '../../../lib/minutesToHours'
+import minutesToHours from '../../utils/minutesToHours'
 import Stack from '../../components/Stack'
 import Inline from '../../components/Inline'
-import { getAllMeals, getMealBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
 import * as styles from '../../constants/styles/detailPage'
 import * as nestedStyles from '../../constants/styles/nested'
-import { Meal } from '../../../lib/types'
+import { getAllMeals, getMealBySlug } from '../../api'
+import { Meal } from '../../types/api'
 
 interface MealPageProps {
 	meal: Meal

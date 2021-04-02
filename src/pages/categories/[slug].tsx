@@ -4,9 +4,9 @@ import Head from 'next/head'
 import { Flex, Text, Heading } from 'theme-ui'
 import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
-import { getAllCategories, getCategoryBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Category } from '../../../lib/types'
+import { getAllCategories, getCategoryBySlug } from '../../api'
+import { Category } from '../../types/api'
 
 interface CategoryPageProps {
 	category: Category

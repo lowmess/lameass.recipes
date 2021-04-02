@@ -3,11 +3,11 @@ import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { Text, Heading, Link } from 'theme-ui'
-import { getAllRecipes } from '../../lib/api'
 import Highlight from '../components/Highlight'
 import RecipeGrid from '../components/RecipeGrid'
 import metadata from '../constants/metadata.json'
-import { Recipe } from '../../lib/types'
+import { getAllRecipes } from '../api'
+import { Recipe } from '../types/api'
 
 interface ErrorPageProps {
 	recipes: Recipe[]

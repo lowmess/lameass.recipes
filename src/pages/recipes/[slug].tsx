@@ -4,15 +4,15 @@ import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
 import { FolderSimple, Tag, Clock, Users, Hash } from 'phosphor-react'
-import minutesToHours from '../../../lib/minutesToHours'
+import minutesToHours from '../../utils/minutesToHours'
 import Stack from '../../components/Stack'
 import Inline from '../../components/Inline'
 import RecipeGrid from '../../components/RecipeGrid'
 import Highlight from '../../components/Highlight'
-import { getAllRecipes, getRecipeBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
 import * as styles from '../../constants/styles/detailPage'
-import { Recipe } from '../../../lib/types'
+import { getAllRecipes, getRecipeBySlug } from '../../api'
+import { Recipe } from '../../types/api'
 
 interface RecipePageProps {
 	recipe: Recipe

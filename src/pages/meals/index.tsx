@@ -5,9 +5,9 @@ import { Heading } from 'theme-ui'
 import Highlight from '../../components/Highlight'
 import Stack from '../../components/Stack'
 import MealPreview from '../../components/MealPreview'
-import { getAllMeals } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Meal } from '../../../lib/types'
+import { getAllMeals } from '../../api'
+import { Meal } from '../../types/api'
 
 interface MealPageProps {
 	meals: Meal[]

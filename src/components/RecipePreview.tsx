@@ -3,9 +3,9 @@ import { default as NextLink } from 'next/link'
 import { Box, Flex, Card, Heading, Text, Link } from 'theme-ui'
 import { CardProps } from '@theme-ui/components'
 import { Clock } from 'phosphor-react'
-import unwidow from '../../lib/unwidow'
-import minutesToHours from '../../lib/minutesToHours'
-import { Recipe } from '../../lib/types'
+import unwidow from '../utils/unwidow'
+import minutesToHours from '../utils/minutesToHours'
+import { Recipe } from '../types/api'
 import Inline from './Inline'
 
 interface RecipePreviewProps extends CardProps {

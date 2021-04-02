@@ -1,12 +1,13 @@
 /* eslint-disable import/exports-last */
 import sanityClient from '@sanity/client'
-import smartypants from './smartypants'
-import mdToHTML from './markdown'
+import smartypants from '../utils/smartypants'
+import mdToHTML from '../utils/markdown'
+import { Category, Meal, Recipe, Tag } from '../types/api'
 import formatRecipe from './formatRecipe'
 import formatMeal from './formatMeal'
-import { Category, Meal, Recipe, Tag } from './types'
 
 const client = sanityClient({
+	apiVersion: '2021-03-01',
 	dataset: 'production',
 	projectId: process.env.SANITY_PROJECT_ID,
 	useCdn: process.env.NODE_ENV === 'production',

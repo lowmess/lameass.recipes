@@ -8,8 +8,8 @@ import Stack from '../components/Stack'
 import MealPreview from '../components/MealPreview'
 import RecipeGrid from '../components/RecipeGrid'
 import metadata from '../constants/metadata.json'
-import { getHomepage } from '../../lib/api'
-import { Recipe, Meal } from '../../lib/types'
+import { getHomepage } from '../api'
+import { Recipe, Meal } from '../types/api'
 
 interface HomepageProps {
 	headline: string

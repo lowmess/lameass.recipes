@@ -1,6 +1,6 @@
-import smartypants from './smartypants'
-import mdToHTML from './markdown'
-import { Meal, Recipe } from './types'
+import smartypants from '../utils/smartypants'
+import mdToHTML from '../utils/markdown'
+import { Meal, Recipe } from '../types/api'
 
 interface RawMeal extends Meal {
 	recipes: Recipe[]

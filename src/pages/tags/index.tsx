@@ -5,9 +5,9 @@ import { default as NextLink } from 'next/link'
 import { Heading, Link } from 'theme-ui'
 import Highlight from '../../components/Highlight'
 import Inline from '../../components/Inline'
-import { getAllTags } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Tag } from '../../../lib/types'
+import { getAllTags } from '../../api'
+import { Tag } from '../../types/api'
 
 interface TagsPageProps {
 	tags: Tag[]

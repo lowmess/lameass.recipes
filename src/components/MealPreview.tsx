@@ -34,7 +34,7 @@ const MealPreview: React.FC<MealPreviewProps> = ({
 
 	const totalTime = prepTime + cookTime
 
-	const [level, nestedLevel] = levels
+	const [headingLevel, nestedHeadingLevel] = levels
 
 	return (
 		<Card {...props}>
@@ -69,7 +69,7 @@ const MealPreview: React.FC<MealPreviewProps> = ({
 					}}
 				>
 					<Heading
-						as={level}
+						as={headingLevel}
 						variant="meal-name"
 						sx={{
 							// match baseline to "Recipes" in sidebar:
@@ -139,7 +139,7 @@ const MealPreview: React.FC<MealPreviewProps> = ({
 						backgroundColor: 'muted',
 					}}
 				>
-					<Heading as={nestedLevel} variant="section-heading">
+					<Heading as={nestedHeadingLevel} variant="section-heading">
 						Recipes
 					</Heading>
 

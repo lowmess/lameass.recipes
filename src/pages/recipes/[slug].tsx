@@ -177,7 +177,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 							}}
 						>
 							{ingredients.length > 0 && (
-								<React.Fragment>
+								<div>
 									<Heading variant="recipe-heading" mb={3}>
 										Ingredients
 									</Heading>
@@ -194,11 +194,11 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 											/>
 										))}
 									</Text>
-								</React.Fragment>
+								</div>
 							)}
 
 							{sections.length > 0 && (
-								<React.Fragment>
+								<div>
 									<Heading
 										variant="recipe-heading"
 										mb={sections.length > 1 ? 4 : 3}
@@ -208,7 +208,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 
 									<Stack gap={4}>
 										{sections.map((section) => (
-											<React.Fragment key={section._key}>
+											<div key={section._key}>
 												{section.title && sections.length > 1 && (
 													<Heading variant="section-heading" as="h3">
 														{section.title}
@@ -227,7 +227,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 														/>
 													))}
 												</Box>
-											</React.Fragment>
+											</div>
 										))}
 
 										{notes && (
@@ -243,7 +243,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 											</Box>
 										)}
 									</Stack>
-								</React.Fragment>
+								</div>
 							)}
 						</Stack>
 					</Grid>

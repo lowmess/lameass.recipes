@@ -175,7 +175,7 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 
 									<Stack gap={4}>
 										{sections.map((section) => (
-											<React.Fragment key={section._key}>
+											<div key={section._key}>
 												{section.title && sections.length > 1 && (
 													<Heading variant="section-heading" as="h3">
 														{section.title}
@@ -194,7 +194,7 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 														/>
 													))}
 												</Box>
-											</React.Fragment>
+											</div>
 										))}
 									</Stack>
 								</React.Fragment>

@@ -22,8 +22,6 @@ export type NestedThemeUICSSObject = {
 const breakpoints = ['30em', '40em', '64em']
 
 const theme: Theme = {
-	// settings
-	useColorSchemeMediaQuery: true,
 	// primitives
 	breakpoints,
 	colors,

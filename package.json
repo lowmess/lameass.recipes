@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@types/node": "^15.0.1",
-    "@types/react": "^17.0.4",
+    "@types/react": "^17.0.5",
     "eslint": "^7.25.0",
     "eslint-config-lowmess": "^4.1.4",
     "husky": "^6.0.0",

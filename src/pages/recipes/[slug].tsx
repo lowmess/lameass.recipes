@@ -5,8 +5,7 @@ import { default as NextLink } from 'next/link'
 import { Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
 import { FolderSimple, Tag, Clock, Users, Hash } from 'phosphor-react'
 import minutesToHours from '../../utils/minutesToHours'
-import Stack from '../../components/Stack'
-import Inline from '../../components/Inline'
+import { VStack, HStack } from '../../components/Stack'
 import RecipeGrid from '../../components/RecipeGrid'
 import Highlight from '../../components/Highlight'
 import metadata from '../../constants/metadata.json'
@@ -84,7 +83,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 									Info
 								</Heading>
 
-								<Stack gap={2}>
+								<VStack gap={2}>
 									{(prepTime || cookTime) && (
 										<Flex sx={styles.info}>
 											<Clock />
@@ -130,7 +129,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 										<Flex sx={{ ...styles.info, ...styles.printHidden }}>
 											<Tag />
 
-											<Inline gap={2} ml={3}>
+											<HStack gap={2} ml={3}>
 												{tags.map((tag) => (
 													<NextLink
 														key={tag._id}
@@ -142,10 +141,10 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 														</Link>
 													</NextLink>
 												))}
-											</Inline>
+											</HStack>
 										</Flex>
 									)}
-								</Stack>
+								</VStack>
 
 								{equipment.length > 0 && (
 									<React.Fragment>
@@ -170,7 +169,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 							</Box>
 						</div>
 
-						<Stack
+						<VStack
 							gap={[4, null, 5]}
 							sx={{
 								fontSize: [null, null, null, 2],
@@ -206,7 +205,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 										Directions
 									</Heading>
 
-									<Stack gap={4}>
+									<VStack gap={4}>
 										{sections.map((section) => (
 											<div key={section._key}>
 												{section.title && sections.length > 1 && (
@@ -242,10 +241,10 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 												/>
 											</Box>
 										)}
-									</Stack>
+									</VStack>
 								</div>
 							)}
-						</Stack>
+						</VStack>
 					</Grid>
 
 					{similarRecipes.length > 0 && (

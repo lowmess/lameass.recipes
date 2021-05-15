@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { Heading, Link } from 'theme-ui'
 import Highlight from '../../components/Highlight'
-import Inline from '../../components/Inline'
+import { HStack } from '../../components/Stack'
 import metadata from '../../constants/metadata.json'
 import { getAllTags } from '../../api'
 import { Tag } from '../../types/api'
@@ -24,7 +24,7 @@ const TagsPage: React.FC<TagsPageProps> = ({ tags }) => (
 			<Highlight>All tags</Highlight>
 		</Heading>
 
-		<Inline gap={3} pb={5}>
+		<HStack gap={3} pb={5}>
 			{tags.map(({ _id, title, slug }) => (
 				<NextLink key={_id} href={`/tags/${slug}`} passHref>
 					<Link variant="tag" sx={{ fontSize: 2 }}>
@@ -32,7 +32,7 @@ const TagsPage: React.FC<TagsPageProps> = ({ tags }) => (
 					</Link>
 				</NextLink>
 			))}
-		</Inline>
+		</HStack>
 	</React.Fragment>
 )
 

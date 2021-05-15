@@ -7,7 +7,7 @@ import minutesToHours from '../utils/minutesToHours'
 import * as listStyles from '../constants/styles/stripedList'
 import * as nestedStyles from '../constants/styles/nested'
 import { Meal } from '../types/api'
-import Inline from './Inline'
+import { HStack } from './Stack'
 
 type level = 'h2' | 'h3' | 'h4' | 'h5' | 'h5'
 
@@ -101,13 +101,13 @@ const MealPreview: React.FC<MealPreviewProps> = ({
 
 					<Box mt="auto">
 						{tags.length > 0 && (
-							<Inline gap={2}>
+							<HStack gap={2}>
 								{tags.map((tag) => (
 									<NextLink key={tag._id} href={`/tags/${tag.slug}`} passHref>
 										<Link variant="tag">{tag.title}</Link>
 									</NextLink>
 								))}
-							</Inline>
+							</HStack>
 						)}
 
 						{totalTime > 0 && (

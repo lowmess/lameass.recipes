@@ -6,7 +6,7 @@ import { Clock } from 'phosphor-react'
 import unwidow from '../utils/unwidow'
 import minutesToHours from '../utils/minutesToHours'
 import { Recipe } from '../types/api'
-import Inline from './Inline'
+import { HStack } from './Stack'
 
 interface RecipePreviewProps extends CardProps {
 	recipe: Recipe
@@ -79,13 +79,13 @@ const RecipePreview: React.FC<RecipePreviewProps> = ({
 
 				<Box mt="auto">
 					{tags.length > 0 && (
-						<Inline gap={2}>
+						<HStack gap={2}>
 							{tags.map((tag) => (
 								<NextLink key={tag._id} href={`/tags/${tag.slug}`} passHref>
 									<Link variant="tag">{tag.title}</Link>
 								</NextLink>
 							))}
-						</Inline>
+						</HStack>
 					)}
 
 					{totalTime > 0 && (

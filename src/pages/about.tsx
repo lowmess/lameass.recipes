@@ -2,9 +2,9 @@ import * as React from 'react'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { Text, Heading, Link } from 'theme-ui'
-import { getAboutPage } from '../../lib/api'
 import Highlight from '../components/Highlight'
 import metadata from '../constants/metadata.json'
+import { getAboutPage } from '../api'
 
 interface AboutPageProps {
 	title: string

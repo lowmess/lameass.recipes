@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Grid } from 'theme-ui'
 import { GridProps } from '@theme-ui/components'
-import { Recipe } from '../../lib/types'
+import { Recipe } from '../types/api'
 import RecipePreview from './RecipePreview'
 
 interface RecipeGridProps extends GridProps {

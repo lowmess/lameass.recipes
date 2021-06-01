@@ -4,9 +4,9 @@ import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { Grid, Text, Card, Heading, Link } from 'theme-ui'
 import Highlight from '../../components/Highlight'
-import { getAllCategories } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Category } from '../../../lib/types'
+import { getAllCategories } from '../../api'
+import { Category } from '../../types/api'
 
 interface CategoryPreviewProps {
 	category: Category

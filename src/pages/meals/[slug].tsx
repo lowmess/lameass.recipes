@@ -4,14 +4,13 @@ import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
 import { Tag, Clock, Users } from 'phosphor-react'
-import minutesToHours from '../../../lib/minutesToHours'
-import Stack from '../../components/Stack'
-import Inline from '../../components/Inline'
-import { getAllMeals, getMealBySlug } from '../../../lib/api'
+import minutesToHours from '../../utils/minutesToHours'
+import { VStack, HStack } from '../../components/Stack'
 import metadata from '../../constants/metadata.json'
 import * as styles from '../../constants/styles/detailPage'
 import * as nestedStyles from '../../constants/styles/nested'
-import { Meal } from '../../../lib/types'
+import { getAllMeals, getMealBySlug } from '../../api'
+import { Meal } from '../../types/api'
 
 interface MealPageProps {
 	meal: Meal
@@ -82,7 +81,7 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 									Info
 								</Heading>
 
-								<Stack gap={2}>
+								<VStack gap={2}>
 									{(prepTime || cookTime) && (
 										<Flex sx={styles.info}>
 											<Clock />
@@ -118,7 +117,7 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 										<Flex sx={{ ...styles.info, ...styles.printHidden }}>
 											<Tag />
 
-											<Inline gap={2} ml={3}>
+											<HStack gap={2} ml={3}>
 												{tags.map((tag) => (
 													<NextLink
 														key={tag._id}
@@ -130,10 +129,10 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 														</Link>
 													</NextLink>
 												))}
-											</Inline>
+											</HStack>
 										</Flex>
 									)}
-								</Stack>
+								</VStack>
 
 								{recipes.length > 0 && (
 									<React.Fragment>
@@ -173,9 +172,9 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 										Directions
 									</Heading>
 
-									<Stack gap={4}>
+									<VStack gap={4}>
 										{sections.map((section) => (
-											<React.Fragment key={section._key}>
+											<div key={section._key}>
 												{section.title && sections.length > 1 && (
 													<Heading variant="section-heading" as="h3">
 														{section.title}
@@ -194,9 +193,9 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 														/>
 													))}
 												</Box>
-											</React.Fragment>
+											</div>
 										))}
-									</Stack>
+									</VStack>
 								</React.Fragment>
 							)}
 						</Box>

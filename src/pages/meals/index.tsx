@@ -3,11 +3,11 @@ import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { Heading } from 'theme-ui'
 import Highlight from '../../components/Highlight'
-import Stack from '../../components/Stack'
+import { VStack } from '../../components/Stack'
 import MealPreview from '../../components/MealPreview'
-import { getAllMeals } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Meal } from '../../../lib/types'
+import { getAllMeals } from '../../api'
+import { Meal } from '../../types/api'
 
 interface MealPageProps {
 	meals: Meal[]
@@ -24,11 +24,11 @@ const MealPage: React.FC<MealPageProps> = ({ meals }) => (
 			<Highlight>All meals</Highlight>
 		</Heading>
 
-		<Stack gap={[4, null, null, 5]} mb={5}>
+		<VStack gap={[4, null, null, 5]} mb={5}>
 			{meals.map((meal) => (
 				<MealPreview key={meal._id} meal={meal} levels={['h2', 'h3']} />
 			))}
-		</Stack>
+		</VStack>
 	</React.Fragment>
 )
 

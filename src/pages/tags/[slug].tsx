@@ -4,9 +4,9 @@ import Head from 'next/head'
 import { Text, Heading } from 'theme-ui'
 import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
-import { getAllTags, getTagBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Tag } from '../../../lib/types'
+import { getAllTags, getTagBySlug } from '../../api'
+import { Tag } from '../../types/api'
 
 interface TagPageProps {
 	tag: Tag

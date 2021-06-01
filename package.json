@@ -16,26 +16,26 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@reach/visually-hidden": "^0.13.2",
-    "@sanity/client": "^2.2.6",
-    "next": "^10.0.9",
+    "@reach/visually-hidden": "^0.15.0",
+    "@sanity/client": "^2.10.5",
+    "next": "^10.2.3",
     "phosphor-react": "^1.2.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "remark": "^13.0.0",
     "remark-html": "^13.0.1",
-    "theme-ui": "^0.6.0"
+    "theme-ui": "^0.9.1"
   },
   "devDependencies": {
-    "@types/node": "^14.14.35",
-    "@types/react": "^17.0.3",
-    "eslint": "^7.22.0",
-    "eslint-config-lowmess": "^4.0.0",
-    "husky": "^5.2.0",
-    "lint-staged": "^10.5.4",
-    "prettier": "^2.2.1",
+    "@types/node": "^15.6.1",
+    "@types/react": "^17.0.8",
+    "eslint": "^7.27.0",
+    "eslint-config-lowmess": "^4.1.4",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.0",
     "prettier-config-lowmess": "^0.3.0",
-    "typescript": "^4.2.3"
+    "typescript": "^4.3.2"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

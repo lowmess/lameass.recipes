@@ -4,12 +4,12 @@ import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { Box, Flex, Heading, Link } from 'theme-ui'
 import { ArrowRight } from 'phosphor-react'
-import Stack from '../components/Stack'
+import { VStack } from '../components/Stack'
 import MealPreview from '../components/MealPreview'
 import RecipeGrid from '../components/RecipeGrid'
 import metadata from '../constants/metadata.json'
-import { getHomepage } from '../../lib/api'
-import { Recipe, Meal } from '../../lib/types'
+import { getHomepage } from '../api'
+import { Recipe, Meal } from '../types/api'
 
 interface HomepageProps {
 	headline: string
@@ -38,9 +38,10 @@ const Homepage: React.FC<HomepageProps> = ({
 				backgroundPosition: '20% center',
 				backgroundSize: 'contain',
 
-				'@media (min-width: 44em), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)': {
-					backgroundImage: `url(/images/headline-swash@2x.png)`,
-				},
+				'@media (min-width: 44em), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)':
+					{
+						backgroundImage: `url(/images/headline-swash@2x.png)`,
+					},
 
 				'@media (min-width: 64em)': {
 					backgroundPosition: '25%',
@@ -52,7 +53,7 @@ const Homepage: React.FC<HomepageProps> = ({
 			</Heading>
 		</Box>
 
-		<Stack gap={[5, null, 6]} my={[5, 6]}>
+		<VStack gap={[5, null, 6]} my={[5, 6]}>
 			{featuredMeal && (
 				<Box>
 					<Flex
@@ -94,7 +95,7 @@ const Homepage: React.FC<HomepageProps> = ({
 
 				<RecipeGrid mt={4} recipes={recentRecipes} />
 			</Box>
-		</Stack>
+		</VStack>
 	</React.Fragment>
 )
 

@@ -6,9 +6,9 @@ import { MagnifyingGlass, X } from 'phosphor-react'
 import { VisuallyHidden } from '@reach/visually-hidden'
 import Highlight from '../../components/Highlight'
 import RecipeGrid from '../../components/RecipeGrid'
-import { getAllRecipes } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
-import { Recipe } from '../../../lib/types'
+import { getAllRecipes } from '../../api'
+import { Recipe } from '../../types/api'
 
 const PUNC_RE = /[^ \w]/g
 

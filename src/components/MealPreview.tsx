@@ -3,11 +3,11 @@ import { default as NextLink } from 'next/link'
 import { Box, Flex, Grid, Text, Card, Heading, Link } from 'theme-ui'
 import { CardProps } from '@theme-ui/components'
 import { Clock } from 'phosphor-react'
-import minutesToHours from '../../lib/minutesToHours'
+import minutesToHours from '../utils/minutesToHours'
 import * as listStyles from '../constants/styles/stripedList'
 import * as nestedStyles from '../constants/styles/nested'
-import { Meal } from '../../lib/types'
-import Inline from './Inline'
+import { Meal } from '../types/api'
+import { HStack } from './Stack'
 
 type level = 'h2' | 'h3' | 'h4' | 'h5' | 'h5'
 
@@ -34,7 +34,7 @@ const MealPreview: React.FC<MealPreviewProps> = ({
 
 	const totalTime = prepTime + cookTime
 
-	const [level, nestedLevel] = levels
+	const [headingLevel, nestedHeadingLevel] = levels
 
 	return (
 		<Card {...props}>
@@ -69,7 +69,7 @@ const MealPreview: React.FC<MealPreviewProps> = ({
 					}}
 				>
 					<Heading
-						as={level}
+						as={headingLevel}
 						variant="meal-name"
 						sx={{
 							// match baseline to "Recipes" in sidebar:
@@ -101,13 +101,13 @@ const MealPreview: React.FC<MealPreviewProps> = ({
 
 					<Box mt="auto">
 						{tags.length > 0 && (
-							<Inline gap={2}>
+							<HStack gap={2}>
 								{tags.map((tag) => (
 									<NextLink key={tag._id} href={`/tags/${tag.slug}`} passHref>
 										<Link variant="tag">{tag.title}</Link>
 									</NextLink>
 								))}
-							</Inline>
+							</HStack>
 						)}
 
 						{totalTime > 0 && (
@@ -139,7 +139,7 @@ const MealPreview: React.FC<MealPreviewProps> = ({
 						backgroundColor: 'muted',
 					}}
 				>
-					<Heading as={nestedLevel} variant="section-heading">
+					<Heading as={nestedHeadingLevel} variant="section-heading">
 						Recipes
 					</Heading>
 

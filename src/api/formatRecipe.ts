@@ -1,6 +1,6 @@
-import smartypants from './smartypants'
-import mdToHTML from './markdown'
-import { Recipe } from './types'
+import smartypants from '../utils/smartypants'
+import mdToHTML from '../utils/markdown'
+import { Recipe } from '../types/api'
 
 const formatRecipe = (recipe: Recipe): Recipe => {
 	const equipment = recipe.equipment

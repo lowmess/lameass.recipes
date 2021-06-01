@@ -4,15 +4,14 @@ import Head from 'next/head'
 import { default as NextLink } from 'next/link'
 import { Box, Grid, Flex, Text, Heading, Link } from 'theme-ui'
 import { FolderSimple, Tag, Clock, Users, Hash } from 'phosphor-react'
-import minutesToHours from '../../../lib/minutesToHours'
-import Stack from '../../components/Stack'
-import Inline from '../../components/Inline'
+import minutesToHours from '../../utils/minutesToHours'
+import { VStack, HStack } from '../../components/Stack'
 import RecipeGrid from '../../components/RecipeGrid'
 import Highlight from '../../components/Highlight'
-import { getAllRecipes, getRecipeBySlug } from '../../../lib/api'
 import metadata from '../../constants/metadata.json'
 import * as styles from '../../constants/styles/detailPage'
-import { Recipe } from '../../../lib/types'
+import { getAllRecipes, getRecipeBySlug } from '../../api'
+import { Recipe } from '../../types/api'
 
 interface RecipePageProps {
 	recipe: Recipe
@@ -84,7 +83,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 									Info
 								</Heading>
 
-								<Stack gap={2}>
+								<VStack gap={2}>
 									{(prepTime || cookTime) && (
 										<Flex sx={styles.info}>
 											<Clock />
@@ -130,7 +129,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 										<Flex sx={{ ...styles.info, ...styles.printHidden }}>
 											<Tag />
 
-											<Inline gap={2} ml={3}>
+											<HStack gap={2} ml={3}>
 												{tags.map((tag) => (
 													<NextLink
 														key={tag._id}
@@ -142,10 +141,10 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 														</Link>
 													</NextLink>
 												))}
-											</Inline>
+											</HStack>
 										</Flex>
 									)}
-								</Stack>
+								</VStack>
 
 								{equipment.length > 0 && (
 									<React.Fragment>
@@ -170,14 +169,14 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 							</Box>
 						</div>
 
-						<Stack
+						<VStack
 							gap={[4, null, 5]}
 							sx={{
 								fontSize: [null, null, null, 2],
 							}}
 						>
 							{ingredients.length > 0 && (
-								<React.Fragment>
+								<div>
 									<Heading variant="recipe-heading" mb={3}>
 										Ingredients
 									</Heading>
@@ -194,11 +193,11 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 											/>
 										))}
 									</Text>
-								</React.Fragment>
+								</div>
 							)}
 
 							{sections.length > 0 && (
-								<React.Fragment>
+								<div>
 									<Heading
 										variant="recipe-heading"
 										mb={sections.length > 1 ? 4 : 3}
@@ -206,9 +205,9 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 										Directions
 									</Heading>
 
-									<Stack gap={4}>
+									<VStack gap={4}>
 										{sections.map((section) => (
-											<React.Fragment key={section._key}>
+											<div key={section._key}>
 												{section.title && sections.length > 1 && (
 													<Heading variant="section-heading" as="h3">
 														{section.title}
@@ -227,7 +226,7 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 														/>
 													))}
 												</Box>
-											</React.Fragment>
+											</div>
 										))}
 
 										{notes && (
@@ -242,10 +241,10 @@ const RecipePage: React.FC<RecipePageProps> = ({ recipe }) => {
 												/>
 											</Box>
 										)}
-									</Stack>
-								</React.Fragment>
+									</VStack>
+								</div>
 							)}
-						</Stack>
+						</VStack>
 					</Grid>
 
 					{similarRecipes.length > 0 && (

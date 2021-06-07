@@ -29,7 +29,7 @@
   "devDependencies": {
     "@types/node": "^15.12.1",
     "@types/react": "^17.0.9",
-    "eslint": "^7.27.0",
+    "eslint": "^7.28.0",
     "eslint-config-lowmess": "^4.1.4",
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",

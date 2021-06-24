@@ -1,5 +1,5 @@
 {
-  "extends": ["lowmess/react"],
+  "extends": ["lowmess/react", "next"],
   "overrides": [
     {
       "files": [

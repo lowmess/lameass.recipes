@@ -1,4 +1,4 @@
-export default {
+const text = {
 	heading: {
 		fontFamily: 'heading',
 		fontSize: [4, null, 5],
@@ -51,3 +51,5 @@ export default {
 		color: 'secondary',
 	},
 }
+
+export default text

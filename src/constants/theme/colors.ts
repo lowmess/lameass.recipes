@@ -43,7 +43,7 @@ const palette = {
 	],
 }
 
-export default {
+const colors = {
 	text: palette.grays[9],
 	background: palette.white,
 	primary: palette.cyans[5],
@@ -70,3 +70,5 @@ export default {
 		},
 	},
 }
+
+export default colors

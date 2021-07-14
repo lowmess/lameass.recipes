@@ -39,6 +39,7 @@ const MealPage: React.FC<MealPageProps> = ({ meal }) => {
 			</Head>
 
 			<Box sx={styles.swash}>
+				{/* eslint-disable-next-line @next/next/no-img-element */}
 				<img
 					width="512"
 					height="182"

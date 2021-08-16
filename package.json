@@ -27,7 +27,7 @@
     "theme-ui": "^0.10.0"
   },
   "devDependencies": {
-    "@types/node": "^16.4.13",
+    "@types/node": "^16.6.1",
     "@types/react": "^17.0.16",
     "eslint": "^7.32.0",
     "eslint-config-lowmess": "^4.1.4",

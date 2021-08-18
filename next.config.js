@@ -41,6 +41,10 @@ const securityHeaders = [
 ]
 
 const nextConfig = {
+	experimental: {
+		esmExternals: true,
+	},
+
 	// eslint-disable-next-line require-await
 	async headers() {
 		return [

@@ -1,5 +1,6 @@
 /* eslint-disable import/exports-last */
-import { Theme, ThemeUICSSObject } from '@theme-ui/css'
+import { useThemeUI, ThemeUIContextValue } from 'theme-ui'
+import { Theme, ThemeUICSSObject, ColorModesScale } from '@theme-ui/css'
 // primitives
 import colors from './colors'
 import space from './space'
@@ -19,9 +20,11 @@ export type NestedThemeUICSSObject = {
 	[k: string]: ThemeUICSSObject
 }
 
+const makeTheme = <T extends Theme>(t: T) => t
+
 const breakpoints = ['30em', '40em', '64em']
 
-const theme: Theme = {
+const theme = makeTheme({
 	// primitives
 	breakpoints,
 	colors,
@@ -41,6 +44,16 @@ const theme: Theme = {
 	links,
 	buttons,
 	forms,
+})
+
+export type ExactTheme = typeof theme & {
+	rawColors?: ColorModesScale
 }
+
+interface ExactContextValue extends Omit<ThemeUIContextValue, 'theme'> {
+	theme: ExactTheme
+}
+
+export const useTheme = useThemeUI as unknown as () => ExactContextValue
 
 export default theme

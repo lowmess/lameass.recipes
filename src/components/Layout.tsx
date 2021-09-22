@@ -1,20 +1,21 @@
 import * as React from 'react'
 import Head from 'next/head'
 import { Global, css } from '@emotion/react'
-import { useThemeUI, Flex, Container } from 'theme-ui'
+import { Flex, Container } from 'theme-ui'
+import { useTheme } from '../constants/theme'
 import Nav from './Nav'
 import Footer from './Footer'
 
 const Layout: React.FC = ({ children }) => {
-	const { theme } = useThemeUI()
+	const { theme: { colors, rawColors } = {} } = useTheme()
 
 	return (
 		<React.Fragment>
 			<Global
 				styles={css`
 					::selection {
-						background-color: ${theme.colors.accent};
-						color: ${theme.colors.text};
+						background-color: ${colors.accent};
+						color: ${colors.text};
 					}
 
 					html {
@@ -63,6 +64,8 @@ const Layout: React.FC = ({ children }) => {
 				 * https://github.com/vercel/next.js/blob/master/errors/no-document-viewport-meta.md
 				 */}
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+				<meta name="theme-color" content={rawColors.primary as string} />
 			</Head>
 
 			<Flex sx={{ flexDirection: 'column', minHeight: '100vh' }}>

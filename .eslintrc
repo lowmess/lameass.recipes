@@ -1,23 +1,19 @@
 {
-  "extends": ["lowmess/react", "next"],
-  "overrides": [
-    {
-      "files": [
-        "**/*.ts?(x)"
-      ],
-      "extends": [
-        "lowmess/typescript"
-      ],
-      "rules": {
-        "react/prop-types": 0
-      }
-    }
-  ],
-  "env": {
-    "browser": true,
-    "node": true
-  },
-  "parserOptions": {
-    "sourceType": "module"
-  }
+	"extends": ["lowmess/react", "plugin:@next/next/recommended"],
+	"overrides": [
+		{
+			"files": ["**/*.ts?(x)"],
+			"extends": ["lowmess/typescript"],
+			"rules": {
+				"react/prop-types": 0
+			}
+		}
+	],
+	"env": {
+		"browser": true,
+		"node": true
+	},
+	"parserOptions": {
+		"sourceType": "module"
+	}
 }

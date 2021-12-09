@@ -5,3 +5,4 @@ node_modules
 .next
 .env.local
 out/
+tsconfig.tsbuildinfo

@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@emotion/react": "^11.8.1",
+    "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@mdx-js/react": "^1.6.22",
     "@reach/visually-hidden": "^0.16.0",

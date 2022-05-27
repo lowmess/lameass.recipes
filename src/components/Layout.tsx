@@ -6,7 +6,11 @@ import { useTheme } from '../constants/theme'
 import Nav from './Nav'
 import Footer from './Footer'
 
-const Layout: React.FC = ({ children }) => {
+interface LayoutProps {
+	children: React.ReactNode
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
 	const { theme: { colors, rawColors } = {} } = useTheme()
 
 	return (

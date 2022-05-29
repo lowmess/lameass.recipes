@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Head from 'next/head'
 import metadata from '../constants/metadata.json'
+import * as styles from '../styles/homepage.css'
 
 const Homepage: React.FC = () => (
 	<React.Fragment>
@@ -9,7 +10,7 @@ const Homepage: React.FC = () => (
 			<meta name="description" content={metadata.description} />
 		</Head>
 
-		<h1>homepage</h1>
+		<h1 className={styles.headline}>lameass.recipes</h1>
 	</React.Fragment>
 )
 

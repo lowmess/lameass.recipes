@@ -1,3 +1,7 @@
+const { createVanillaExtractPlugin } = require('@vanilla-extract/next-plugin')
+
+const withVanillaExtract = createVanillaExtractPlugin()
+
 const contentSecurityPolicy = `
 	default-src 'self';
 	script-src 'self' 'unsafe-eval' 'unsafe-inline';
@@ -56,4 +60,4 @@ const nextConfig = {
 	},
 }
 
-module.exports = nextConfig
+module.exports = withVanillaExtract(nextConfig)

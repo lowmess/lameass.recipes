@@ -71,6 +71,15 @@ globalStyle('body', {
 	fontSize: fontSize.md,
 })
 
+globalStyle('a', {
+	color: 'inherit',
+	textDecorationColor: palette.accent,
+})
+
+globalStyle('a:hover', {
+	color: palette.accent,
+})
+
 globalStyle('h1, h2, h3, h4, h5, h6', {
 	fontFamily: `Henrietta, Georgia, serif`,
 })

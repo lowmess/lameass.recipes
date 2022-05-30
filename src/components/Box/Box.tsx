@@ -39,6 +39,8 @@ export const Box: React.FC<BoxProps> = ({
 	paddingBottom,
 	paddingLeft,
 	fontSize,
+	fontWeight,
+	textAlign,
 	backgroundColor,
 	color,
 	...props
@@ -70,6 +72,8 @@ export const Box: React.FC<BoxProps> = ({
 			paddingBottom,
 			paddingLeft,
 			fontSize,
+			fontWeight,
+			textAlign,
 			backgroundColor,
 			color,
 		}),

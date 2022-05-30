@@ -18,6 +18,12 @@ const margins = {
 	auto: 'auto',
 }
 
+const colors = {
+	...color,
+	inherit: 'inherit',
+	transparent: 'transparent',
+}
+
 const responsiveProperties = defineProperties({
 	conditions: {
 		xs: {},
@@ -51,6 +57,14 @@ const responsiveProperties = defineProperties({
 		rowGap: space,
 		columnGap: space,
 		fontSize,
+		fontWeight: {
+			light: 300,
+			regular: 400,
+			medium: 500,
+			semibold: 600,
+			bold: 700,
+		},
+		textAlign: ['left', 'center', 'right', 'start', 'end'],
 	},
 	shorthands: {
 		margin: ['marginTop', 'marginRight', 'marginBottom', 'marginLeft'],
@@ -67,14 +81,15 @@ const colorProperties = defineProperties({
 	conditions: {
 		lightMode: {},
 		darkMode: { '@media': '(prefers-color-scheme: dark)' },
+		hover: { selector: '&:hover' },
 	},
 	defaultCondition: 'lightMode',
 	responsiveArray: ['lightMode', 'darkMode'],
 	properties: {
-		background: color,
-		backgroundColor: color,
-		color: color,
-		borderColor: color,
+		background: colors,
+		backgroundColor: colors,
+		color: colors,
+		borderColor: colors,
 	},
 })
 

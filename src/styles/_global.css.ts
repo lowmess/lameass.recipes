@@ -2,28 +2,30 @@ import { globalStyle, createGlobalTheme } from '@vanilla-extract/css'
 
 const palette = {
 	white: '#ffffff',
+	black: '#2c2c25',
+	accent: '#fc4b39',
 
-	'gray-0': '#f9f9f8',
-	'gray-1': '#eeeee9',
-	'gray-2': '#e1e1db',
-	'gray-3': '#d3d3ce',
-	'gray-4': '#c4c4bf',
-	'gray-5': '#b3b3af',
-	'gray-6': '#a0a09c',
-	'gray-7': '#898986',
-	'gray-8': '#6c6c69',
-	'gray-9': '#3f3f3e',
+	'gray-0': '#eeeee9',
+	'gray-1': '#e1e1db',
+	'gray-2': '#d3d3ce',
+	'gray-3': '#c4c4bf',
+	'gray-4': '#b3b3af',
+	'gray-5': '#a0a09c',
+	'gray-6': '#898986',
+	'gray-7': '#6c6c69',
+	'gray-8': '#3f3f3e',
+	'gray-9': '#2e2e2d',
 
-	'yellow-0': '#fafaed',
-	'yellow-1': '#eff0d0',
-	'yellow-2': '#e2e3c5',
-	'yellow-3': '#d4d5b9',
-	'yellow-4': '#c5c6ac',
-	'yellow-5': '#b4b59d',
-	'yellow-6': '#a1a18c',
-	'yellow-7': '#8a8a78',
-	'yellow-8': '#6d6d5f',
-	'yellow-9': '#404037',
+	'yellow-0': '#eff0d0',
+	'yellow-1': '#e2e3c5',
+	'yellow-2': '#d4d5b9',
+	'yellow-3': '#c5c6ac',
+	'yellow-4': '#b4b59d',
+	'yellow-5': '#a1a18c',
+	'yellow-6': '#8a8a78',
+	'yellow-7': '#6d6d5f',
+	'yellow-8': '#404037',
+	'yellow-9': '#2c2c25',
 
 	gray: '#b09b99',
 	red: '#fc4b39',
@@ -52,18 +54,25 @@ const fontSize = {
 globalStyle('html', {
 	backgroundColor: palette['yellow-1'],
 	color: palette['gray-9'],
-	fontSize: fontSize.md,
 
 	'@media': {
 		'(prefers-color-scheme: dark)': {
-			backgroundColor: palette['yellow-9'],
+			backgroundColor: palette.black,
 			color: palette['gray-1'],
+		},
+
+		'(min-width: 90em)': {
+			fontSize: '112.5%',
 		},
 	},
 })
 
+globalStyle('body', {
+	fontSize: fontSize.md,
+})
+
 globalStyle('h1, h2, h3, h4, h5, h6', {
-	fontFamily: `Henrietta`,
+	fontFamily: `Henrietta, Georgia, serif`,
 })
 
 export const vars = createGlobalTheme(':root', {
@@ -78,4 +87,5 @@ export const vars = createGlobalTheme(':root', {
 	},
 	color: palette,
 	fontSize,
+	container: '64rem',
 })

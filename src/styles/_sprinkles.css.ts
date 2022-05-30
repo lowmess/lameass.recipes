@@ -2,7 +2,7 @@ import { defineProperties, createSprinkles } from '@vanilla-extract/sprinkles'
 import { calc } from '@vanilla-extract/css-utils'
 import { vars } from './_global.css'
 
-const { space, colors } = vars
+const { space, color, fontSize } = vars
 
 const spaceKeys = Object.keys(vars.space).filter((key) => key !== 'none')
 
@@ -48,6 +48,7 @@ const responsiveProperties = defineProperties({
 		paddingLeft: space,
 		rowGap: space,
 		columnGap: space,
+		fontSize,
 	},
 	shorthands: {
 		margin: ['marginTop', 'marginRight', 'marginBottom', 'marginLeft'],
@@ -68,10 +69,10 @@ const colorProperties = defineProperties({
 	defaultCondition: 'lightMode',
 	responsiveArray: ['lightMode', 'darkMode'],
 	properties: {
-		background: colors,
-		backgroundColor: colors,
-		color: colors,
-		borderColor: colors,
+		background: color,
+		backgroundColor: color,
+		color: color,
+		borderColor: color,
 	},
 })
 

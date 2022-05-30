@@ -16,16 +16,16 @@ const palette = {
 	'gray-8': '#3f3f3e',
 	'gray-9': '#2e2e2d',
 
-	'yellow-0': '#eff0d0',
-	'yellow-1': '#e2e3c5',
-	'yellow-2': '#d4d5b9',
-	'yellow-3': '#c5c6ac',
-	'yellow-4': '#b4b59d',
-	'yellow-5': '#a1a18c',
-	'yellow-6': '#8a8a78',
-	'yellow-7': '#6d6d5f',
-	'yellow-8': '#404037',
-	'yellow-9': '#2c2c25',
+	'beige-0': '#eff0d0',
+	'beige-1': '#e2e3c5',
+	'beige-2': '#d4d5b9',
+	'beige-3': '#c5c6ac',
+	'beige-4': '#b4b59d',
+	'beige-5': '#a1a18c',
+	'beige-6': '#8a8a78',
+	'beige-7': '#6d6d5f',
+	'beige-8': '#404037',
+	'beige-9': '#2c2c25',
 
 	gray: '#b09b99',
 	red: '#fc4b39',
@@ -52,7 +52,7 @@ const fontSize = {
 }
 
 globalStyle('html', {
-	backgroundColor: palette['yellow-1'],
+	backgroundColor: palette['beige-0'],
 	color: palette['gray-9'],
 
 	'@media': {

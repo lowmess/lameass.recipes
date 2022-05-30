@@ -15,6 +15,7 @@ const negativeSpace = spaceKeys.reduce((spaceObject, key) => {
 const margins = {
 	...negativeSpace,
 	...space,
+	auto: 'auto',
 }
 
 const responsiveProperties = defineProperties({
@@ -29,6 +30,7 @@ const responsiveProperties = defineProperties({
 	properties: {
 		display: ['none', 'block', 'flex', 'inline', 'inline-block', 'inline-flex'],
 		flexDirection: ['row', 'column'],
+		flexWrap: ['wrap', 'nowrap'],
 		justifyContent: [
 			'stretch',
 			'flex-start',

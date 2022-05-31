@@ -3,7 +3,7 @@ import { StructuredText } from 'datocms-structured-text-utils'
 import { getCustomProperties } from './customProperties'
 
 const client = new GraphQLClient(`https://graphql.datocms.com/`, {
-	headers: { authorization: `Bearer ${process.env.DATO_API_TOKEN}` },
+	headers: { authorization: `Bearer ${process.env.DATOCMS_API_TOKEN}` },
 })
 
 // maybe not the best way to do this? idk. seems weird to create a new client

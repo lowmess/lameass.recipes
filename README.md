@@ -28,7 +28,7 @@ Add your Dato API token to the application:
 
 ```env
 # .env.local
-DATO_API_TOKEN={{ YOUR API TOKEN HERE }}
+DATOCMS_API_TOKEN={{ YOUR API TOKEN HERE }}
 ```
 
 Start a local dev environment:

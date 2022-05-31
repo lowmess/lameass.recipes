@@ -21,7 +21,7 @@ globalFontFace('Henrietta', {
 globalFontFace('Henrietta', {
 	fontStyle: 'normal',
 	fontWeight: 600,
-	src: `url('/fonts/VCHenrietta-Semibold.woff2') format('woff2')`,
+	src: `url('/fonts/VCHenrietta-SemiBold.woff2') format('woff2')`,
 })
 
 globalFontFace('Henrietta', {

@@ -24,11 +24,11 @@ Install dependencies:
 npm install
 ```
 
-Add your Sanity project id to the application:
+Add your Dato API token to the application:
 
 ```env
 # .env.local
-SANITY_PROJECT_ID={{ YOUR PROJECT ID HERE }}
+DATO_API_TOKEN={{ YOUR API TOKEN HERE }}
 ```
 
 Start a local dev environment:

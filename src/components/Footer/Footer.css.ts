@@ -69,12 +69,7 @@ globalStyle(`${list} a:hover`, {
 	color: vars.color['gray-1'],
 })
 
-export const graf = style([
-	sprinkles({
-		marginY: 'none',
-		paddingX: 'sm',
-	}),
-])
+export const graf = style({})
 
 globalStyle(`${graf} a`, {
 	textDecoration: 'underline',

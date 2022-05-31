@@ -37,11 +37,11 @@ export const Footer: React.FC = () => (
 			<div>
 				<h2 className={styles.sectionHeading}>About</h2>
 
-				<p className={styles.graf}>
+				<Text component="p" paddingX="sm" className={styles.graf}>
 					lameass.recipes is a digital cookbook written by{' '}
 					<a href="https://instagram.com/kayla_lameass">Kayla&nbsp;Lomas</a> and
 					designed by <a href="https://lowmess.com">Alec&nbsp;Lomas.</a>
-				</p>
+				</Text>
 			</div>
 
 			<h2 className={styles.tagline}>

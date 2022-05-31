@@ -17,21 +17,20 @@ export const skipNavLink = style({
 	},
 })
 
-export const logo = sprinkles({
-	marginY: ['sm', 'xs', 'none'],
-	fontSize: ['xl', null, 'xxl'],
-	fontWeight: 'semibold',
-	textAlign: 'center',
-})
-
-export const homeLink = style([
+export const logo = style([
 	sprinkles({
+		marginY: ['sm', 'xs', 'none'],
+		fontSize: ['xl', null, 'xxl'],
+		fontWeight: 'semibold',
 		color: {
-			lightMode: 'accent',
+			light: 'accent',
 			hover: 'inherit',
 		},
+		textDecoration: 'none',
 	}),
-	{ textDecoration: 'none' },
+	{
+		fontFamily: 'Henrietta, georgia, serif',
+	},
 ])
 
 globalStyle(`${logo} a`, {

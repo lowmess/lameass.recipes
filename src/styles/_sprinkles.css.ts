@@ -4,13 +4,14 @@ import { vars } from './_global.css'
 
 const { space, color, fontSize } = vars
 
-const spaceKeys = Object.keys(vars.space).filter((key) => key !== 'none')
-
-const negativeSpace = spaceKeys.reduce((spaceObject, key) => {
-	spaceObject[`-${key}`] = calc.negate(space[key])
-
-	return spaceObject
-}, {})
+const negativeSpace = {
+	'-xxl': calc.negate(vars.space.xxl),
+	'-xl': calc.negate(vars.space.xxl),
+	'-lg': calc.negate(vars.space.xxl),
+	'-md': calc.negate(vars.space.xxl),
+	'-sm': calc.negate(vars.space.xxl),
+	'-xs': calc.negate(vars.space.xxl),
+}
 
 const margins = {
 	...negativeSpace,
@@ -57,13 +58,6 @@ const responsiveProperties = defineProperties({
 		rowGap: space,
 		columnGap: space,
 		fontSize,
-		fontWeight: {
-			light: 300,
-			regular: 400,
-			medium: 500,
-			semibold: 600,
-			bold: 700,
-		},
 		textAlign: ['left', 'center', 'right', 'start', 'end'],
 	},
 	shorthands: {
@@ -77,14 +71,31 @@ const responsiveProperties = defineProperties({
 	},
 })
 
+const unresponsiveProperties = defineProperties({
+	properties: {
+		fontWeight: {
+			light: 300,
+			regular: 400,
+			medium: 500,
+			semibold: 600,
+			bold: 700,
+		},
+		textDecoration: ['none', 'underline'],
+	},
+})
+
 const colorProperties = defineProperties({
 	conditions: {
-		lightMode: {},
-		darkMode: { '@media': '(prefers-color-scheme: dark)' },
+		light: {},
+		dark: { '@media': '(prefers-color-scheme: dark)' },
 		hover: { selector: '&:hover' },
+		darkHover: {
+			'@media': '(prefers-color-scheme: dark)',
+			selector: '&:hover',
+		},
 	},
-	defaultCondition: 'lightMode',
-	responsiveArray: ['lightMode', 'darkMode'],
+	defaultCondition: 'light',
+	responsiveArray: ['light', 'dark'],
 	properties: {
 		background: colors,
 		backgroundColor: colors,
@@ -93,6 +104,10 @@ const colorProperties = defineProperties({
 	},
 })
 
-export const sprinkles = createSprinkles(responsiveProperties, colorProperties)
+export const sprinkles = createSprinkles(
+	responsiveProperties,
+	unresponsiveProperties,
+	colorProperties
+)
 
 export type Sprinkles = Parameters<typeof sprinkles>[0]

@@ -31,6 +31,7 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({
 		totalTime = 0,
 		servings,
 		description,
+		tags,
 		customProperties,
 	} = recipe
 
@@ -61,6 +62,7 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({
 
 			<Flex
 				marginTop="sm"
+				marginBottom="md"
 				borderColor={category.color || 'inherit'}
 				className={styles.infoRibbon}
 			>
@@ -73,9 +75,22 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({
 				{servings && <span>Serves {servings}</span>}
 			</Flex>
 
-			{description && (
+			<Box className={styles.description}>
+				<StructuredText data={description} />
+			</Box>
+
+			{tags.length > 0 && (
 				<Box marginTop="md">
-					<StructuredText data={description} />
+					{tags.map((tag) => (
+						<Link
+							key={tag.id}
+							href={`/tags/${tag.slug}`}
+							fontSize="sm"
+							className={styles.tag}
+						>
+							{tag.title}
+						</Link>
+					))}
 				</Box>
 			)}
 		</Box>

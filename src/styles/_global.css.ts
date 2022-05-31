@@ -2,7 +2,7 @@ import { globalStyle, createGlobalTheme } from '@vanilla-extract/css'
 
 const palette = {
 	white: '#ffffff',
-	black: '#2c2c25',
+	black: '#131310',
 	accent: '#fc4b39',
 
 	'gray-0': '#eeeee9',
@@ -57,7 +57,7 @@ globalStyle('html', {
 
 	'@media': {
 		'(prefers-color-scheme: dark)': {
-			backgroundColor: palette.black,
+			backgroundColor: palette['beige-9'],
 			color: palette['gray-1'],
 		},
 

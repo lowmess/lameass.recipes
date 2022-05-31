@@ -4,7 +4,7 @@ import { sprinkles } from '../../styles/_sprinkles.css'
 
 export const card = style([
 	sprinkles({
-		borderColor: ['gray-9', 'beige-6'],
+		borderColor: ['gray-9', 'black'],
 		padding: 'md',
 		backgroundColor: ['white', 'beige-8'],
 	}),
@@ -15,6 +15,10 @@ export const card = style([
 		transform: 'translateX(var(--x-offset)) rotateZ(var(--rotate))',
 	},
 ])
+
+globalStyle(`${card} :not(h1, h2, h3) a:hover`, {
+	color: 'var(--category-color)',
+})
 
 export const titleLink = style({
 	textDecoration: 'none',
@@ -27,7 +31,7 @@ export const titleLink = style({
 export const infoRibbon = style([
 	sprinkles({
 		paddingBottom: 'sm',
-		gap: 'md',
+		gap: 'sm',
 	}),
 	{
 		width: '100%',
@@ -39,5 +43,20 @@ export const infoRibbon = style([
 globalStyle(`${infoRibbon} > * + *::before`, {
 	content: '\u2022',
 	color: 'var(--category-color)',
-	paddingInlineEnd: vars.space.md,
+	paddingInlineEnd: vars.space.sm,
+})
+
+export const description = style({})
+
+globalStyle(`${description} p`, {
+	maxWidth: '55ch',
+	margin: 0,
+})
+
+export const tag = style({
+	textDecorationColor: 'var(--category-color)',
+
+	':hover': {
+		color: 'var(--category-color)',
+	},
 })

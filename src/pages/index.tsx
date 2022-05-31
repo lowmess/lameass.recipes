@@ -4,7 +4,7 @@ import Head from 'next/head'
 import metadata from '../constants/metadata.json'
 import { Container } from '../components/Container'
 import { getRecentRecipes, Recipe } from '../api'
-import { RecipeCard } from '../components/RecipeCard'
+import { RecipeStack } from '../components/RecipeStack'
 import { Heading } from '../components/Heading'
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -33,9 +33,7 @@ const Homepage: React.FC<HomepageProps> = ({ recipes }) => (
 				Recent additions to the cookbook
 			</Heading>
 
-			{recipes.map((recipe) => (
-				<RecipeCard key={recipe.id} recipe={recipe} />
-			))}
+			<RecipeStack recipes={recipes} />
 		</Container>
 	</React.Fragment>
 )

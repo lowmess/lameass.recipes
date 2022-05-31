@@ -6,6 +6,6 @@ type CustomProperties = {
 }
 
 export const getCustomProperties = (): CustomProperties => ({
-	'--x-offset': `${sometimesNegative(Math.random())}rem`,
-	'--rotate': `${sometimesNegative(Math.random() * 3)}deg`,
+	'--x-offset': `${sometimesNegative(Math.random()).toFixed(2)}rem`,
+	'--rotate': `${sometimesNegative(Math.random() * 3).toFixed(2)}deg`,
 })

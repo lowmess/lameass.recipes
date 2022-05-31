@@ -26,7 +26,6 @@ export const titleLink = style({
 
 export const infoRibbon = style([
 	sprinkles({
-		marginX: '-md',
 		paddingBottom: 'sm',
 		gap: 'md',
 	}),

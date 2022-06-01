@@ -17,7 +17,7 @@ export const card = style([
 ])
 
 globalStyle(`${card} :not(h1, h2, h3) a:hover`, {
-	color: 'var(--category-color)',
+	color: 'var(--theme)',
 })
 
 export const titleLink = style({
@@ -42,7 +42,7 @@ export const infoRibbon = style([
 
 globalStyle(`${infoRibbon} > * + *::before`, {
 	content: '\u2022',
-	color: 'var(--category-color)',
+	color: 'var(--theme)',
 	paddingInlineEnd: vars.space.sm,
 })
 
@@ -51,12 +51,4 @@ export const description = style({})
 globalStyle(`${description} p`, {
 	maxWidth: '55ch',
 	margin: 0,
-})
-
-export const tag = style({
-	textDecorationColor: 'var(--category-color)',
-
-	':hover': {
-		color: 'var(--category-color)',
-	},
 })

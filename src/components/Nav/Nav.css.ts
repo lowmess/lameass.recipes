@@ -17,29 +17,16 @@ export const skipNavLink = style({
 	},
 })
 
-export const logo = style([
-	sprinkles({
-		marginY: ['sm', 'xs', 'none'],
-		fontSize: ['xl', null, 'xxl'],
-		fontWeight: 'semibold',
-		color: {
-			light: 'accent',
-			hover: 'inherit',
-		},
-		textDecoration: 'none',
-	}),
-	{
-		fontFamily: 'Henrietta, georgia, serif',
+export const logo = sprinkles({
+	marginY: ['sm', 'xs', 'none'],
+	fontSize: ['xl', null, 'xxl'],
+	fontWeight: 'semibold',
+	fontFamily: 'henrietta',
+	color: {
+		light: 'accent',
+		hover: 'inherit',
 	},
-])
-
-globalStyle(`${logo} a`, {
-	color: vars.color.accent,
 	textDecoration: 'none',
-})
-
-globalStyle(`${logo} a:hover`, {
-	color: 'inherit',
 })
 
 export const list = style({
@@ -75,8 +62,4 @@ globalStyle(`${list} li + li::before`, {
 			paddingInlineEnd: vars.space.lg,
 		},
 	},
-})
-
-globalStyle(`${list} a`, {
-	textDecoration: 'none',
 })

@@ -1,4 +1,4 @@
-import { globalStyle, style } from '@vanilla-extract/css'
+import { style } from '@vanilla-extract/css'
 import { vars } from '../../styles/_global.css'
 import { sprinkles } from '../../styles/_sprinkles.css'
 
@@ -64,21 +64,6 @@ export const list = style([
 		},
 	},
 ])
-
-globalStyle(`${list} a:hover`, {
-	color: vars.color['gray-1'],
-})
-
-export const graf = style({})
-
-globalStyle(`${graf} a`, {
-	textDecoration: 'underline',
-	textDecorationColor: vars.color['gray-1'],
-})
-
-globalStyle(`${graf} a:hover`, {
-	color: vars.color['gray-1'],
-})
 
 export const tagline = style([
 	sprinkles({

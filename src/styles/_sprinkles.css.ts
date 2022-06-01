@@ -23,6 +23,7 @@ const colors = {
 	...color,
 	inherit: 'inherit',
 	transparent: 'transparent',
+	theme: `var(--theme, ${color.accent})`,
 }
 
 const responsiveProperties = defineProperties({

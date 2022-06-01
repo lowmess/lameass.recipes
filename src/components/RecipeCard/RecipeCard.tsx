@@ -7,6 +7,7 @@ import { Box, BoxProps } from '../Box'
 import { Flex } from '../Flex'
 import { Text } from '../Text'
 import { Link } from '../Link'
+import * as linkStyles from '../../styles/links.css'
 import * as styles from './RecipeCard.css'
 
 interface RecipeCardProps extends BoxProps {
@@ -41,21 +42,13 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({
 		<Box
 			className={styles.card}
 			style={{
-				// @ts-expect-error TS doesn't like the setting of custom properties here?
 				'--count': count,
-				'--category-color': vars.color[category.color],
+				'--theme': vars.color[category.color],
 				...customProperties,
 			}}
 		>
 			<Text component={titleElement} fontSize="xl" fontWeight="regular">
-				<Link
-					href={`/recipes/${slug}`}
-					color={{
-						light: category.color || 'inherit',
-						hover: 'inherit',
-					}}
-					textDecoration="none"
-				>
+				<Link href={`/recipes/${slug}`} className={linkStyles.ui}>
 					{title}
 				</Link>
 			</Text>
@@ -66,7 +59,10 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({
 				borderColor={category.color || 'inherit'}
 				className={styles.infoRibbon}
 			>
-				<Link href={`/categories/${category.slug}`} textDecoration="none">
+				<Link
+					href={`/categories/${category.slug}`}
+					className={linkStyles.ghost}
+				>
 					{category.title}
 				</Link>
 
@@ -86,7 +82,7 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({
 							key={tag.id}
 							href={`/tags/${tag.slug}`}
 							fontSize="sm"
-							className={styles.tag}
+							className={linkStyles.themed}
 						>
 							{tag.title}
 						</Link>

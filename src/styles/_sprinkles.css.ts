@@ -2,7 +2,7 @@ import { defineProperties, createSprinkles } from '@vanilla-extract/sprinkles'
 import { calc } from '@vanilla-extract/css-utils'
 import { vars } from './_global.css'
 
-const { space, color, fontSize } = vars
+const { space, color, fontSize, fontFamily } = vars
 
 const negativeSpace = {
 	'-xxl': calc.negate(vars.space.xxl),
@@ -82,6 +82,7 @@ const unresponsiveProperties = defineProperties({
 			bold: 700,
 		},
 		textDecoration: ['none', 'underline'],
+		fontFamily,
 	},
 })
 

@@ -16,6 +16,12 @@ const setPreviewEndpoint = (preview: boolean) => {
 
 type APIMethod<T> = (preview: boolean) => Promise<T>
 
+/*
+ * =============================================================================
+ * TYPES
+ * =============================================================================
+ */
+
 export type SEO = {
 	title: string
 	description?: string
@@ -71,6 +77,12 @@ export type Recipe = {
 	}
 }
 
+/*
+ * =============================================================================
+ * RECIPES
+ * =============================================================================
+ */
+
 const recipePreviewFragment = gql`
 	fragment recipePreview on RecipeRecord {
 		id
@@ -109,7 +121,7 @@ export const getRecentRecipes: APIMethod<Array<Recipe>> = async (
 		${recipePreviewFragment}
 
 		query getRecentRecipes {
-			allRecipes(first: 5) {
+			allRecipes(first: 5, orderBy: _createdAt_DESC) {
 				...recipePreview
 			}
 		}
@@ -132,7 +144,7 @@ export const getAllRecipes: APIMethod<Array<Recipe>> = async (
 		${recipePreviewFragment}
 
 		query getAllRecipes {
-			allRecipes(first: 100) {
+			allRecipes(first: 100, orderBy: _createdAt_DESC) {
 				...recipePreview
 			}
 		}
@@ -144,4 +156,28 @@ export const getAllRecipes: APIMethod<Array<Recipe>> = async (
 		...recipe,
 		customProperties: getCustomProperties(),
 	}))
+}
+
+/*
+ * =============================================================================
+ * TAGS
+ * =============================================================================
+ */
+
+export const getAllTags: APIMethod<Array<Tag>> = async (preview = false) => {
+	setPreviewEndpoint(preview)
+
+	const query = gql`
+		query getAllTags {
+			allTags(orderBy: title_ASC) {
+				id
+				title
+				slug
+			}
+		}
+	`
+
+	const { allTags } = await client.request(query)
+
+	return allTags
 }

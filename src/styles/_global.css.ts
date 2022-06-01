@@ -61,6 +61,11 @@ export const vars = createGlobalTheme(':root', {
 		xxxl: 'clamp(3rem, 1.235rem + 5.88vw, 5rem)',
 	},
 	container: '64rem',
+	fontFamily: {
+		system:
+			'system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu", "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+		henrietta: 'Henrietta, georgia, serif',
+	},
 })
 
 globalStyle('html', {
@@ -93,6 +98,6 @@ globalStyle('a:hover', {
 })
 
 globalStyle('h1, h2, h3, h4, h5, h6', {
-	fontFamily: `Henrietta, Georgia, serif`,
+	fontFamily: vars.fontFamily.henrietta,
 	lineHeight: 1.25,
 })

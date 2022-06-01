@@ -1,6 +1,7 @@
 import * as React from 'react'
 import classnames from 'classnames'
 import { sprinkles, Sprinkles } from '../../styles/_sprinkles.css'
+import * as reset from '../../styles/reset.css'
 
 export interface BoxProps
 	extends Omit<
@@ -24,7 +25,7 @@ export const Box = React.forwardRef(
 			gap,
 			rowGap,
 			columnGap,
-			margin = 'none',
+			margin,
 			marginX,
 			marginY,
 			marginTop,
@@ -50,6 +51,7 @@ export const Box = React.forwardRef(
 		ref
 	) => {
 		const boxClasses = classnames(
+			reset.base,
 			sprinkles({
 				display,
 				flexDirection,

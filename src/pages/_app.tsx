@@ -9,6 +9,9 @@ import 'sanitize.css/typography.css'
 import '../styles/_global.css'
 import '../styles/_fonts.css'
 
+// force reset styles to appear in stylesheet first
+import '../styles/reset.css'
+
 import { Layout } from '../components/Layout'
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (

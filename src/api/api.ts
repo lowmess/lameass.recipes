@@ -27,21 +27,23 @@ export type SEO = {
 	description?: string
 }
 
+export const colors = [
+	'red',
+	'pink',
+	'violet',
+	'blue',
+	'cyan',
+	'teal',
+	'green',
+	'yellow',
+	'orange',
+] as const
+
 export type Category = {
 	id: string
 	title: string
 	slug: string
-	color?:
-		| 'gray'
-		| 'red'
-		| 'pink'
-		| 'violet'
-		| 'blue'
-		| 'cyan'
-		| 'teal'
-		| 'green'
-		| 'yellow'
-		| 'orange'
+	color?: typeof colors[number]
 }
 
 export type Tag = {

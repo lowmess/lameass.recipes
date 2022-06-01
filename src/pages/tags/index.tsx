@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { GetStaticProps } from 'next'
-import { getAllTags, Tag } from '../../api'
+import { getAllTags, Tag, colors } from '../../api'
 import { Container } from '../../components/Container'
 import { Heading } from '../../components/Heading'
 import { Link } from '../../components/Link'
@@ -21,18 +21,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 interface TagsIndexProps {
 	tags: Array<Tag>
 }
-
-const colors = [
-	'red',
-	'pink',
-	'violet',
-	'blue',
-	'cyan',
-	'teal',
-	'green',
-	'yellow',
-	'orange',
-]
 
 const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
 	return (

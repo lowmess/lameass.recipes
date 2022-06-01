@@ -37,7 +37,6 @@ export const vars = createGlobalTheme(':root', {
 		'beige-8': '#404037',
 		'beige-9': '#2c2c25',
 
-		gray: '#998482',
 		red: '#f94838',
 		pink: '#fa3989',
 		violet: '#ba5bfd',
@@ -72,7 +71,6 @@ globalStyle(':root', {
 			vars: {
 				[vars.color.accent]: '#fc4b39',
 
-				[vars.color.gray]: '#c0afae',
 				[vars.color.red]: '#fc4b39',
 				[vars.color.pink]: '#fd91be',
 				[vars.color.violet]: '#d59cfd',

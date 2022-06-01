@@ -13,7 +13,7 @@ export const vars = createGlobalTheme(':root', {
 	color: {
 		white: '#ffffff',
 		black: '#131310',
-		accent: '#fc4b39',
+		accent: '#f94838',
 
 		'gray-0': '#eeeee9',
 		'gray-1': '#e1e1db',
@@ -37,19 +37,16 @@ export const vars = createGlobalTheme(':root', {
 		'beige-8': '#404037',
 		'beige-9': '#2c2c25',
 
-		gray: '#b09b99',
-		red: '#fc4b39',
-		pink: '#fd6faa',
-		fuschia: '#fd88f4',
-		indigo: '#9c93fd',
-		violet: '#c980fd',
-		blue: '#60a1fd',
-		cyan: '#2fc5d2',
-		teal: '#2ecb8a',
-		green: '#2ab835',
-		lime: '#6ec82d',
-		yellow: '#dceb35',
-		orange: '#f0a336',
+		gray: '#998482',
+		red: '#f94838',
+		pink: '#fa3989',
+		violet: '#ba5bfd',
+		blue: '#3887f7',
+		cyan: '#2497a0',
+		teal: '#239b6a',
+		green: '#249e2e',
+		yellow: '#d7c30f',
+		orange: '#d69231',
 	},
 	// massive shout-out to https://min-max-calculator.9elements.com/
 	fontSize: {
@@ -65,6 +62,28 @@ export const vars = createGlobalTheme(':root', {
 		system:
 			'system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu", "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
 		henrietta: 'Henrietta, georgia, serif',
+	},
+})
+
+// override colors in dark mode
+globalStyle(':root', {
+	'@media': {
+		'(prefers-color-scheme: dark)': {
+			vars: {
+				[vars.color.accent]: '#fc4b39',
+
+				[vars.color.gray]: '#c0afae',
+				[vars.color.red]: '#fc4b39',
+				[vars.color.pink]: '#fd91be',
+				[vars.color.violet]: '#d59cfd',
+				[vars.color.blue]: '#60a1fd',
+				[vars.color.cyan]: '#2fc5d2',
+				[vars.color.teal]: '#32de96',
+				[vars.color.green]: '#2fce3c',
+				[vars.color.yellow]: '#dceb35',
+				[vars.color.orange]: '#f0a336',
+			},
+		},
 	},
 })
 

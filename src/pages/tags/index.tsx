@@ -25,14 +25,11 @@ interface TagsIndexProps {
 const colors = [
 	'red',
 	'pink',
-	'fuschia',
-	'indigo',
 	'violet',
 	'blue',
 	'cyan',
 	'teal',
 	'green',
-	'lime',
 	'yellow',
 	'orange',
 ]

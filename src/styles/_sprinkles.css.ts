@@ -6,11 +6,11 @@ const { space, color, fontSize, fontFamily } = vars
 
 const negativeSpace = {
 	'-xxl': calc.negate(vars.space.xxl),
-	'-xl': calc.negate(vars.space.xxl),
-	'-lg': calc.negate(vars.space.xxl),
-	'-md': calc.negate(vars.space.xxl),
-	'-sm': calc.negate(vars.space.xxl),
-	'-xs': calc.negate(vars.space.xxl),
+	'-xl': calc.negate(vars.space.xl),
+	'-lg': calc.negate(vars.space.lg),
+	'-md': calc.negate(vars.space.md),
+	'-sm': calc.negate(vars.space.sm),
+	'-xs': calc.negate(vars.space.xs),
 }
 
 const margins = {

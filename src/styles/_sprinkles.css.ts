@@ -28,13 +28,12 @@ const colors = {
 
 const responsiveProperties = defineProperties({
 	conditions: {
-		xs: {},
-		sm: { '@media': 'screen and (min-width: 30em)' },
+		sm: {},
 		md: { '@media': 'screen and (min-width: 48em)' },
 		lg: { '@media': 'screen and (min-width: 64em)' },
 	},
-	defaultCondition: 'xs',
-	responsiveArray: ['xs', 'sm', 'md', 'lg'],
+	defaultCondition: 'sm',
+	responsiveArray: ['sm', 'md', 'lg'],
 	properties: {
 		display: ['none', 'block', 'flex', 'inline', 'inline-block', 'inline-flex'],
 		flexDirection: ['row', 'column'],

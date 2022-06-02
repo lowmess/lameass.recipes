@@ -20,7 +20,7 @@ export const skipNavLink = style({
 export const logo = sprinkles({
 	display: 'block',
 	marginBlockEnd: 'sm',
-	fontSize: ['xl', null, 'xxl'],
+	fontSize: ['xl', 'xxl'],
 	fontWeight: 'semibold',
 	fontFamily: 'henrietta',
 	color: {

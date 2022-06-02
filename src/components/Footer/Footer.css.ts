@@ -4,7 +4,7 @@ import { sprinkles } from '../../styles/_sprinkles.css'
 
 export const grid = style([
 	sprinkles({
-		columnGap: ['md', 'lg', null, 'xl'],
+		columnGap: ['md', 'lg', 'xl'],
 		rowGap: 'lg',
 	}),
 	{

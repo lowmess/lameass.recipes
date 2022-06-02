@@ -29,7 +29,7 @@ const Homepage: React.FC<HomepageProps> = ({ recipes }) => (
 		</Head>
 
 		<Container>
-			<Heading component="h1" fontWeight="regular" marginY="lg">
+			<Heading component="h1" fontWeight="regular" marginBlock="lg">
 				Recent additions to the cookbook
 			</Heading>
 

@@ -24,7 +24,7 @@ interface TagsIndexProps {
 
 const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
 	return (
-		<Container marginY="xl">
+		<Container marginBlockStart="xl" marginBlockEnd={['xl', null, 'xxl']}>
 			<Heading component="h1" className={styles.text}>
 				Recipes tagged:
 			</Heading>

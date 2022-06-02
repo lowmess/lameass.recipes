@@ -12,7 +12,7 @@ export const Footer: React.FC = () => (
 		component="footer"
 		backgroundColor="accent"
 		color="gray-9"
-		paddingY="xl"
+		paddingBlock="xl"
 		style={{ '--theme': vars.color['gray-1'] }}
 	>
 		<Container className={styles.grid}>
@@ -55,7 +55,7 @@ export const Footer: React.FC = () => (
 			<div>
 				<h2 className={styles.sectionHeading}>About</h2>
 
-				<Text component="p" paddingX="sm">
+				<Text component="p" paddingInline="sm">
 					lameass.recipes is a digital cookbook written by{' '}
 					<a
 						href="https://instagram.com/kayla_lameass"

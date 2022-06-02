@@ -18,7 +18,7 @@ export const skipNavLink = style({
 })
 
 export const logo = sprinkles({
-	marginY: ['sm', 'xs', 'none'],
+	marginBlock: ['sm', 'xs', 'none'],
 	fontSize: ['xl', null, 'xxl'],
 	fontWeight: 'semibold',
 	fontFamily: 'henrietta',
@@ -37,8 +37,8 @@ export const list = style({
 	width: '100vw',
 	marginLeft: 'calc(50% - 50vw)',
 	marginBlock: 0,
-	paddingTop: vars.space.xs,
-	paddingBottom: vars.space.sm,
+	paddingBlockStart: vars.space.xs,
+	paddingBlockEnd: vars.space.sm,
 	paddingInline: vars.space.lg,
 	borderBlock: `2px solid ${vars.color.accent}`,
 	textTransform: 'lowercase',

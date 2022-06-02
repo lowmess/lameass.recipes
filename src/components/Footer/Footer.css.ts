@@ -33,24 +33,24 @@ export const grid = style([
 
 export const sectionHeading = style([
 	sprinkles({
-		marginTop: 'none',
-		marginBottom: 'sm',
+		marginBlockStart: 'none',
+		marginBlockEnd: 'sm',
 		borderColor: 'gray-1',
-		paddingX: 'sm',
+		paddingInline: 'sm',
 		fontSize: 'lg',
 		fontWeight: 'medium',
 	}),
 	{
-		borderBottomWidth: '4px',
-		borderBottomStyle: 'solid',
+		borderBlockEndWidth: '4px',
+		borderBlockEndStyle: 'solid',
 		lineHeight: 1.25,
 	},
 ])
 
 export const list = style([
 	sprinkles({
-		marginY: 'none',
-		paddingX: 'sm',
+		marginBlock: 'none',
+		paddingInline: 'sm',
 	}),
 	{
 		textTransform: 'lowercase',
@@ -67,7 +67,7 @@ export const list = style([
 
 export const tagline = style([
 	sprinkles({
-		marginY: 'none',
+		marginBlock: 'none',
 		fontSize: 'xxl',
 		fontWeight: 'semibold',
 	}),

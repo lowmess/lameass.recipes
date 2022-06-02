@@ -30,13 +30,13 @@ export const titleLink = style({
 
 export const infoRibbon = style([
 	sprinkles({
-		paddingBottom: 'sm',
+		paddingBlockEnd: 'sm',
 		gap: 'sm',
 	}),
 	{
 		width: '100%',
-		borderBottomWidth: '2px',
-		borderBottomStyle: 'solid',
+		borderBlockEndWidth: '2px',
+		borderBlockEndStyle: 'solid',
 	},
 ])
 

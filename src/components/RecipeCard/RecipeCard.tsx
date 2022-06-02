@@ -54,8 +54,8 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({
 			</Text>
 
 			<Flex
-				marginTop="sm"
-				marginBottom="md"
+				marginBlockStart="sm"
+				marginBlockEnd="md"
 				borderColor={category.color || 'inherit'}
 				className={styles.infoRibbon}
 			>
@@ -76,7 +76,7 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({
 			</Box>
 
 			{tags.length > 0 && (
-				<Box marginTop="md">
+				<Box marginBlockStart="md">
 					{tags.map((tag) => (
 						<Link
 							key={tag.id}

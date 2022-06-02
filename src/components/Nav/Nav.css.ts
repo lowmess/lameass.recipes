@@ -54,12 +54,12 @@ export const list = style({
 
 globalStyle(`${list} li + li::before`, {
 	content: '\u2022',
-	paddingInlineEnd: vars.space.md,
+	marginInlineEnd: vars.space.md,
 	color: vars.color.accent,
 
 	'@media': {
 		'(min-width: 64em)': {
-			paddingInlineEnd: vars.space.lg,
+			marginInlineEnd: vars.space.lg,
 		},
 	},
 })

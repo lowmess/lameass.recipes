@@ -43,7 +43,7 @@ export const infoRibbon = style([
 globalStyle(`${infoRibbon} > * + *::before`, {
 	content: '\u2022',
 	color: 'var(--theme)',
-	paddingInlineEnd: vars.space.sm,
+	marginInlineEnd: vars.space.sm,
 })
 
 export const description = style({})

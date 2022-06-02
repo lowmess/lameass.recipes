@@ -12,7 +12,6 @@ export const card = style([
 		borderStyle: 'solid',
 		borderWidth: '0.25rem',
 		boxShadow: '0 -8px 16px -4px rgba( 0, 0, 0, 0.25 )',
-		transform: 'translateX(var(--x-offset)) rotateZ(var(--rotate))',
 	},
 ])
 

@@ -17,6 +17,7 @@ export const stack = style({
 globalStyle(`${stack} ${card}`, {
 	gridRow: 'calc(var(--count) * 3 + 1) / span 4',
 	gridColumn: 1,
+	transform: 'translateX(var(--displacement)) rotateZ(var(--rotation))',
 
 	'@media': {
 		'(any-hover: hover)': {
@@ -36,7 +37,7 @@ globalStyle(`${stack} ${card}:hover`, {
 globalStyle(`${stack} ${card}:hover ~ ${card}`, {
 	'@media': {
 		'(any-hover: hover)': {
-			transform: `translateY(calc(${offset} * 0.5)) translateX(var(--x-offset)) rotateZ(var(--rotate))`,
+			transform: `translateY(calc(${offset} * 0.5)) translateX(var(--displacement)) rotateZ(var(--rotation))`,
 		},
 	},
 })

@@ -2343,34 +2343,6 @@ input InUseFilter {
   eq: BooleanType
 }
 
-"""Block of type 🌿 Ingredient (ingredient)"""
-type IngredientRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  amount: FloatType
-  createdAt: DateTime!
-  id: ItemId!
-  unit: String
-  updatedAt: DateTime!
-  value: String!
-}
-
 """
 Represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 """
@@ -2913,7 +2885,7 @@ input RecipeModelFilter {
 
 type RecipeModelIngredientsField {
   blocks: [String!]!
-  links: [String!]!
+  links: [RecipeRecord!]!
   value: JsonField!
 }
 
@@ -2980,7 +2952,7 @@ type RecipeRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  category: CategoryRecord
+  category: CategoryRecord!
   cookTime: IntType
   createdAt: DateTime!
   description: RecipeModelDescriptionField

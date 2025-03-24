@@ -18,7 +18,7 @@ const {
 	headingLevel: Heading = "h2",
 	class: className,
 	...props
-} = Astro.props;
+}: Props<HTMLTag> = Astro.props;
 
 const {
 	title,
@@ -32,9 +32,10 @@ const {
 	tags,
 } = recipe;
 
-const time = totalTime || prepTime + cookTime;
+const time = totalTime || (prepTime || 0) + (cookTime || 0);
 
-const theme = `var(--color-${category.color})`;
+// category is a required field
+const theme = `var(--color-${category!.color})`;
 ---
 
 <Tag class:list={["card", className]} {...props}>
@@ -43,8 +44,8 @@ const theme = `var(--color-${category.color})`;
 	>
 
 	<div class="info-ribbon">
-		<a href={`/categories/${category.slug}`} class="link-ghost"
-			>{category.title}</a
+		<a href={`/categories/${category!.slug}`} class="link-ghost"
+			>{category!.title}</a
 		>
 
 		{time > 0 && <span>{minutesToHours(time)}</span>}
@@ -53,7 +54,7 @@ const theme = `var(--color-${category.color})`;
 	</div>
 
 	{
-		description.value && (
+		description && (
 			<div class="description">
 				<StructuredText data={description} />
 			</div>

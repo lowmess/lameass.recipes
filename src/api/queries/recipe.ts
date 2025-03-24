@@ -13,8 +13,6 @@ export const RecipePreviewFragment = graphql(`
 			color
 		}
 		description {
-			blocks
-			links
 			value
 		}
 		tags {
@@ -54,8 +52,8 @@ export const getRecentRecipes = graphql(
 
 export const getRecipeById = graphql(
 	`
-		query GetRecipeById($id: String!) {
-			recipe(id: $id) {
+		query GetRecipeById($id: ItemId!) {
+			recipe(filter: { id: { eq: $id } }) {
 				# common fields
 				...RecipePreviewFragment
 
@@ -66,18 +64,19 @@ export const getRecipeById = graphql(
 					value
 				}
 				ingredients {
-					blocks
-					links
+					links {
+						... on RecipeRecord {
+							id
+							slug
+							__typename
+						}
+					}
 					value
 				}
 				directions {
-					blocks
-					links
 					value
 				}
 				notes {
-					blocks
-					links
 					value
 				}
 				pairsWith {
@@ -85,7 +84,7 @@ export const getRecipeById = graphql(
 				}
 
 				seo {
-					...SEOFieldsFragment
+					...SeoFieldsFragment
 				}
 			}
 		}

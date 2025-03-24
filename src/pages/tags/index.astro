@@ -1,0 +1,66 @@
+---
+import { executeQuery } from "#api/datocms/executeQuery.ts";
+import { getAllTags } from "#api/queries/tag.ts";
+import Container from "#components/Container.astro";
+import GlobalLayout from "#layouts/GlobalLayout.astro";
+import { colors } from "#util/colors.ts";
+
+const { allTags } = await executeQuery(getAllTags);
+
+const tags = allTags.sort((firstTag, secondTag) =>
+	firstTag.title.localeCompare(secondTag.title, "en-US", {
+		sensitivity: "base",
+	}),
+);
+---
+
+<GlobalLayout title="Tags">
+	<Container class="content">
+		<h1>Recipes tagged:</h1>
+
+		{
+			tags.map((tag, index) => {
+				const color = colors[index % colors.length];
+
+				return (
+					<a
+						href={`/tags/${tag.slug}`}
+						class="link-ui"
+						style={`--theme: var(--color-${color});`}
+					>
+						{tag.title}
+					</a>
+				);
+			})
+		}
+	</Container>
+</GlobalLayout>
+
+<style>
+	h1,
+	a {
+		display: inline;
+		font-family: var(--font-family-henrietta);
+		font-size: var(--font-size-xxl);
+		font-weight: 400;
+		line-height: 1.125;
+
+		&::after {
+			content: " ";
+		}
+
+		@media (min-width: 48em) {
+			font-size: var(--font-size-xxxl);
+		}
+	}
+
+	.content {
+		margin-block-start: var(--rhythm-lg);
+		margin-block-end: var(--rhythm-xl);
+
+		@media (min-width: 48em) {
+			margin-block-start: var(--rhythm-xl);
+			margin-block-end: var(--rhythm-xxl);
+		}
+	}
+</style>

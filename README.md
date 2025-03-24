@@ -4,11 +4,9 @@ it's a recipe site, only the recipes are good and don't come with a whole-ass li
 
 Made with
 
-- [Next.js](https://nextjs.org)
-- [Sanity](https://www.sanity.io)
+- [Astro](https://astro.build)
+- [DatoCMS](https://datocms.com)
 - [Vercel](https://vercel.com)
-- [Staat](https://regularbolditalic.com/fonts/staat)
-- [Phosphor](https://phosphoricons.com)
 
 ## Developing
 

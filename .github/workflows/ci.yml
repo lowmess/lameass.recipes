@@ -8,22 +8,23 @@ on:
 
 jobs:
   lint:
-    name: Lint JavaScript
+    name: Lint
 
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '14'
-          cache: 'npm'
+          node-version-file: ".nvmrc"
+          cache: "npm"
+          cache-dependency-path: "package-lock.json"
 
       - name: Install dependencies
-        run: npm ci --omit=dev --ignore-scripts
+        run: npm ci --ignore-scripts
 
-      - name: Run ESLint
-        run: npx eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0
+      - name: Lint JS-like files
+        run: npx eslint .  --max-warnings 0
 
   typecheck:
     name: Typecheck
@@ -31,48 +32,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '14'
-          cache: 'npm'
+          node-version-file: ".nvmrc"
+          cache: "npm"
+          cache-dependency-path: "package-lock.json"
 
       - name: Install dependencies
-        run: npm ci --omit=dev --ignore-scripts
+        run: npm ci --ignore-scripts
 
-      - name: Run TypeScript
-        run: npx tsc
-
-  lighthouse:
-    name: Run Lighthouse audit
-
-    runs-on: ubuntu-latest
-
-    needs: [lint, typecheck]
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci --omit=dev --ignore-scripts
-
-      - name: Get Next.js build cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-next-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install Lighthouse CLI
-        run: npm install -g @lhci/cli@0.4.x
-
-      - name: Build site
-        run: SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }} npm run build
-
-      - name: Run Lighthouse CI
-        run: lhci autorun
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      - name: Check types
+        run: npx astro check --minimumFailingSeverity warning

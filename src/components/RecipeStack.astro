@@ -1,0 +1,69 @@
+---
+import type { HTMLTag, Polymorphic } from "astro/types";
+
+import type { FragmentOf } from "#api/datocms/graphql.ts";
+import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
+import RecipeCard from "#components/RecipeCard.astro";
+import { getCardDisplacement } from "#util/cardDisplacement.ts";
+
+type Props<Tag extends HTMLTag> = Polymorphic<{
+	as: Tag;
+	recipes: Array<FragmentOf<typeof RecipePreviewFragment>>;
+	headingLevel?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+}>;
+
+const {
+	as: Tag = "div",
+	recipes,
+	headingLevel = "h2",
+	class: className,
+	...props
+} = Astro.props;
+---
+
+<Tag class:list={["stack", className]} {...props}>
+	{
+		recipes.map((recipe, index) => {
+			const { displacement, rotation } = getCardDisplacement();
+
+			return (
+				<RecipeCard
+					recipe={recipe}
+					headingLevel={headingLevel}
+					class="card--stacked"
+					style={`--displacement: ${displacement}; --rotation: ${rotation}; --count: ${index};`}
+				/>
+			);
+		})
+	}
+</Tag>
+
+<style>
+	.stack {
+		--offset: 2rem;
+
+		display: grid;
+		max-width: max-content;
+		margin-block: var(--offset);
+		margin-inline: auto;
+	}
+
+	.card--stacked {
+		grid-row: calc(var(--count) * 3 + 1) / span 4;
+		grid-column: 1;
+		transform: translateX(var(--displacement)) rotateZ(var(--rotation));
+
+		@media (any-hover: hover) {
+			transition: transform 0.3s ease;
+
+			&:hover {
+				transform: translateY(calc(var(--offset) * -1));
+			}
+
+			&:hover ~ .card--stacked {
+				transform: translateY(calc(var(--offset) * 0.5))
+					translateX(var(--displacement)) rotateZ(var(--rotation));
+			}
+		}
+	}
+</style>

@@ -1,0 +1,26 @@
+.link-ui {
+	color: var(--theme, var(--color--accent));
+	text-decoration: none;
+
+	&:hover {
+		color: inherit;
+	}
+}
+
+.link-ghost {
+	color: inherit;
+	text-decoration: none;
+
+	&:hover {
+		color: var(--theme, var(--color-accent));
+	}
+}
+
+.link-themed {
+	color: inherit;
+	text-decoration-color: var(--theme, var(--color-accent));
+
+	&:hover {
+		color: var(--theme, var(--color-accent));
+	}
+}

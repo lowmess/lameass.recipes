@@ -1,0 +1,36 @@
+html {
+	background-color: var(--color-beige-1);
+	color: var(--color-gray-10);
+
+	@media (prefers-color-scheme: dark) {
+		background-color: var(--color-beige-10);
+		color: var(--color-gray-2);
+	}
+
+	@media (min-width: 90em) {
+		font-size: 112.5%;
+	}
+}
+
+body {
+	font-size: var(--font-size-md);
+}
+
+:where(a) {
+	color: inherit;
+	text-decoration-color: var(--color-accent);
+
+	&:hover {
+		color: var(--color-accent);
+	}
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+	font-family: var(--font-family-henrietta);
+	line-height: var(--line-height-heading);
+	text-wrap: balance;
+}
+
+.themed-text {
+	color: var(--theme, var(--color-accent));
+}

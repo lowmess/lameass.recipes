@@ -1,0 +1,22 @@
+---
+import { executeQuery } from "#api/datocms/executeQuery.ts";
+import { getRecentRecipes } from "#api/queries/recipe.ts";
+import RecipeStack from "#components/RecipeStack.astro";
+import GlobalLayout from "#layouts/GlobalLayout.astro";
+
+const { allRecipes } = await executeQuery(getRecentRecipes);
+---
+
+<GlobalLayout>
+	<h1>Recent additions to the cookbook</h1>
+
+	<RecipeStack recipes={allRecipes} />
+</GlobalLayout>
+
+<style>
+	h1 {
+		margin-block: var(--rhythm-lg);
+		text-align: center;
+		font-weight: 400;
+	}
+</style>

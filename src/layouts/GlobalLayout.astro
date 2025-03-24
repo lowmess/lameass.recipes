@@ -1,0 +1,56 @@
+---
+import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
+
+import Footer from "#components/Footer.astro";
+import HeadMetadata from "#components/HeadMetadata.astro";
+import Navigation from "#components/Navigation.astro";
+
+import "#styles/fonts.css";
+import "#styles/global.css";
+import "#styles/links.css";
+import "#styles/tokens.css";
+import "sanitize.css";
+import "sanitize.css/assets.css";
+import "sanitize.css/reduce-motion.css";
+import "sanitize.css/typography.css";
+
+type Props = {
+	title?: string;
+	description?: string;
+};
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<HeadMetadata title={title} description={description} />
+	</head>
+
+	<body>
+		<Navigation />
+
+		<main id="main-content">
+			<slot />
+		</main>
+
+		<Footer />
+
+		<Analytics />
+		<SpeedInsights />
+	</body>
+</html>
+
+<style>
+	body {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+
+	main {
+		flex: 1;
+	}
+</style>

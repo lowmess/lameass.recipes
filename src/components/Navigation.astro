@@ -1,0 +1,105 @@
+---
+
+---
+
+<nav>
+	<a href="#main-content" class="skip-nav-link"> Skip to main content </a>
+
+	<div class="nav-content">
+		<a href="/" class="logo link-ui">
+			lameass<span class="logo__period">.</span>recipes
+		</a>
+
+		<ul>
+			<li>
+				<a href="/recipes" class="link-ghost">Recipes</a>
+			</li>
+
+			<li>
+				<a href="/meals" class="link-ghost">Meals</a>
+			</li>
+
+			<li>
+				<a href="/categories" class="link-ghost">Categories</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<style>
+	nav {
+		position: relative;
+	}
+
+	.skip-nav-link {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+
+		&:focus {
+			opacity: 1;
+			pointer-events: auto;
+		}
+	}
+
+	.nav-content {
+		text-align: center;
+	}
+
+	.logo {
+		display: block;
+		margin-block-end: var(--rhythm-sm);
+		font-size: var(--font-size-xl);
+		font-weight: 600;
+		font-family: var(--font-family-henrietta);
+		color: var(--color-accent);
+		text-decoration: none;
+
+		&:hover {
+			color: inherit;
+		}
+
+		@media (min-width: 48em) {
+			font-size: var(--font-size-xxl);
+		}
+	}
+
+	.logo__period {
+		color: var(--color-white);
+
+		@media (prefers-color-scheme: dark) {
+			color: var(--color-gray-2);
+		}
+	}
+
+	ul {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--space-md);
+		width: 100vw;
+		margin-block: 0;
+		margin-inline-start: calc(50% - 50vw);
+		padding-block-start: var(--rhythm-xs);
+		padding-block-end: var(--rhythm-sm);
+		padding-inline: var(--space-lg);
+		border-block: 2px solid var(--color-accent);
+		text-transform: lowercase;
+		white-space: nowrap;
+		overflow-x: auto;
+
+		@media (min-width: 64em) {
+			gap: var(--space-lg);
+		}
+	}
+
+	li + li::before {
+		content: "\2022";
+		margin-inline-end: var(--space-md);
+		color: var(--color-accent);
+
+		@media (min-width: 64em) {
+			margin-inline-end: var(--space-lg);
+		}
+	}
+</style>

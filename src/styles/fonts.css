@@ -1,0 +1,95 @@
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-Light.woff2") format("woff2");
+	font-style: normal;
+	font-weight: 100 300;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-LightItalic.woff2") format("woff2");
+	font-style: italic;
+	font-weight: 100 300;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-Regular.woff2") format("woff2");
+	font-style: normal;
+	font-weight: 400;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-RegularItalic.woff2") format("woff2");
+	font-style: italic;
+	font-weight: 400;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-Medium.woff2") format("woff2");
+	font-style: normal;
+	font-weight: 500;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-MediumItalic.woff2") format("woff2");
+	font-style: italic;
+	font-weight: 500;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-SemiBold.woff2") format("woff2");
+	font-style: normal;
+	font-weight: 600;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-SemiBoldItalic.woff2") format("woff2");
+	font-style: italic;
+	font-weight: 600;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-Bold.woff2") format("woff2");
+	font-style: normal;
+	font-weight: 700;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-BoldItalic.woff2") format("woff2");
+	font-style: italic;
+	font-weight: 700;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-Black.woff2") format("woff2");
+	font-style: normal;
+	font-weight: 800 900;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Henrietta";
+	src: url("/fonts/VCHenrietta-BlackItalic.woff2") format("woff2");
+	font-style: italic;
+	font-weight: 800 900;
+	font-display: "swap";
+}

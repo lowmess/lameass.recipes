@@ -1,0 +1,135 @@
+---
+import { StructuredText } from "@datocms/astro";
+import type { HTMLTag, Polymorphic } from "astro/types";
+
+import type { FragmentOf } from "#api/datocms/graphql.ts";
+import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
+import { minutesToHours } from "#util/time.ts";
+
+type Props<Tag extends HTMLTag> = Polymorphic<{
+	as: Tag;
+	recipe: FragmentOf<typeof RecipePreviewFragment>;
+	headingLevel?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+}>;
+
+const {
+	as: Tag = "div",
+	recipe,
+	headingLevel: Heading = "h2",
+	class: className,
+	...props
+} = Astro.props;
+
+const {
+	title,
+	slug,
+	category,
+	prepTime = 0,
+	cookTime = 0,
+	totalTime = 0,
+	servings,
+	description,
+	tags,
+} = recipe;
+
+const time = totalTime || prepTime + cookTime;
+
+const theme = `var(--color-${category.color})`;
+---
+
+<Tag class:list={["card", className]} {...props}>
+	<Heading class="title"
+		><a href={`/recipes/${slug}`} class="link-ui">{title}</a></Heading
+	>
+
+	<div class="info-ribbon">
+		<a href={`/categories/${category.slug}`} class="link-ghost"
+			>{category.title}</a
+		>
+
+		{time > 0 && <span>{minutesToHours(time)}</span>}
+
+		{servings && <span>Serves {servings}</span>}
+	</div>
+
+	{
+		description.value && (
+			<div class="description">
+				<StructuredText data={description} />
+			</div>
+		)
+	}
+
+	{
+		tags.length > 0 && (
+			<div class="tags">
+				{tags.map((tag) => (
+					<a href={`/tags/${tag.slug}`}>{tag.title}</a>
+				))}
+			</div>
+		)
+	}
+</Tag>
+
+<style define:vars={{ theme }}>
+	.card {
+		--theme: var(--theme);
+
+		max-width: 48rem;
+		border: var(--space-xs) solid;
+		border-color: var(--color-gray-10);
+		padding: var(--space-md);
+		background-color: var(--color-white);
+		box-shadow: 0 -8px 16px -4px rgb(0 0 0 / 0.25);
+
+		@media (prefers-color-scheme: dark) {
+			border-color: var(--color-black);
+			background-color: var(--color-beige-9);
+		}
+
+		:not(h1, h2, h3, h4, h5, h6) a:hover {
+			color: var(--theme);
+		}
+	}
+
+	.title {
+		margin-block: 0;
+		font-size: var(--font-size-xl);
+		font-weight: 400;
+	}
+
+	.info-ribbon {
+		display: flex;
+		gap: var(--space-sm);
+		width: 100%;
+		margin-block-start: var(--rhythm-sm);
+		margin-block-end: var(--rhythm-md);
+		border-block-end: 2px solid var(--theme, var(--color-accent));
+		padding-block-end: var(--rhythm-sm);
+
+		& > * + *::before {
+			content: "\2022";
+			color: var(--theme, var(--color-accent));
+			margin-inline-end: var(--space-sm);
+		}
+	}
+
+	.description {
+		display: contents;
+
+		p {
+			max-width: 55ch;
+			margin: 0;
+			text-wrap: pretty;
+		}
+	}
+
+	.tags {
+		margin-block-start: var(--rhythm-md);
+		font-size: var(--font-size-sm);
+
+		a:not(:last-child)::after {
+			content: ", ";
+		}
+	}
+</style>

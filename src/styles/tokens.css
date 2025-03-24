@@ -1,0 +1,99 @@
+:root {
+	/* typography */
+	/* @link https://min-max-calculator.9elements.com/ */
+	--font-size-sm: clamp(0.875rem, 0.765rem + 0.37vw, 1rem);
+	--font-size-md: clamp(1rem, 0.779rem + 0.74vw, 1.25rem);
+	--font-size-lg: clamp(1.25rem, 0.809rem + 1.47vw, 1.75rem);
+	--font-size-xl: clamp(2rem, 1.559rem + 1.47vw, 2.5rem);
+	--font-size-xxl: clamp(2.5rem, 1.618rem + 2.94vw, 3.5rem);
+	--font-size-xxxl: clamp(3rem, 1.235rem + 5.88vw, 5rem);
+
+	--font-family-system:
+		system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu", "Cantarell",
+		"Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+		"Segoe UI Symbol", "Noto Color Emoji";
+	--font-family-henrietta: Henrietta, georgia, serif;
+
+	--line-height-solid: 1;
+	--line-height-heading: 1.25;
+	--line-height-body: 1.5;
+
+	/* spacing */
+	--space-none: 0;
+	--space-xxs: 2px;
+	--space-xs: 4px;
+	--space-sm: 8px;
+	--space-md: 16px;
+	--space-lg: 32px;
+	--space-xl: 64px;
+	--space-xxl: 128px;
+
+	/* vertical rhythm */
+	--rhythm-none: 0;
+	--rhythm-xs: 0.25rlh;
+	--rhythm-sm: 0.5rlh;
+	--rhythm-md: 1rlh;
+	--rhythm-lg: 2rlh;
+	--rhythm-xl: 3rlh;
+	--rhythm-xxl: 4rlh;
+
+	/* letter-spacing */
+	--letter-spacing-none: 0;
+	--letter-spacing-narrow: 2px;
+	--letter-spacing-wide: 4px;
+
+	/* palette */
+	--color-white: #ffffff;
+	--color-black: #131310;
+	--color-accent: #f94838;
+
+	--color-gray-1: #eeeee9;
+	--color-gray-2: #e1e1db;
+	--color-gray-3: #d3d3ce;
+	--color-gray-4: #c4c4bf;
+	--color-gray-5: #b3b3af;
+	--color-gray-6: #a0a09c;
+	--color-gray-7: #898986;
+	--color-gray-8: #6c6c69;
+	--color-gray-9: #3f3f3e;
+	--color-gray-10: #2e2e2d;
+
+	--color-beige-1: #eff0d0;
+	--color-beige-2: #e2e3c5;
+	--color-beige-3: #d4d5b9;
+	--color-beige-4: #c5c6ac;
+	--color-beige-5: #b4b59d;
+	--color-beige-6: #a1a18c;
+	--color-beige-7: #8a8a78;
+	--color-beige-8: #6d6d5f;
+	--color-beige-9: #404037;
+	--color-beige-10: #2c2c25;
+
+	--color-red: #f94838;
+	--color-pink: #fa3989;
+	--color-violet: #ba5bfd;
+	--color-blue: #3887f7;
+	--color-cyan: #2497a0;
+	--color-teal: #239b6a;
+	--color-green: #249e2e;
+	--color-yellow: #d7c30f;
+	--color-orange: #d69231;
+
+	@media (prefers-color-scheme: dark) {
+		--color-accent: #fc4b39;
+
+		--color-red: #fc4b39;
+		--color-pink: #fd91be;
+		--color-violet: #d59cfd;
+		--color-blue: #60a1fd;
+		--color-cyan: #2fc5d2;
+		--color-teal: #32de96;
+		--color-green: #2fce3c;
+		--color-yellow: #dceb35;
+		--color-orange: #f0a336;
+	}
+
+	/* container */
+	--container-width: 64rem;
+	--container-padding: var(--space-md);
+}

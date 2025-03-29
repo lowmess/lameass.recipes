@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * HENRIETTA
+ ******************************************************************************/
+
 @font-face {
 	font-family: "Henrietta";
 	src: url("/fonts/VCHenrietta-Light.woff2") format("woff2");
@@ -91,5 +95,75 @@
 	src: url("/fonts/VCHenrietta-BlackItalic.woff2") format("woff2");
 	font-style: italic;
 	font-weight: 800 900;
+	font-display: "swap";
+}
+
+/*******************************************************************************
+ * BASIER MONO
+ ******************************************************************************/
+
+@font-face {
+	font-family: "Basier Mono";
+	src: url("/fonts/basiercirclemono-regular-webfont.woff2") format("woff2");
+	font-style: normal;
+	font-weight: 100 400;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Basier Mono";
+	src: url("/fonts/basiercirclemono-regularitalic-webfont.woff2")
+		format("woff2");
+	font-style: italic;
+	font-weight: 100 400;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Basier Mono";
+	src: url("/fonts/basiercirclemono-medium-webfont.woff2") format("woff2");
+	font-style: normal;
+	font-weight: 500;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Basier Mono";
+	src: url("/fonts/basiercirclemono-mediumitalic-webfont.woff2") format("woff2");
+	font-style: italic;
+	font-weight: 500;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Basier Mono";
+	src: url("/fonts/basiercirclemono-semibold-webfont.woff2") format("woff2");
+	font-style: normal;
+	font-weight: 600;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Basier Mono";
+	src: url("/fonts/basiercirclemono-semibolditalic-webfont.woff2")
+		format("woff2");
+	font-style: italic;
+	font-weight: 600;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Basier Mono";
+	src: url("/fonts/basiercirclemono-bold-webfont.woff2") format("woff2");
+	font-style: normal;
+	font-weight: 700 900;
+	font-display: "swap";
+}
+
+@font-face {
+	font-family: "Basier Mono";
+	src: url("/fonts/basiercirclemono-bolditalic-webfont.woff2") format("woff2");
+	font-style: italic;
+	font-weight: 700 900;
 	font-display: "swap";
 }

@@ -1,0 +1,62 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+import { Category } from "#types/category.ts";
+import { getCategorySizeMap } from "#util/sticker-sizes.ts";
+
+import CocktailSticker from "./stickers/Cocktail.astro";
+import DessertSticker from "./stickers/Dessert.astro";
+import IngredientSticker from "./stickers/Ingredient.astro";
+import MainDishSticker from "./stickers/MainDish.astro";
+import SideDishSticker from "./stickers/SideDish.astro";
+import SnackSticker from "./stickers/Snack.astro";
+
+type Props = HTMLAttributes<"svg"> & {
+	category: Category;
+};
+
+const { category, class: className, ...props } = Astro.props;
+
+let StickerComponent = MainDishSticker;
+
+switch (category) {
+	case Category.MainDish:
+		StickerComponent = MainDishSticker;
+		break;
+
+	case Category.SideDish:
+		StickerComponent = SideDishSticker;
+		break;
+
+	case Category.Dessert:
+		StickerComponent = DessertSticker;
+		break;
+
+	case Category.Snack:
+		StickerComponent = SnackSticker;
+		break;
+
+	case Category.Cocktail:
+		StickerComponent = CocktailSticker;
+		break;
+
+	case Category.Ingredient:
+		StickerComponent = IngredientSticker;
+		break;
+}
+
+const sizeMap = getCategorySizeMap(category);
+---
+
+<StickerComponent class:list={[className, "sticker"]} {...props} />
+
+<style
+	define:vars={{
+		verticalSize: sizeMap.vertical,
+		horizontalSize: sizeMap.horizontal,
+	}}
+>
+	.sticker {
+		transform: scaleY(var(--verticalSize)) scaleX(var(--horizontalSize));
+	}
+</style>

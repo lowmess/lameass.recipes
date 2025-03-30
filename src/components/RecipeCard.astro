@@ -4,6 +4,9 @@ import type { HTMLTag, Polymorphic } from "astro/types";
 
 import type { FragmentOf } from "#api/datocms/graphql.ts";
 import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
+import Sticker from "#components/Sticker.astro";
+import type { Category } from "#types/category.ts";
+import { getDisplacementValues } from "#util/displacement.ts";
 import { minutesToHours } from "#util/time.ts";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{
@@ -36,6 +39,16 @@ const time = totalTime || (prepTime || 0) + (cookTime || 0);
 
 // category is a required field
 const theme = `var(--color-${category!.color})`;
+
+const {
+	verticalOffset: stickerVerticalOffset,
+	horizontalOffset: stickerHorizontalOffset,
+	rotation: stickerRotation,
+} = getDisplacementValues({
+	maxVerticalOffset: 4,
+	maxHorizontalOffset: 12,
+	maxRotation: 15,
+});
 ---
 
 <Tag class:list={["card", className]} {...props}>
@@ -43,15 +56,12 @@ const theme = `var(--color-${category!.color})`;
 		><a href={`/recipes/${slug}`} class="link-ui">{title}</a></Heading
 	>
 
-	<div class="info-ribbon">
-		<a href={`/categories/${category!.slug}`} class="link-ghost"
-			>{category!.title}</a
-		>
-
-		{time > 0 && <span>{minutesToHours(time)}</span>}
-
-		{servings && <span>Serves {servings}</span>}
-	</div>
+	<a href={`/categories/${category!.slug}`} class="link-ghost"
+		><Sticker
+			class="category-sticker"
+			category={category!.slug as Category}
+		/></a
+	>
 
 	{
 		description && (
@@ -61,21 +71,33 @@ const theme = `var(--color-${category!.color})`;
 		)
 	}
 
-	{
-		tags.length > 0 && (
-			<div class="tags">
-				{tags.map((tag) => (
-					<a href={`/tags/${tag.slug}`}>{tag.title}</a>
-				))}
-			</div>
-		)
-	}
+	<div class="info-ribbon">
+		{time > 0 && <span>{minutesToHours(time)}</span>}
+
+		{servings && <span>Serves {servings}</span>}
+
+		{
+			tags.map((tag) => (
+				<a href={`/tags/${tag.slug}`} class="link-ghost">
+					{tag.title}
+				</a>
+			))
+		}
+	</div>
 </Tag>
 
-<style define:vars={{ theme }}>
+<style
+	define:vars={{
+		theme,
+		stickerVerticalOffset,
+		stickerHorizontalOffset,
+		stickerRotation,
+	}}
+>
 	.card {
 		--theme: var(--theme);
 
+		position: relative;
 		max-width: 48rem;
 		border: var(--space-xs) solid;
 		border-color: var(--color-gray-10);
@@ -95,18 +117,32 @@ const theme = `var(--color-${category!.color})`;
 
 	.title {
 		margin-block: 0;
+		margin-block-end: var(--rhythm-sm);
 		font-size: var(--font-size-xl);
 		font-weight: 400;
+	}
+
+	.category-sticker {
+		position: absolute;
+		top: var(--space-sm);
+		right: var(--space-md);
+		width: var(--space-xxl);
+		height: var(--space-xxl);
+		color: var(--theme);
+		filter: drop-shadow(0px 1px 1px rgb(0 0 0 / 0.2));
+		transform: translateX(var(--stickerHorizontalOffset))
+			translateY(var(--stickerVerticalOffset)) rotateZ(var(--stickerRotation));
 	}
 
 	.info-ribbon {
 		display: flex;
 		gap: var(--space-sm);
 		width: 100%;
-		margin-block-start: var(--rhythm-sm);
-		margin-block-end: var(--rhythm-md);
-		border-block-end: 2px solid var(--theme, var(--color-accent));
-		padding-block-end: var(--rhythm-sm);
+		margin-block-start: var(--rhythm-lg);
+		border-block-start: 2px solid var(--theme, var(--color-accent));
+		padding-block-start: var(--rhythm-sm);
+		font-size: var(--font-size-sm);
+		font-family: var(--font-family-rock-salt);
 
 		& > * + *::before {
 			content: "\2022";
@@ -116,21 +152,13 @@ const theme = `var(--color-${category!.color})`;
 	}
 
 	.description {
-		display: contents;
-
-		p {
-			max-width: 55ch;
-			margin: 0;
-			text-wrap: pretty;
-		}
+		padding-inline-end: var(--space-xxl);
 	}
 
-	.tags {
-		margin-block-start: var(--rhythm-md);
-		font-size: var(--font-size-sm);
-
-		a:not(:last-child)::after {
-			content: ", ";
-		}
+	:global(.card .description p) {
+		max-width: 55ch;
+		margin: 0;
+		text-wrap: pretty;
+		/* font-size: var(--font-size-sm); */
 	}
 </style>

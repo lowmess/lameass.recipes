@@ -4,7 +4,7 @@ import type { HTMLTag, Polymorphic } from "astro/types";
 import type { FragmentOf } from "#api/datocms/graphql.ts";
 import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
 import RecipeCard from "#components/RecipeCard.astro";
-import { getCardDisplacement } from "#util/cardDisplacement.ts";
+import { getDisplacementValues } from "#util/displacement.ts";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{
 	as: Tag;
@@ -24,14 +24,14 @@ const {
 <Tag class:list={["stack", className]} {...props}>
 	{
 		recipes.map((recipe, index) => {
-			const { displacement, rotation } = getCardDisplacement();
+			const { horizontalOffset, rotation } = getDisplacementValues({});
 
 			return (
 				<RecipeCard
 					recipe={recipe}
 					headingLevel={headingLevel}
 					class="card--stacked"
-					style={`--displacement: ${displacement}; --rotation: ${rotation}; --count: ${index};`}
+					style={`--displacement: ${horizontalOffset}; --rotation: ${rotation}; --count: ${index};`}
 				/>
 			);
 		})
@@ -40,7 +40,7 @@ const {
 
 <style>
 	.stack {
-		--offset: 2rem;
+		--offset: 2rlh;
 
 		display: grid;
 		max-width: max-content;

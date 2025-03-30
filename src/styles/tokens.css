@@ -13,6 +13,8 @@
 		"Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
 		"Segoe UI Symbol", "Noto Color Emoji";
 	--font-family-henrietta: Henrietta, georgia, serif;
+	--font-family-basier: "Basier Mono", monospace;
+	--font-family-rock-salt: "Rock Salt";
 
 	--line-height-solid: 1;
 	--line-height-heading: 1.25;

@@ -4,12 +4,12 @@ import type { HTMLAttributes } from "astro/types";
 import { Category } from "#types/category.ts";
 import { getCategorySizeMap } from "#util/sticker-sizes.ts";
 
-import CocktailSticker from "./stickers/Cocktail.astro";
-import DessertSticker from "./stickers/Dessert.astro";
-import IngredientSticker from "./stickers/Ingredient.astro";
-import MainDishSticker from "./stickers/MainDish.astro";
-import SideDishSticker from "./stickers/SideDish.astro";
-import SnackSticker from "./stickers/Snack.astro";
+import CocktailSticker from "./stickers/Cocktail.svg";
+import DessertSticker from "./stickers/Dessert.svg";
+import IngredientSticker from "./stickers/Ingredient.svg";
+import MainDishSticker from "./stickers/MainDish.svg";
+import SideDishSticker from "./stickers/SideDish.svg";
+import SnackSticker from "./stickers/Snack.svg";
 
 type Props = HTMLAttributes<"svg"> & {
 	category: Category;

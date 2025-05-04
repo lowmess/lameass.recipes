@@ -7,7 +7,10 @@ import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
 import Sticker from "#components/Sticker.astro";
 import type { Category } from "#types/category.ts";
 import { getDisplacementValues } from "#util/displacement.ts";
+import { pluralize } from "#util/grammar.ts";
+import { toFraction } from "#util/number.ts";
 import { minutesToHours } from "#util/time.ts";
+import { getUnit } from "#util/units.ts";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{
 	as: Tag;
@@ -30,7 +33,7 @@ const {
 	prepTime = 0,
 	cookTime = 0,
 	totalTime = 0,
-	servings,
+	yields,
 	description,
 	tags,
 } = recipe;
@@ -49,6 +52,20 @@ const {
 	maxHorizontalOffset: 12,
 	maxRotation: 15,
 });
+
+let yieldString;
+
+if (yields.unit === "servings") {
+	yieldString = `Serves ${yields.amount}`;
+} else {
+	const unit = getUnit(yields.unit);
+
+	if (unit) {
+		const amount = toFraction(yields.amount);
+
+		yieldString = `Yields ${amount} ${pluralize(yields.amount, unit, `${unit}s`)}`;
+	}
+}
 ---
 
 <Tag class:list={["card", className]} {...props}>
@@ -56,11 +73,8 @@ const {
 		><a href={`/recipes/${slug}`} class="link-ui">{title}</a></Heading
 	>
 
-	<a href={`/categories/${category!.slug}`} class="link-ghost"
-		><Sticker
-			class="category-sticker"
-			category={category!.slug as Category}
-		/></a
+	<a href={`/categories/${category!.slug}`} class="link-ui category-sticker"
+		><Sticker category={category!.slug as Category} /></a
 	>
 
 	{
@@ -74,7 +88,7 @@ const {
 	<div class="info-ribbon">
 		{time > 0 && <span>{minutesToHours(time)}</span>}
 
-		{servings && <span>Serves {servings}</span>}
+		{yieldString && <span>{yieldString}</span>}
 
 		{
 			tags.map((tag) => (
@@ -128,10 +142,14 @@ const {
 		right: var(--space-md);
 		width: var(--space-xxl);
 		height: var(--space-xxl);
-		color: var(--theme);
-		filter: drop-shadow(0px 1px 1px rgb(0 0 0 / 0.2));
 		transform: translateX(var(--stickerHorizontalOffset))
 			translateY(var(--stickerVerticalOffset)) rotateZ(var(--stickerRotation));
+
+		svg {
+			width: 100%;
+			height: 100%;
+			filter: drop-shadow(0px 2px 1px rgb(0 0 0 / 0.2));
+		}
 	}
 
 	.info-ribbon {

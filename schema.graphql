@@ -1,3 +1,85 @@
+type AuthorModelBioField {
+  blocks: [String!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+input AuthorModelFilter {
+  _createdAt: CreatedAtFilter
+  createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  bio: StructuredTextFilter
+  image: FileFilter
+  name: StringFilter
+  OR: [AuthorModelFilter]
+  AND: [AuthorModelFilter]
+}
+
+enum AuthorModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  name_ASC
+  name_DESC
+}
+
+"""Record of type Author (author)"""
+type AuthorRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  bio: AuthorModelBioField
+  createdAt: DateTime!
+  id: ItemId!
+  image: ImageFileField
+  link: SocialMediaLinkRecord
+  name: String!
+  updatedAt: DateTime!
+}
+
 """Specifies how to filter Boolean fields"""
 input BooleanFilter {
   """Search for records with an exact match"""
@@ -61,11 +143,11 @@ type CategoryRecord implements RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(
@@ -358,6 +440,30 @@ interface FileFieldInterface {
   width: IntType
 }
 
+"""Specifies how to filter Single-file/image fields"""
+input FileFilter {
+  """
+  Search for records with an exact match. The specified value must be an Upload ID
+  """
+  eq: UploadId
+
+  """
+  Exclude records with an exact match. The specified value must be an Upload ID
+  """
+  neq: UploadId
+
+  """Filter records that have one of the specified uploads"""
+  in: [UploadId]
+
+  """Filter records that do not have one of the specified uploads"""
+  notIn: [UploadId]
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
 """
 Represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point).
 """
@@ -369,6 +475,105 @@ type GlobalSeoField {
   siteName: String
   titleSuffix: String
   twitterAccount: String
+}
+
+type ImageFileField implements FileFieldInterface {
+  _createdAt: DateTime!
+
+  """
+  The DatoCMS URL where you can edit this entity. To use this field, you need to set a X-Base-Editing-Url header in the request
+  """
+  _editingUrl: String
+  _updatedAt: DateTime!
+  alt(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String
+  author: String
+  basename: String!
+  blurUpThumb(
+    """
+    Controls the "punch" value (~contrast) of the blurhash decoding algorithm (defaults to 1.0)
+    """
+    punch: Float! = 1
+
+    """Maximum image dimension (defaults to 24px)"""
+    size: Int! = 24
+
+    """Image quality (defaults to 70%)"""
+    quality: Int! = 70
+
+    """Imgix transformations to apply to the image"""
+    imgixParams: ImgixParams
+  ): String
+  blurhash: String
+  colors: [ColorField!]!
+  copyright: String
+  customData(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): CustomData!
+  exifInfo: CustomData!
+  filename: String!
+  focalPoint(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): focalPoint!
+  format: String!
+  height: IntType!
+  id: UploadId!
+  md5: String!
+  mimeType: String!
+  notes: String
+  responsiveImage(
+    """Imgix transformations to apply to the image"""
+    imgixParams: ImgixParams
+
+    """Specify a custom `sizes` attribute for the image"""
+    sizes: String
+
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): ResponsiveImage!
+  size: IntType!
+  smartTags: [String!]!
+  tags: [String!]!
+  thumbhash: String
+  title(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String
+  url(
+    """Imgix transformations to apply to the image"""
+    imgixParams: ImgixParams
+  ): String!
+  video: UploadVideoField
+  width: IntType!
 }
 
 input ImgixParams {
@@ -2459,12 +2664,14 @@ input LinksFilter {
 
 type MealModelDescriptionField {
   blocks: [String!]!
+  inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
 }
 
 type MealModelDirectionsField {
   blocks: [String!]!
+  inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
 }
@@ -2524,11 +2731,11 @@ type MealRecord implements RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(
@@ -2607,6 +2814,18 @@ input PublishedAtFilter {
 """The query root for this schema"""
 type Query {
   """Returns meta information regarding a record collection"""
+  _allAuthorsMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: AuthorModelFilter
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
   _allCategoriesMeta(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -2671,6 +2890,25 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
   ): Site!
+
+  """Returns a collection of records"""
+  allAuthors(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: AuthorModelFilter
+    orderBy: [AuthorModelOrderBy] = [_updatedAt_DESC]
+  ): [AuthorRecord!]!
 
   """Returns a collection of records"""
   allCategories(
@@ -2768,6 +3006,19 @@ type Query {
   ): [FileField!]!
 
   """Returns a specific record"""
+  author(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: AuthorModelFilter
+    orderBy: [AuthorModelOrderBy] = [_updatedAt_DESC]
+  ): AuthorRecord
+
+  """Returns a specific record"""
   category(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -2835,18 +3086,21 @@ type Query {
 
 type RecipeModelDescriptionField {
   blocks: [String!]!
+  inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
 }
 
 type RecipeModelDirectionsField {
   blocks: [String!]!
+  inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
 }
 
 type RecipeModelEquipmentField {
   blocks: [String!]!
+  inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
 }
@@ -2863,6 +3117,7 @@ input RecipeModelFilter {
   _updatedAt: UpdatedAtFilter
   updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  author: LinkFilter
   category: LinkFilter
   cookTime: IntegerFilter
   description: StructuredTextFilter
@@ -2874,7 +3129,6 @@ input RecipeModelFilter {
   prepTime: IntegerFilter
   searchTerms: StringFilter
   seo: SeoFilter
-  servings: IntegerFilter
   slug: SlugFilter
   tags: LinksFilter
   title: StringFilter
@@ -2885,12 +3139,14 @@ input RecipeModelFilter {
 
 type RecipeModelIngredientsField {
   blocks: [String!]!
+  inlineBlocks: [String!]!
   links: [RecipeRecord!]!
   value: JsonField!
 }
 
 type RecipeModelNotesField {
   blocks: [String!]!
+  inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
 }
@@ -2924,8 +3180,6 @@ enum RecipeModelOrderBy {
   prepTime_DESC
   searchTerms_ASC
   searchTerms_DESC
-  servings_ASC
-  servings_DESC
   title_ASC
   title_DESC
   totalTime_ASC
@@ -2938,11 +3192,11 @@ type RecipeRecord implements RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(
@@ -2952,10 +3206,11 @@ type RecipeRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  author: AuthorRecord!
   category: CategoryRecord!
   cookTime: IntType
   createdAt: DateTime!
-  description: RecipeModelDescriptionField
+  description: RecipeModelDescriptionField!
   directions: RecipeModelDirectionsField!
   equipment: RecipeModelEquipmentField
   id: ItemId!
@@ -2965,12 +3220,12 @@ type RecipeRecord implements RecordInterface {
   prepTime: IntType
   searchTerms: String
   seo: SeoField
-  servings: IntType
   slug: String!
   tags: [TagRecord!]!
   title: String!
   totalTime: IntType
   updatedAt: DateTime!
+  yields: YieldRecord!
 }
 
 interface RecordInterface {
@@ -2978,11 +3233,11 @@ interface RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(
@@ -3083,6 +3338,34 @@ input SlugFilter {
 
   """Filter records that do have one of the specified slugs"""
   notIn: [String]
+}
+
+"""Block of type Social Media Link (social_media_link)"""
+type SocialMediaLinkRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  createdAt: DateTime!
+  id: ItemId!
+  label: String!
+  service: String!
+  updatedAt: DateTime!
+  url: String!
 }
 
 """Specifies how to filter by status"""
@@ -3223,11 +3506,11 @@ type TagRecord implements RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(
@@ -3758,6 +4041,33 @@ enum VideoMp4Res {
   low
   medium
   high
+}
+
+"""Block of type Yield (yield)"""
+type YieldRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  amount: FloatType!
+  createdAt: DateTime!
+  id: ItemId!
+  unit: String
+  updatedAt: DateTime!
 }
 
 type focalPoint {

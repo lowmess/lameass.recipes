@@ -23,7 +23,10 @@ export const RecipePreviewFragment = graphql(`
 		prepTime
 		cookTime
 		totalTime
-		servings
+		yields {
+			amount
+			unit
+		}
 		searchTerms
 	}
 `);
@@ -58,6 +61,9 @@ export const getRecipeById = graphql(
 				...RecipePreviewFragment
 
 				# individual-specific fields
+				author {
+					name
+				}
 				equipment {
 					blocks
 					links

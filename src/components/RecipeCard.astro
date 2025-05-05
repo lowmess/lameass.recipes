@@ -4,8 +4,6 @@ import type { HTMLTag, Polymorphic } from "astro/types";
 
 import type { FragmentOf } from "#api/datocms/graphql.ts";
 import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
-import Sticker from "#components/Sticker.astro";
-import type { Category } from "#types/category.ts";
 import type { Measurement } from "#types/recipe.ts";
 import { getDisplacementValues } from "#util/displacement.ts";
 import { pluralize } from "#util/grammar.ts";
@@ -74,10 +72,6 @@ if (yields.unit === "servings") {
 		><a href={`/recipes/${slug}`} class="link-ui">{title}</a></Heading
 	>
 
-	<a href={`/categories/${category!.slug}`} class="link-ui category-sticker"
-		><Sticker category={category!.slug as Category} /></a
-	>
-
 	{
 		description && (
 			<div class="description">
@@ -90,6 +84,10 @@ if (yields.unit === "servings") {
 		{time > 0 && <span>{minutesToHours(time)}</span>}
 
 		{yieldString && <span>{yieldString}</span>}
+
+		<a href={`/categories/${category!.slug}`} class="link-ghost"
+			>{category!.title}</a
+		>
 
 		{
 			tags.map((tag) => (

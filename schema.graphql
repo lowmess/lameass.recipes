@@ -2756,6 +2756,33 @@ type MealRecord implements RecordInterface {
   updatedAt: DateTime!
 }
 
+"""Block of type Measurement (measurement)"""
+type MeasurementRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  amount: FloatType!
+  createdAt: DateTime!
+  id: ItemId!
+  unit: String
+  updatedAt: DateTime!
+}
+
 scalar MetaTagAttributes
 
 enum MuxThumbnailFormatType {
@@ -3225,7 +3252,7 @@ type RecipeRecord implements RecordInterface {
   title: String!
   totalTime: IntType
   updatedAt: DateTime!
-  yields: YieldRecord!
+  yields: MeasurementRecord!
 }
 
 interface RecordInterface {
@@ -4041,33 +4068,6 @@ enum VideoMp4Res {
   low
   medium
   high
-}
-
-"""Block of type Yield (yield)"""
-type YieldRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  amount: FloatType!
-  createdAt: DateTime!
-  id: ItemId!
-  unit: String
-  updatedAt: DateTime!
 }
 
 type focalPoint {

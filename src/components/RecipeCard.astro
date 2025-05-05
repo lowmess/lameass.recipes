@@ -6,6 +6,7 @@ import type { FragmentOf } from "#api/datocms/graphql.ts";
 import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
 import Sticker from "#components/Sticker.astro";
 import type { Category } from "#types/category.ts";
+import type { Measurement } from "#types/recipe.ts";
 import { getDisplacementValues } from "#util/displacement.ts";
 import { pluralize } from "#util/grammar.ts";
 import { toFraction } from "#util/number.ts";
@@ -33,7 +34,6 @@ const {
 	prepTime = 0,
 	cookTime = 0,
 	totalTime = 0,
-	yields,
 	description,
 	tags,
 } = recipe;
@@ -53,6 +53,7 @@ const {
 	maxRotation: 15,
 });
 
+const yields = recipe.yields as Measurement;
 let yieldString;
 
 if (yields.unit === "servings") {

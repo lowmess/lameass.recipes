@@ -1,6 +1,7 @@
 ---
 import { executeQuery } from "#api/datocms/execute-query.ts";
 import { getRecentRecipes } from "#api/queries/recipe.ts";
+import PageTitle from "#components/PageTitle.astro";
 import RecipeStack from "#components/RecipeStack.astro";
 import GlobalLayout from "#layouts/GlobalLayout.astro";
 
@@ -8,15 +9,7 @@ const { allRecipes } = await executeQuery(getRecentRecipes);
 ---
 
 <GlobalLayout>
-	<h1>Recent additions to the cookbook</h1>
+	<PageTitle>Recent additions to the cookbook</PageTitle>
 
 	<RecipeStack recipes={allRecipes} />
 </GlobalLayout>
-
-<style>
-	h1 {
-		margin-block: var(--rhythm-lg);
-		text-align: center;
-		font-weight: 400;
-	}
-</style>

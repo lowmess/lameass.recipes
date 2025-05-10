@@ -92,7 +92,7 @@ switch (category!.slug) {
 }
 ---
 
-<Tag class:list={["card", className]} {...props}>
+<Tag data-id={recipe.id} class:list={["card", className]} {...props}>
 	<div class="header">
 		<Heading class="title"
 			><a href={`/recipes/${slug}`} class="link-ui">{title}</a></Heading

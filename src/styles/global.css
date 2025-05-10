@@ -1,11 +1,6 @@
 html {
-	background-color: var(--color-beige-1);
-	color: var(--color-gray-10);
-
-	@media (prefers-color-scheme: dark) {
-		background-color: var(--color-beige-10);
-		color: var(--color-gray-2);
-	}
+	background-color: var(--color-background);
+	color: var(--color-foreground);
 
 	@media (min-width: 90em) {
 		font-size: 112.5%;
@@ -34,4 +29,18 @@ body {
 
 .themed-text {
 	color: var(--theme, var(--color-accent));
+}
+
+.hidden {
+	display: none;
+}
+
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
 }

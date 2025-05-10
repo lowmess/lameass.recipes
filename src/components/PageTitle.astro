@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"h1">;
+
+const props = Astro.props;
+---
+
+<h1 {...props}><slot /></h1>
+
+<style>
+	h1 {
+		margin-block: var(--rhythm-lg);
+		text-align: center;
+		font-weight: 400;
+	}
+</style>

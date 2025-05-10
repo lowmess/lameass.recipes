@@ -2,15 +2,35 @@
 import { actions } from "astro:actions";
 
 import { executeQuery } from "#api/datocms/execute-query.ts";
-import { getAllRecipes } from "#api/queries/recipe.ts";
+import type { ResultOf } from "#api/datocms/graphql.ts";
+import { getAllCategories } from "#api/queries/category.ts";
+import { getRecipesByCategory } from "#api/queries/recipe.ts";
 import PageTitle from "#components/PageTitle.astro";
 import RecipeStack from "#components/RecipeStack.astro";
 import Search from "#components/Search.astro";
 import GlobalLayout from "#layouts/GlobalLayout.astro";
 
+export async function getStaticPaths() {
+	const { allCategories } = await executeQuery(getAllCategories);
+
+	return allCategories.map((tag) => ({
+		params: { slug: tag.slug },
+		props: tag,
+	}));
+}
+type Props = ResultOf<typeof getAllCategories>["allCategories"][number];
+
+const { id, title, slug } = Astro.props;
+
+if (!slug) {
+	throw new Error("Tag missing slug");
+}
+
 const result = Astro.getActionResult(actions.search.recipes);
 
-const { allRecipes } = await executeQuery(getAllRecipes);
+const { allRecipes } = await executeQuery(getRecipesByCategory, {
+	variables: { categoryId: id },
+});
 
 let recipes = allRecipes;
 
@@ -20,7 +40,7 @@ if (result?.data?.length) {
 ---
 
 <GlobalLayout>
-	<PageTitle>The cookbook</PageTitle>
+	<PageTitle>{title}</PageTitle>
 
 	<Search class="search" />
 

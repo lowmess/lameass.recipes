@@ -56,6 +56,34 @@ export const getRecentRecipes = graphql(
 	[RecipePreviewFragment],
 );
 
+export const getRecipesByCategory = graphql(
+	`
+		query GetRecipesByTag($categoryId: ItemId!) {
+			allRecipes(
+				orderBy: _createdAt_DESC
+				filter: { category: { eq: $categoryId } }
+			) {
+				...RecipePreviewFragment
+			}
+		}
+	`,
+	[RecipePreviewFragment],
+);
+
+export const getRecipesByTag = graphql(
+	`
+		query GetRecipesByTag($tagId: ItemId!) {
+			allRecipes(
+				orderBy: _createdAt_DESC
+				filter: { tags: { allIn: [$tagId] } }
+			) {
+				...RecipePreviewFragment
+			}
+		}
+	`,
+	[RecipePreviewFragment],
+);
+
 export const getRecipeById = graphql(
 	`
 		query GetRecipeById($id: ItemId!) {

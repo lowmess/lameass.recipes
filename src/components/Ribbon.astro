@@ -1,0 +1,34 @@
+---
+import type { HTMLTag, Polymorphic } from "astro/types";
+
+type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }>;
+
+const { as: Tag = "div", class: className, ...props } = Astro.props;
+---
+
+<Tag class:list={[className, "ribbon"]} {...props}><slot /></Tag>
+
+<style>
+	.ribbon {
+		display: block;
+		position: relative;
+		aspect-ratio: 1;
+		padding: var(--space-sm);
+		background-color: var(--theme, var(--color-accent));
+		line-height: 1;
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			right: 0;
+			left: 0;
+			z-index: -1;
+			aspect-ratio: 1;
+			background-color: var(--theme, var(--color-accent));
+			mask-image:
+				linear-gradient(135deg, black 50%, transparent 50%),
+				linear-gradient(225deg, black 50%, transparent 50%);
+		}
+	}
+</style>

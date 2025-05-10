@@ -52,6 +52,7 @@ const {
 		grid-row: calc(var(--count) * 3 + 1) / span 4;
 		grid-column: 1;
 		transform: translateX(var(--displacement)) rotateZ(var(--rotation));
+		will-animate: transform;
 
 		@media (any-hover: hover) {
 			transition: transform 0.3s ease;

@@ -4,8 +4,15 @@ import type { HTMLTag, Polymorphic } from "astro/types";
 
 import type { FragmentOf } from "#api/datocms/graphql.ts";
 import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
+import CocktailIcon from "#components/icons/Cocktail.svg";
+import DessertIcon from "#components/icons/Dessert.svg";
+import IngredientIcon from "#components/icons/Ingredient.svg";
+import MainDishIcon from "#components/icons/MainDish.svg";
+import SideDishIcon from "#components/icons/SideDish.svg";
+import SnackIcon from "#components/icons/Snack.svg";
+import Ribbon from "#components/Ribbon.astro";
+import { Category } from "#types/category.ts";
 import type { Measurement } from "#types/recipe.ts";
-import { getDisplacementValues } from "#util/displacement.ts";
 import { pluralize } from "#util/grammar.ts";
 import { toFraction } from "#util/number.ts";
 import { minutesToHours } from "#util/time.ts";
@@ -41,16 +48,6 @@ const time = totalTime || (prepTime || 0) + (cookTime || 0);
 // category is a required field
 const theme = `var(--color-${category!.color})`;
 
-const {
-	verticalOffset: stickerVerticalOffset,
-	horizontalOffset: stickerHorizontalOffset,
-	rotation: stickerRotation,
-} = getDisplacementValues({
-	maxVerticalOffset: 4,
-	maxHorizontalOffset: 12,
-	maxRotation: 15,
-});
-
 const yields = recipe.yields as Measurement;
 let yieldString;
 
@@ -65,12 +62,48 @@ if (yields.unit === "servings") {
 		yieldString = `Yields ${amount} ${pluralize(yields.amount, unit, `${unit}s`)}`;
 	}
 }
+
+let IconComponent = MainDishIcon;
+
+switch (category!.slug) {
+	case Category.MainDish:
+		IconComponent = MainDishIcon;
+		break;
+
+	case Category.SideDish:
+		IconComponent = SideDishIcon;
+		break;
+
+	case Category.Dessert:
+		IconComponent = DessertIcon;
+		break;
+
+	case Category.Snack:
+		IconComponent = SnackIcon;
+		break;
+
+	case Category.Cocktail:
+		IconComponent = CocktailIcon;
+		break;
+
+	case Category.Ingredient:
+		IconComponent = IngredientIcon;
+		break;
+}
 ---
 
 <Tag class:list={["card", className]} {...props}>
-	<Heading class="title"
-		><a href={`/recipes/${slug}`} class="link-ui">{title}</a></Heading
-	>
+	<div class="header">
+		<Heading class="title"
+			><a href={`/recipes/${slug}`} class="link-ui">{title}</a></Heading
+		>
+
+		<div>
+			<Ribbon as="a" href={`/categories/${category!.slug}`} class="ribbon">
+				<IconComponent class="icon" />
+			</Ribbon>
+		</div>
+	</div>
 
 	{
 		description && (
@@ -85,10 +118,6 @@ if (yields.unit === "servings") {
 
 		{yieldString && <span>{yieldString}</span>}
 
-		<a href={`/categories/${category!.slug}`} class="link-ghost"
-			>{category!.title}</a
-		>
-
 		{
 			tags.map((tag) => (
 				<a href={`/tags/${tag.slug}`} class="link-ghost">
@@ -102,9 +131,6 @@ if (yields.unit === "servings") {
 <style
 	define:vars={{
 		theme,
-		stickerVerticalOffset,
-		stickerHorizontalOffset,
-		stickerRotation,
 	}}
 >
 	.card {
@@ -128,27 +154,36 @@ if (yields.unit === "servings") {
 		}
 	}
 
+	.header {
+		display: flex;
+		justify-content: space-between;
+		gap: var(--space-md);
+		padding-inline-end: var(--space-md);
+	}
+
 	.title {
 		margin-block: 0;
-		margin-block-end: var(--rhythm-sm);
+		margin-block-end: var(--rhythm-md);
 		font-size: var(--font-size-xl);
 		font-weight: 400;
 	}
 
-	.category-sticker {
+	.ribbon::before {
+		content: "";
 		position: absolute;
-		top: var(--space-sm);
-		right: var(--space-md);
-		width: var(--space-xxl);
-		height: var(--space-xxl);
-		transform: translateX(var(--stickerHorizontalOffset))
-			translateY(var(--stickerVerticalOffset)) rotateZ(var(--stickerRotation));
+		top: calc(var(--space-md) * -1);
+		right: 0;
+		bottom: calc(100% - 1px);
+		left: 0;
+		background-color: var(--theme, var(--color-accent));
+	}
 
-		svg {
-			width: 100%;
-			height: 100%;
-			filter: drop-shadow(0px 2px 1px rgb(0 0 0 / 0.2));
-		}
+	.icon {
+		position: relative;
+		top: calc(var(--space-sm) * -1);
+		width: var(--space-lg);
+		aspect-ratio: 1;
+		fill: var(--color-white);
 	}
 
 	.info-ribbon {
@@ -172,6 +207,5 @@ if (yields.unit === "servings") {
 		max-width: 55ch;
 		margin: 0;
 		text-wrap: pretty;
-		/* font-size: var(--font-size-sm); */
 	}
 </style>

@@ -24,6 +24,7 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.3.1",
+    "@astrojs/vercel": "^8.1.4",
     "@datocms/astro": "^0.6.2",
     "@datocms/cda-client": "^0.2.7",
     "@fontsource/rock-salt": "^5.2.5",
@@ -31,7 +32,9 @@
     "@vercel/speed-insights": "^1.2.0",
     "astro": "^5.7.10",
     "date-fns": "^4.1.0",
+    "datocms-structured-text-to-plain-text": "^5.0.0",
     "datocms-structured-text-utils": "^5.0.0",
+    "fuse.js": "^7.1.0",
     "gql.tada": "^1.8.10",
     "postcss-preset-env": "^10.1.5",
     "sanitize.css": "^13.0.0",

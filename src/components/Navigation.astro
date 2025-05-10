@@ -1,9 +1,13 @@
+---
+import Logo from "#components/Logo.svg";
+---
+
 <nav>
 	<a href="#main-content" class="skip-nav-link"> Skip to main content </a>
 
 	<div class="nav-content">
-		<a href="/" class="logo link-ui">
-			lameass<span class="logo__period">.</span>recipes
+		<a href="/" class="logo link-ui" title="Go to homepage">
+			<Logo />
 		</a>
 
 		<ul>
@@ -43,28 +47,16 @@
 	}
 
 	.logo {
+		--theme: var(--color-accent);
 		display: block;
-		margin-block-end: var(--rhythm-sm);
-		font-size: var(--font-size-xl);
-		font-weight: 600;
-		font-family: var(--font-family-henrietta);
-		color: var(--color-accent);
-		text-decoration: none;
+		position: relative;
+		top: var(--rhythm-sm);
+		max-width: calc(var(--space-xxl) * 3);
+		margin-inline: auto;
+		padding-inline: var(--space-md);
 
-		&:hover {
-			color: inherit;
-		}
-
-		@media (min-width: 48em) {
-			font-size: var(--font-size-xxl);
-		}
-	}
-
-	.logo__period {
-		color: var(--color-white);
-
-		@media (prefers-color-scheme: dark) {
-			color: var(--color-gray-2);
+		svg {
+			filter: drop-shadow(0px 4px 0px var(--color-background));
 		}
 	}
 

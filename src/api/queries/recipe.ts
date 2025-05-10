@@ -15,6 +15,9 @@ export const RecipePreviewFragment = graphql(`
 		description {
 			value
 		}
+		ingredients {
+			value
+		}
 		tags {
 			id
 			title
@@ -34,7 +37,7 @@ export const RecipePreviewFragment = graphql(`
 export const getAllRecipes = graphql(
 	`
 		query GetAllRecipes {
-			allRecipes {
+			allRecipes(orderBy: _createdAt_DESC) {
 				...RecipePreviewFragment
 			}
 		}

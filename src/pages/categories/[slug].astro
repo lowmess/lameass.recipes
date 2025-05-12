@@ -5,10 +5,10 @@ import { executeQuery } from "#api/datocms/execute-query.ts";
 import type { ResultOf } from "#api/datocms/graphql.ts";
 import { getAllCategories } from "#api/queries/category.ts";
 import { getRecipesByCategory } from "#api/queries/recipe.ts";
-import CategoryTitle from "#components/CategoryTitle.astro";
-import RecipeStack from "#components/RecipeStack.astro";
-import Search from "#components/Search.astro";
-import GlobalLayout from "#layouts/GlobalLayout.astro";
+import CategoryTitle from "#components/category-title.astro";
+import RecipeStack from "#components/recipe-stack.astro";
+import Search from "#components/search.astro";
+import GlobalLayout from "#layouts/global-layout.astro";
 
 export async function getStaticPaths() {
 	const { allCategories } = await executeQuery(getAllCategories);

@@ -3,7 +3,7 @@ import type { HTMLTag, Polymorphic } from "astro/types";
 
 import type { FragmentOf } from "#api/datocms/graphql.ts";
 import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
-import RecipeCard from "#components/RecipeCard.astro";
+import RecipeCard from "#components/recipe-card.astro";
 import { getDisplacementValues } from "#util/displacement.ts";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{

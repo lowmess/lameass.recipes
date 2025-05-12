@@ -1,9 +1,9 @@
 ---
 import { executeQuery } from "#api/datocms/execute-query.ts";
 import { getRecentRecipes } from "#api/queries/recipe.ts";
-import PageTitle from "#components/PageTitle.astro";
-import RecipeStack from "#components/RecipeStack.astro";
-import GlobalLayout from "#layouts/GlobalLayout.astro";
+import PageTitle from "#components/page-title.astro";
+import RecipeStack from "#components/recipe-stack.astro";
+import GlobalLayout from "#layouts/global-layout.astro";
 
 const { allRecipes } = await executeQuery(getRecentRecipes);
 ---

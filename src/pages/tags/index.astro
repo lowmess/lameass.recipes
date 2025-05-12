@@ -1,8 +1,8 @@
 ---
 import { executeQuery } from "#api/datocms/execute-query.ts";
 import { getAllTags } from "#api/queries/tag.ts";
-import Container from "#components/Container.astro";
-import GlobalLayout from "#layouts/GlobalLayout.astro";
+import Container from "#components/container.astro";
+import GlobalLayout from "#layouts/global-layout.astro";
 import { colors } from "#util/colors.ts";
 
 const { allTags } = await executeQuery(getAllTags);

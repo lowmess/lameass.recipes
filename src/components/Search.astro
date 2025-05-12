@@ -21,6 +21,10 @@ const { class: className, ...props } = Astro.props;
 	</div>
 </form>
 
+<div class="empty-content hidden">
+	<p>No recipes found for &ldquo;<span id="query-container"></span>&rdquo;.</p>
+</div>
+
 <script>
 	import { debounce } from "#util/debounce.ts";
 	import { actions } from "astro:actions";
@@ -28,6 +32,8 @@ const { class: className, ...props } = Astro.props;
 	const form = document.querySelector("form");
 	const input = document.querySelector("input");
 	const recipes = document.querySelectorAll("[data-id]");
+	const emptyContent = document.querySelector(".empty-content");
+	const queryContainer = document.querySelector("#query-container");
 
 	const performRecipeSearch = async () => {
 		if (!form) {
@@ -43,13 +49,22 @@ const { class: className, ...props } = Astro.props;
 			console.error(error);
 		}
 
-		console.log(data);
+		if (!data?.length && formData.get("query")) {
+			emptyContent?.classList.remove("hidden");
+
+			if (queryContainer) {
+				// @ts-expect-error yes it does
+				queryContainer.innerText = formData.get("query");
+			}
+		} else {
+			emptyContent?.classList.add("hidden");
+		}
 
 		for (const recipe of recipes) {
 			// @ts-expect-error yes. yes it does exist
 			const id = recipe.dataset.id;
 
-			if (data?.includes(id) || !data?.length) {
+			if (data?.includes(id) || (!data?.length && !formData.get("query"))) {
 				recipe.classList.remove("hidden");
 			} else {
 				recipe.classList.add("hidden");
@@ -126,5 +141,12 @@ const { class: className, ...props } = Astro.props;
 				outline: 0;
 			}
 		}
+	}
+
+	.empty-content {
+		padding-inline: var(--space-lg);
+		text-align: center;
+		color: var(--color-text-secondary);
+		text-wrap: balance;
 	}
 </style>

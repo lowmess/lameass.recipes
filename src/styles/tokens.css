@@ -82,7 +82,8 @@
 	--color-orange: #d69231;
 
 	--color-background: var(--color-beige-1);
-	--color-foreground: var(--color-gray-10);
+	--color-text: var(--color-gray-10);
+	--color-text-secondary: var(--color-gray-7);
 
 	@media (prefers-color-scheme: dark) {
 		--color-accent: #fc4b39;
@@ -98,7 +99,8 @@
 		--color-orange: #f0a336;
 
 		--color-background: var(--color-beige-10);
-		--color-foreground: var(--color-gray-2);
+		--color-text: var(--color-gray-2);
+		--color-text-secondary: var(--color-gray-6);
 	}
 
 	/* container */

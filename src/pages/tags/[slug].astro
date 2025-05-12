@@ -5,10 +5,11 @@ import { executeQuery } from "#api/datocms/execute-query.ts";
 import type { ResultOf } from "#api/datocms/graphql.ts";
 import { getRecipesByTag } from "#api/queries/recipe.ts";
 import { getAllTags } from "#api/queries/tag.ts";
-import PageTitle from "#components/PageTitle.astro";
 import RecipeStack from "#components/RecipeStack.astro";
 import Search from "#components/Search.astro";
 import GlobalLayout from "#layouts/GlobalLayout.astro";
+import { colors } from "#util/colors.ts";
+import { getRandomIntegerBetween } from "#util/random.ts";
 
 export async function getStaticPaths() {
 	const { allTags } = await executeQuery(getAllTags);
@@ -37,21 +38,45 @@ let recipes = allRecipes;
 if (result?.data?.length) {
 	recipes = allRecipes.filter((recipe) => result.data.includes(recipe.id));
 }
+
+const index = getRandomIntegerBetween(1, colors.length) - 1;
+const color = colors[index];
+const theme = `var(--color-${color})`;
 ---
 
 <GlobalLayout>
-	<PageTitle>Recipes tagged &ldquo;{title}&rdquo;</PageTitle>
+	<h1>Recipes tagged<br /><span class="tag-title">{title}</span></h1>
 
 	<Search class="search" />
 
 	<RecipeStack recipes={recipes} />
 </GlobalLayout>
 
-<style>
+<style define:vars={{ theme }}>
 	.search {
 		position: relative;
 		top: calc(var(--rhythm-md) * -1);
 		max-width: calc(var(--container-width) * 0.5);
 		margin-inline: auto;
+	}
+
+	h1 {
+		font-size: var(--font-size-xxl);
+		font-weight: 400;
+		text-align: center;
+	}
+
+	.tag-title {
+		--theme: var(--theme);
+
+		position: relative;
+		top: -0.5lh;
+		font-family: var(--font-family-rock-salt);
+		color: var(--theme, var(--color-accent));
+		text-shadow:
+			-2px 2px 0px var(--color-background),
+			-2px -2px 0px var(--color-background),
+			2px 2px 0px var(--color-background),
+			2px -2px 0px var(--color-background);
 	}
 </style>

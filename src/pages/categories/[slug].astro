@@ -5,7 +5,7 @@ import { executeQuery } from "#api/datocms/execute-query.ts";
 import type { ResultOf } from "#api/datocms/graphql.ts";
 import { getAllCategories } from "#api/queries/category.ts";
 import { getRecipesByCategory } from "#api/queries/recipe.ts";
-import PageTitle from "#components/PageTitle.astro";
+import CategoryTitle from "#components/CategoryTitle.astro";
 import RecipeStack from "#components/RecipeStack.astro";
 import Search from "#components/Search.astro";
 import GlobalLayout from "#layouts/GlobalLayout.astro";
@@ -13,14 +13,16 @@ import GlobalLayout from "#layouts/GlobalLayout.astro";
 export async function getStaticPaths() {
 	const { allCategories } = await executeQuery(getAllCategories);
 
-	return allCategories.map((tag) => ({
-		params: { slug: tag.slug },
-		props: tag,
+	return allCategories.map((category) => ({
+		params: { slug: category.slug },
+		props: category,
 	}));
 }
 type Props = ResultOf<typeof getAllCategories>["allCategories"][number];
 
-const { id, title, slug } = Astro.props;
+const category = Astro.props;
+
+const { id, slug } = category;
 
 if (!slug) {
 	throw new Error("Tag missing slug");
@@ -40,7 +42,7 @@ if (result?.data?.length) {
 ---
 
 <GlobalLayout>
-	<PageTitle>{title}</PageTitle>
+	<CategoryTitle category={category} as="h1" />
 
 	<Search class="search" />
 

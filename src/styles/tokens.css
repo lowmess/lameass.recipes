@@ -7,6 +7,7 @@
 	--font-size-xl: clamp(2rem, 1.559rem + 1.47vw, 2.5rem);
 	--font-size-xxl: clamp(2.5rem, 1.618rem + 2.94vw, 3.5rem);
 	--font-size-xxxl: clamp(3rem, 1.235rem + 5.88vw, 5rem);
+	--font-size-huge: clamp(5rem, 3.864rem + 5.68vw, 7.5rem);
 
 	--font-family-system:
 		system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu", "Cantarell",

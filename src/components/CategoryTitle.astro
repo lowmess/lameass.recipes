@@ -1,0 +1,117 @@
+---
+import type { Polymorphic } from "astro/types";
+
+import type { ResultOf } from "#api/datocms/graphql.ts";
+import { getAllCategories } from "#api/queries/category.ts";
+import CocktailIcon from "#icons/cocktail.svg";
+import DessertIcon from "#icons/dessert.svg";
+import IngredientIcon from "#icons/ingredient.svg";
+import MainDishIcon from "#icons/main-dish.svg";
+import SideDishIcon from "#icons/side-dish.svg";
+import SnackIcon from "#icons/snack.svg";
+import { Category } from "#types/category.ts";
+import { plurals } from "#util/category.ts";
+
+type Props<Tag extends "h1" | "a"> = Polymorphic<{
+	as: Tag;
+	category: ResultOf<typeof getAllCategories>["allCategories"][number];
+}>;
+
+const { category, class: className, as: Tag = "h1" } = Astro.props;
+
+let IconComponent = MainDishIcon;
+
+switch (category.slug) {
+	case Category.MainDish:
+		IconComponent = MainDishIcon;
+		break;
+
+	case Category.SideDish:
+		IconComponent = SideDishIcon;
+		break;
+
+	case Category.Dessert:
+		IconComponent = DessertIcon;
+		break;
+
+	case Category.Snack:
+		IconComponent = SnackIcon;
+		break;
+
+	case Category.Cocktail:
+		IconComponent = CocktailIcon;
+		break;
+
+	case Category.Ingredient:
+		IconComponent = IngredientIcon;
+		break;
+}
+---
+
+<div class="category" style={`--theme: var(--color-${category.color})`}>
+	<Tag
+		href={Tag === "a" ? `/categories/${category.slug}` : undefined}
+		class:list={[className, { "link-ui": Tag === "a" }]}
+	>
+		{plurals[category.slug as Category]}
+	</Tag>
+
+	<IconComponent aria-hidden />
+</div>
+
+<style>
+	.category {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+		align-items: center;
+		width: max-content;
+		margin-inline: auto;
+		text-align: center;
+		font-size: var(--font-size-xxxl);
+
+		@media (min-width: 40em) {
+			font-size: var(--font-size-huge);
+		}
+	}
+
+	h1,
+	a,
+	svg {
+		grid-column: 1/1;
+		grid-row: 1/1;
+		transition:
+			color 0.3s ease,
+			opacity 0.2s ease;
+	}
+
+	h1,
+	a {
+		position: relative;
+		z-index: 2;
+		font-family: var(--font-family-henrietta);
+		font-size: inherit;
+		font-weight: 400;
+		color: var(--theme, var(--color-accent));
+	}
+
+	a:hover {
+		z-index: 1;
+		opacity: 0.25;
+
+		& + svg {
+			z-index: 2;
+			opacity: 1;
+			color: var(--theme, var(--color-accent));
+		}
+	}
+
+	svg {
+		position: relative;
+		z-index: 1;
+		width: 2em;
+		margin-inline: auto;
+		opacity: 0.25;
+		pointer-events: none;
+	}
+</style>

@@ -1,0 +1,59 @@
+---
+import type { Unit } from "#types/unit.ts";
+import { toFraction } from "#util/number.ts";
+import { getUnit, pluralizeUnit } from "#util/units.ts";
+import { type Paragraph } from "datocms-structured-text-utils";
+
+type Props = {
+	node: Paragraph;
+};
+
+const { node } = Astro.props;
+
+// TODO handle links, which may be a pain in the ass. who knows
+const ingredientString = node.children
+	.filter((child) => child.type === "span")
+	.map((ingredient) => ingredient.value)
+	.reduce(
+		(ingredient, value) => `${ingredient} ${value}`.trim().replace(/\s+/g, " "),
+		"",
+	);
+
+let amount: number | undefined;
+let unit: Unit | undefined;
+let ingredient: string = ingredientString;
+
+// matches leading integers, decimals, and fractions
+const amountRe = /^\d+((\d)?(\/|.){1}(\d))*/g;
+
+const hasAmount = amountRe.test(ingredientString);
+
+if (hasAmount) {
+	const amountLength = amountRe.lastIndex;
+
+	amount = parseFloat(ingredientString.substring(0, amountLength));
+
+	const parts = ingredientString
+		.substring(amountLength)
+		.split(" ")
+		.filter((x) => x);
+
+	unit = getUnit(parts[0]) || undefined;
+
+	if (unit) parts.shift();
+
+	ingredient = parts.join(" ");
+}
+---
+
+<p data-ingredient>
+	{amount && <span data-ingredient-amount={amount}>{toFraction(amount)}</span>}
+	{
+		unit && (
+			<span data-ingredient-unit={unit}>
+				{pluralizeUnit(amount || 1, unit)}
+			</span>
+		)
+	}
+	{ingredient}
+</p>

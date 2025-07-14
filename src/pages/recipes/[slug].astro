@@ -1,0 +1,93 @@
+---
+import { ensureValidStructuredTextProps, StructuredText } from "@datocms/astro";
+import type { StructuredTextDocument } from "datocms-structured-text-to-plain-text";
+
+import { executeQuery } from "#api/datocms/execute-query.ts";
+import type { ResultOf } from "#api/datocms/graphql.ts";
+import { getAllRecipes, getRecipeById } from "#api/queries/recipe.ts";
+import Ingredient from "#components/ingredient.astro";
+import GlobalLayout from "#layouts/global-layout.astro";
+
+export async function getStaticPaths() {
+	const { allRecipes } = await executeQuery(getAllRecipes);
+
+	return allRecipes.map((tag) => ({
+		params: { slug: tag.slug },
+		props: tag,
+	}));
+}
+type Props = ResultOf<typeof getAllRecipes>["allRecipes"][number];
+
+const { id, slug } = Astro.props;
+
+if (!slug) {
+	throw new Error("Tag missing slug");
+}
+
+const { recipe } = await executeQuery(getRecipeById, {
+	variables: { id },
+});
+---
+
+<GlobalLayout>
+	<h1>Recipe</h1>
+
+	<select name="serving-adjust">
+		<option value="0.25">1/4x</option>
+		<option value="0.5">1/2x</option>
+		<option value="0.75">3/4x</option>
+		<option value="1" selected>1x</option>
+		<option value="1.5">1.5x</option>
+		<option value="2">2x</option>
+		<option value="4">4x</option>
+	</select>
+
+	{
+		recipe?.ingredients && (
+			<StructuredText
+				{...ensureValidStructuredTextProps({
+					data: recipe.ingredients.value as StructuredTextDocument,
+				})}
+				nodeOverrides={{
+					paragraph: Ingredient,
+				}}
+			/>
+		)
+	}
+</GlobalLayout>
+
+<script>
+	import { toFraction } from "#util/number.ts";
+	import { pluralizeUnit } from "#util/units.ts";
+
+	const select = document.querySelector('select[name="serving-adjust"]');
+
+	const ingredients = document.querySelectorAll("[data-ingredient]");
+
+	select?.addEventListener("change", (event) => {
+		// @ts-expect-error yes it does dude
+		const adjustmentAmount = parseFloat(event.target?.value || "1");
+
+		ingredients.forEach((ingredient) => {
+			const amountEl = ingredient.querySelector("[data-ingredient-amount]");
+			const unitEl = ingredient.querySelector("[data-ingredient-unit]");
+
+			let amount = 1;
+
+			if (amountEl) {
+				const initialAmount = parseFloat(
+					amountEl?.getAttribute("data-ingredient-amount") || "1",
+				);
+
+				amount = initialAmount * adjustmentAmount;
+
+				amountEl.innerHTML = toFraction(amount);
+			}
+
+			if (unitEl) {
+				const unit = unitEl?.getAttribute("data-ingredient-unit") as string;
+				unitEl.innerHTML = pluralizeUnit(amount, unit);
+			}
+		});
+	});
+</script>

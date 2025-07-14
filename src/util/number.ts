@@ -22,8 +22,8 @@ function findPrecision(n: number) {
 
 const acceptableDenominators = [2, 3, 4, 5, 8, 16];
 
-export function toFraction(num: number) {
-	if (num === Infinity) return Infinity;
+export function toFraction(num: number): string {
+	if (num === Infinity) return "Infinity";
 
 	if (num === 0) return "0";
 
@@ -36,7 +36,18 @@ export function toFraction(num: number) {
 	const denominator = precision / gcd;
 
 	if (!acceptableDenominators.includes(denominator)) {
-		return num;
+		const formatter = new Intl.NumberFormat("en-us", {
+			maximumFractionDigits: 2,
+		});
+
+		return formatter.format(num);
+	}
+
+	if (numerator > denominator) {
+		const modulo = numerator % denominator;
+		const remainder = Math.floor(numerator / denominator);
+
+		return `${Math.round(remainder)} ${modulo}/${Math.round(denominator)}`;
 	}
 
 	return `${Math.round(numerator)}/${Math.round(denominator)}`;

@@ -3,12 +3,7 @@ import type { Polymorphic } from "astro/types";
 
 import type { ResultOf } from "#api/datocms/graphql.ts";
 import { getAllCategories } from "#api/queries/category.ts";
-import CocktailIcon from "#icons/cocktail.svg";
-import DessertIcon from "#icons/dessert.svg";
-import IngredientIcon from "#icons/ingredient.svg";
-import MainDishIcon from "#icons/main-dish.svg";
-import SideDishIcon from "#icons/side-dish.svg";
-import SnackIcon from "#icons/snack.svg";
+import CategoryIcon from "#components/category-icon.astro";
 import { Category } from "#types/category.ts";
 import { plurals } from "#util/category.ts";
 
@@ -18,34 +13,6 @@ type Props<Tag extends "h1" | "a"> = Polymorphic<{
 }>;
 
 const { category, class: className, as: Tag = "h1" } = Astro.props;
-
-let IconComponent = MainDishIcon;
-
-switch (category.slug) {
-	case Category.MainDish:
-		IconComponent = MainDishIcon;
-		break;
-
-	case Category.SideDish:
-		IconComponent = SideDishIcon;
-		break;
-
-	case Category.Dessert:
-		IconComponent = DessertIcon;
-		break;
-
-	case Category.Snack:
-		IconComponent = SnackIcon;
-		break;
-
-	case Category.Cocktail:
-		IconComponent = CocktailIcon;
-		break;
-
-	case Category.Ingredient:
-		IconComponent = IngredientIcon;
-		break;
-}
 ---
 
 <div class="category" style={`--theme: var(--color-${category.color})`}>
@@ -56,7 +23,7 @@ switch (category.slug) {
 		{plurals[category.slug as Category]}
 	</Tag>
 
-	<IconComponent aria-hidden />
+	<CategoryIcon category={category.slug as Category} aria-hidden />
 </div>
 
 <style>

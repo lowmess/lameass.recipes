@@ -4,19 +4,14 @@ import type { HTMLTag, Polymorphic } from "astro/types";
 
 import type { FragmentOf } from "#api/datocms/graphql.ts";
 import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
+import Card from "#components/card.astro";
+import CategoryIcon from "#components/category-icon.astro";
 import Ribbon from "#components/ribbon.astro";
-import CocktailIcon from "#icons/cocktail.svg";
-import DessertIcon from "#icons/dessert.svg";
-import IngredientIcon from "#icons/ingredient.svg";
-import MainDishIcon from "#icons/main-dish.svg";
-import SideDishIcon from "#icons/side-dish.svg";
-import SnackIcon from "#icons/snack.svg";
 import { Category } from "#types/category.ts";
 import type { Measurement } from "#types/recipe.ts";
-import { pluralize } from "#util/grammar.ts";
 import { toFraction } from "#util/number.ts";
 import { minutesToHours } from "#util/time.ts";
-import { getUnit } from "#util/units.ts";
+import { getUnit, pluralizeUnit } from "#util/units.ts";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{
 	as: Tag;
@@ -25,7 +20,7 @@ type Props<Tag extends HTMLTag> = Polymorphic<{
 }>;
 
 const {
-	as: Tag = "div",
+	as = "div",
 	recipe,
 	headingLevel: Heading = "h2",
 	class: className,
@@ -38,7 +33,7 @@ const {
 	category,
 	prepTime = 0,
 	cookTime = 0,
-	totalTime = 0,
+	totalTime = (prepTime ?? 0) + (cookTime ?? 0),
 	description,
 	tags,
 } = recipe;
@@ -59,40 +54,17 @@ if (yields.unit === "servings") {
 	if (unit) {
 		const amount = toFraction(yields.amount);
 
-		yieldString = `Yields ${amount} ${pluralize(yields.amount, unit, `${unit}s`)}`;
+		yieldString = `Yields ${amount} ${pluralizeUnit(yields.amount, unit)}`;
 	}
-}
-
-let IconComponent = MainDishIcon;
-
-switch (category!.slug) {
-	case Category.MainDish:
-		IconComponent = MainDishIcon;
-		break;
-
-	case Category.SideDish:
-		IconComponent = SideDishIcon;
-		break;
-
-	case Category.Dessert:
-		IconComponent = DessertIcon;
-		break;
-
-	case Category.Snack:
-		IconComponent = SnackIcon;
-		break;
-
-	case Category.Cocktail:
-		IconComponent = CocktailIcon;
-		break;
-
-	case Category.Ingredient:
-		IconComponent = IngredientIcon;
-		break;
 }
 ---
 
-<Tag data-id={recipe.id} class:list={["card", className]} {...props}>
+<Card
+	as={as}
+	data-id={recipe.id}
+	class:list={["card--recipe", className]}
+	{...props}
+>
 	<div class="header">
 		<Heading class="title"
 			><a href={`/recipes/${slug}`} class="link-ui">{title}</a></Heading
@@ -100,7 +72,7 @@ switch (category!.slug) {
 
 		<div>
 			<Ribbon as="a" href={`/categories/${category!.slug}`} class="ribbon">
-				<IconComponent class="icon" />
+				<CategoryIcon category={category!.slug as Category} class="icon" />
 			</Ribbon>
 		</div>
 	</div>
@@ -126,28 +98,18 @@ switch (category!.slug) {
 			))
 		}
 	</div>
-</Tag>
+</Card>
 
 <style
 	define:vars={{
 		theme,
 	}}
 >
-	.card {
+	.card--recipe {
 		--theme: var(--theme);
 
 		position: relative;
 		max-width: 48rem;
-		border: var(--space-xs) solid;
-		border-color: var(--color-gray-10);
-		padding: var(--space-md);
-		background-color: var(--color-white);
-		box-shadow: 0 -8px 16px -4px rgb(0 0 0 / 0.25);
-
-		@media (prefers-color-scheme: dark) {
-			border-color: var(--color-black);
-			background-color: var(--color-beige-9);
-		}
 
 		:not(h1, h2, h3, h4, h5, h6) a:hover {
 			color: var(--theme);

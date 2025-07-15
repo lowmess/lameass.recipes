@@ -86,6 +86,9 @@
 	--color-text: var(--color-gray-10);
 	--color-text-secondary: var(--color-gray-7);
 
+	--color-card-background: var(--color-white);
+	--color-card-border: var(--color-gray-10);
+
 	@media (prefers-color-scheme: dark) {
 		--color-accent: #fc4b39;
 
@@ -102,6 +105,9 @@
 		--color-background: var(--color-beige-10);
 		--color-text: var(--color-gray-2);
 		--color-text-secondary: var(--color-gray-6);
+
+		--color-card-background: var(--color-beige-9);
+		--color-card-border: var(--color-black);
 	}
 
 	/* container */

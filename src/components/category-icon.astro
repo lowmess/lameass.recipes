@@ -1,0 +1,50 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+import CocktailIcon from "#icons/cocktail.svg";
+import DessertIcon from "#icons/dessert.svg";
+import IngredientIcon from "#icons/ingredient.svg";
+import MainDishIcon from "#icons/main-dish.svg";
+import SideDishIcon from "#icons/side-dish.svg";
+import SnackIcon from "#icons/snack.svg";
+import { Category } from "#types/category.ts";
+
+type Props = HTMLAttributes<"svg"> & {
+	category: Category;
+};
+
+const { category, ...props } = Astro.props;
+
+let IconComponent = MainDishIcon;
+
+switch (category) {
+	case Category.MainDish:
+		IconComponent = MainDishIcon;
+		break;
+
+	case Category.SideDish:
+		IconComponent = SideDishIcon;
+		break;
+
+	case Category.Dessert:
+		IconComponent = DessertIcon;
+		break;
+
+	case Category.Snack:
+		IconComponent = SnackIcon;
+		break;
+
+	case Category.Cocktail:
+		IconComponent = CocktailIcon;
+		break;
+
+	case Category.Ingredient:
+		IconComponent = IngredientIcon;
+		break;
+
+	default:
+		return category satisfies never;
+}
+---
+
+<IconComponent {...props} />

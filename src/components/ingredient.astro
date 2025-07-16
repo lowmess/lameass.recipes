@@ -24,7 +24,7 @@ let unit: Unit | undefined;
 let ingredient: string = ingredientString;
 
 // matches leading integers, decimals, and fractions
-const amountRe = /^\d+((\d)?(\/|.){1}(\d))*/g;
+const amountRe = /^\d+((\/|\.){1}(\d)*)*/g;
 
 const hasAmount = amountRe.test(ingredientString);
 

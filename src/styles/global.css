@@ -27,12 +27,20 @@ body {
 	text-wrap: balance;
 }
 
+:where(li > p) {
+	display: contents;
+}
+
 .themed-text {
 	color: var(--theme, var(--color-accent));
 }
 
 .hidden {
 	display: none;
+}
+
+.contents {
+	display: contents;
 }
 
 .visually-hidden {

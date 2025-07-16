@@ -3,5 +3,5 @@ export function pluralize(
 	singular: string,
 	plural: string = `${singular}s`,
 ): string {
-	return value === 1 ? singular : plural;
+	return Math.abs(value) <= 1 ? singular : plural;
 }

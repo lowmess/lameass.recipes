@@ -48,6 +48,8 @@ let yieldString;
 
 if (yields.unit === "servings") {
 	yieldString = `Serves ${yields.amount}`;
+} else if (yields.unit === "each") {
+	yieldString = `Yields ${yields.amount}`;
 } else {
 	const unit = getUnit(yields.unit);
 

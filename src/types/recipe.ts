@@ -5,5 +5,5 @@ import type { Unit } from "./unit";
 // this does not solve the issue.
 export type Measurement = {
 	amount: number;
-	unit: Unit | "servings";
+	unit: Unit | "servings" | "each";
 };

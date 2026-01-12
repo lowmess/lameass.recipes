@@ -96,22 +96,27 @@ export const getRecipeById = graphql(
 					name
 				}
 				equipment {
-					blocks
-					links
 					value
 				}
 				ingredients {
+					value
 					links {
 						... on RecipeRecord {
+							__typename
 							id
 							slug
-							__typename
 						}
 					}
-					value
 				}
 				directions {
 					value
+					links {
+						... on RecipeRecord {
+							__typename
+							id
+							slug
+						}
+					}
 				}
 				notes {
 					value

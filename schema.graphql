@@ -17,9 +17,9 @@ input AuthorModelFilter {
   _updatedAt: UpdatedAtFilter
   updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  bio: StructuredTextFilter
-  image: FileFilter
   name: StringFilter
+  image: FileFilter
+  bio: StructuredTextFilter
   OR: [AuthorModelFilter]
   AND: [AuthorModelFilter]
 }
@@ -2688,10 +2688,10 @@ input MealModelFilter {
   _updatedAt: UpdatedAtFilter
   updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  description: StructuredTextFilter
-  directions: StructuredTextFilter
-  recipes: LinksFilter
   seo: SeoFilter
+  recipes: LinksFilter
+  directions: StructuredTextFilter
+  description: StructuredTextFilter
   slug: SlugFilter
   ttile: StringFilter
   OR: [MealModelFilter]
@@ -3121,7 +3121,7 @@ type RecipeModelDescriptionField {
 type RecipeModelDirectionsField {
   blocks: [String!]!
   inlineBlocks: [String!]!
-  links: [String!]!
+  links: [RecipeRecord!]!
   value: JsonField!
 }
 
@@ -3144,22 +3144,22 @@ input RecipeModelFilter {
   _updatedAt: UpdatedAtFilter
   updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  author: LinkFilter
-  category: LinkFilter
-  cookTime: IntegerFilter
-  description: StructuredTextFilter
-  directions: StructuredTextFilter
-  equipment: StructuredTextFilter
-  ingredients: StructuredTextFilter
   notes: StructuredTextFilter
-  pairsWith: LinksFilter
-  prepTime: IntegerFilter
-  searchTerms: StringFilter
-  seo: SeoFilter
-  slug: SlugFilter
+  author: LinkFilter
+  cookTime: IntegerFilter
+  totalTime: IntegerFilter
   tags: LinksFilter
   title: StringFilter
-  totalTime: IntegerFilter
+  category: LinkFilter
+  pairsWith: LinksFilter
+  seo: SeoFilter
+  searchTerms: StringFilter
+  directions: StructuredTextFilter
+  ingredients: StructuredTextFilter
+  equipment: StructuredTextFilter
+  description: StructuredTextFilter
+  slug: SlugFilter
+  prepTime: IntegerFilter
   OR: [RecipeModelFilter]
   AND: [RecipeModelFilter]
 }
@@ -3203,14 +3203,14 @@ enum RecipeModelOrderBy {
   _isValid_DESC
   cookTime_ASC
   cookTime_DESC
-  prepTime_ASC
-  prepTime_DESC
-  searchTerms_ASC
-  searchTerms_DESC
-  title_ASC
-  title_DESC
   totalTime_ASC
   totalTime_DESC
+  title_ASC
+  title_DESC
+  searchTerms_ASC
+  searchTerms_DESC
+  prepTime_ASC
+  prepTime_DESC
 }
 
 """Record of type Recipe (recipe)"""
@@ -3494,8 +3494,8 @@ input TagModelFilter {
   _updatedAt: UpdatedAtFilter
   updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  slug: SlugFilter
   title: StringFilter
+  slug: SlugFilter
   OR: [TagModelFilter]
   AND: [TagModelFilter]
 }
@@ -3742,6 +3742,7 @@ input UploadFilter {
   title: UploadTitleFilter
   notes: UploadNotesFilter
   md5: UploadMd5Filter
+  path: UploadPathFilter
   author: UploadAuthorFilter
   copyright: UploadCopyrightFilter
   basename: UploadBasenameFilter
@@ -3880,6 +3881,21 @@ enum UploadOrientation {
   landscape
   portrait
   square
+}
+
+"""Specifies how to filter by path"""
+input UploadPathFilter {
+  """Search the asset with the specified path"""
+  eq: String
+
+  """Exclude the asset with the specified path"""
+  neq: String
+
+  """Search assets with the specified paths"""
+  in: [String]
+
+  """Search assets that do not have the specified paths"""
+  notIn: [String]
 }
 
 """Specifies how to filter by size"""

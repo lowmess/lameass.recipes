@@ -1,0 +1,19 @@
+---
+import type { TransformedMeta } from "datocms-structured-text-generic-html-renderer";
+import { type ItemLink } from "datocms-structured-text-utils";
+
+import type { ResultOf } from "#api/datocms/graphql.ts";
+import type { getAllRecipes } from "#api/queries/recipe.ts";
+
+type Props = {
+	node: ItemLink;
+	attrs: TransformedMeta;
+	record: ResultOf<typeof getAllRecipes>["allRecipes"][number];
+};
+
+const { attrs, record } = Astro.props;
+
+const { slug } = record;
+---
+
+<a {...attrs} href={`/recipes/${slug}`}><slot /></a>

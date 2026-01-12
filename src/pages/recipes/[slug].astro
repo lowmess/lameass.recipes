@@ -1,6 +1,5 @@
 ---
-import { ensureValidStructuredTextProps, StructuredText } from "@datocms/astro";
-import type { StructuredTextDocument } from "datocms-structured-text-to-plain-text";
+import { StructuredText } from "@datocms/astro";
 import { isEmptyDocument } from "datocms-structured-text-utils";
 
 import { executeQuery } from "#api/datocms/execute-query.ts";
@@ -10,6 +9,7 @@ import Card from "#components/card.astro";
 import Container from "#components/container.astro";
 import Ingredient from "#components/ingredient.astro";
 import NestedHeading from "#components/nested-heading.astro";
+import RecipeLink from "#components/recipe-link.astro";
 import GlobalLayout from "#layouts/global-layout.astro";
 import type { Measurement } from "#types/recipe.ts";
 import type { Unit } from "#types/unit.ts";
@@ -27,7 +27,7 @@ export async function getStaticPaths() {
 }
 type Props = ResultOf<typeof getAllRecipes>["allRecipes"][number];
 
-const { id, slug } = Astro.props;
+const { id, slug }: Props = Astro.props;
 
 if (!slug) {
 	throw new Error("Recipe missing slug");
@@ -266,11 +266,7 @@ const theme = `var(--color-${category!.color})`;
 					<Card class="card card--equipment">
 						<h2>Equipment</h2>
 
-						<StructuredText
-							{...ensureValidStructuredTextProps({
-								data: equipment.value as StructuredTextDocument,
-							})}
-						/>
+						<StructuredText data={equipment} />
 					</Card>
 				)
 			}
@@ -281,13 +277,15 @@ const theme = `var(--color-${category!.color})`;
 				<>
 					<h2>Ingredients</h2>
 
+					{/* @ts-expect-error not entirely sure how to get this data properly typed, since it should be pulling straight from dato */}
 					<StructuredText
-						{...ensureValidStructuredTextProps({
-							data: ingredients.value as StructuredTextDocument,
-						})}
+						data={ingredients}
 						nodeOverrides={{
 							heading: NestedHeading,
 							paragraph: Ingredient,
+						}}
+						linkToRecordComponents={{
+							RecipeRecord: RecipeLink,
 						}}
 					/>
 				</>
@@ -299,10 +297,12 @@ const theme = `var(--color-${category!.color})`;
 				<>
 					<h2>Steps</h2>
 
+					{/* @ts-expect-error not entirely sure how to get this data properly typed, since it should be pulling straight from dato */}
 					<StructuredText
-						{...ensureValidStructuredTextProps({
-							data: directions.value as StructuredTextDocument,
-						})}
+						data={directions}
+						linkToRecordComponents={{
+							RecipeRecord: RecipeLink,
+						}}
 						nodeOverrides={{
 							heading: NestedHeading,
 						}}

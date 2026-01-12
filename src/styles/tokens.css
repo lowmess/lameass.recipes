@@ -1,4 +1,6 @@
 :root {
+	color-scheme: light dark;
+
 	/* typography */
 	/* @link https://min-max-calculator.9elements.com/ */
 	--font-size-sm: clamp(0.875rem, 0.765rem + 0.37vw, 1rem);
@@ -48,7 +50,7 @@
 	/* palette */
 	--color-white: #ffffff;
 	--color-black: #131310;
-	--color-accent: #f94838;
+	--color-accent: light-dark(#f94838, #fc4b39);
 
 	--color-gray-1: #eeeee9;
 	--color-gray-2: #e1e1db;
@@ -72,43 +74,24 @@
 	--color-beige-9: #404037;
 	--color-beige-10: #2c2c25;
 
-	--color-red: #f94838;
-	--color-pink: #fa3989;
-	--color-violet: #ba5bfd;
-	--color-blue: #3887f7;
-	--color-cyan: #2497a0;
-	--color-teal: #239b6a;
-	--color-green: #249e2e;
-	--color-yellow: #d7c30f;
-	--color-orange: #d69231;
+	--color-red: light-dark(#f94838, #fc4b39);
+	--color-pink: light-dark(#fa3989, #fd91be);
+	--color-violet: light-dark(#ba5bfd, #d59cfd);
+	--color-blue: light-dark(#3887f7, #60a1fd);
+	--color-cyan: light-dark(#2497a0, #2fc5d2);
+	--color-teal: light-dark(#239b6a, #32de96);
+	--color-green: light-dark(#249e2e, #2fce3c);
+	--color-yellow: light-dark(#d7c30f, #dceb35);
+	--color-orange: light-dark(#d69231, #f0a336);
 
-	--color-background: var(--color-beige-1);
-	--color-text: var(--color-gray-10);
-	--color-text-secondary: var(--color-gray-7);
+	--color-background: light-dark(var(--color-beige-1), var(--color-beige-10));
+	--color-text: light-dark(var(--color-gray-10), var(--color-gray-2));
+	--color-text-secondary: light-dark(var(--color-gray-7), var(--color-gray-6));
 
-	--color-card-background: var(--color-white);
-	--color-card-border: var(--color-gray-10);
+	--color-card-background: light-dark(var(--color-white), var(--color-beige-9));
+	--color-card-border: light-dark(var(--color-gray-10), var(--color-black));
 
-	@media (prefers-color-scheme: dark) {
-		--color-accent: #fc4b39;
-
-		--color-red: #fc4b39;
-		--color-pink: #fd91be;
-		--color-violet: #d59cfd;
-		--color-blue: #60a1fd;
-		--color-cyan: #2fc5d2;
-		--color-teal: #32de96;
-		--color-green: #2fce3c;
-		--color-yellow: #dceb35;
-		--color-orange: #f0a336;
-
-		--color-background: var(--color-beige-10);
-		--color-text: var(--color-gray-2);
-		--color-text-secondary: var(--color-gray-6);
-
-		--color-card-background: var(--color-beige-9);
-		--color-card-border: var(--color-black);
-	}
+	--color-search-border: light-dark(var(--color-gray-10), var(--color-black));
 
 	/* container */
 	--container-width: 64rem;

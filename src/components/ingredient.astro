@@ -1,8 +1,9 @@
 ---
+import { type Paragraph } from "datocms-structured-text-utils";
+
 import type { Unit } from "#types/unit.ts";
 import { toFraction } from "#util/number.ts";
 import { getUnit, pluralizeUnit } from "#util/units.ts";
-import { type Paragraph } from "datocms-structured-text-utils";
 
 type Props = {
 	node: Paragraph;

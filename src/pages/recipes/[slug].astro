@@ -9,13 +9,14 @@ import { getAllRecipes, getRecipeById } from "#api/queries/recipe.ts";
 import Card from "#components/card.astro";
 import Container from "#components/container.astro";
 import Ingredient from "#components/ingredient.astro";
+import NestedHeading from "#components/nested-heading.astro";
 import ChevronDown from "#icons/chevron-down.svg";
 import GlobalLayout from "#layouts/global-layout.astro";
 import type { Measurement } from "#types/recipe.ts";
+import { getDisplacementValues } from "#util/displacement.ts";
 import { toFraction } from "#util/number.ts";
 import { minutesToHours } from "#util/time.ts";
 import { getUnit, pluralizeUnit } from "#util/units.ts";
-import { getDisplacementValues } from "#util/displacement.ts";
 
 export async function getStaticPaths() {
 	const { allRecipes } = await executeQuery(getAllRecipes);
@@ -225,6 +226,7 @@ const theme = `var(--color-${category!.color})`;
 							data: ingredients.value as StructuredTextDocument,
 						})}
 						nodeOverrides={{
+							heading: NestedHeading,
 							paragraph: Ingredient,
 						}}
 					/>
@@ -241,6 +243,9 @@ const theme = `var(--color-${category!.color})`;
 						{...ensureValidStructuredTextProps({
 							data: directions.value as StructuredTextDocument,
 						})}
+						nodeOverrides={{
+							heading: NestedHeading,
+						}}
 					/>
 				</>
 			)
@@ -306,6 +311,7 @@ const theme = `var(--color-${category!.color})`;
 
 		padding-block: var(--rhythm-lg);
 	}
+
 	h1 {
 		margin-block-start: 0;
 		margin-block-end: var(--rhythm-xs);

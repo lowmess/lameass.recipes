@@ -27,6 +27,21 @@ body {
 	text-wrap: balance;
 }
 
+:where(h1) {
+	font-size: var(--font-size-xl);
+	font-weight: 600;
+}
+
+:where(h2) {
+	font-size: var(--font-size-lg);
+	font-weight: 500;
+}
+
+:where(h3, h4, h5, h6) {
+	font-size: var(--font-size-md);
+	font-weight: 400;
+}
+
 :where(li > p) {
 	display: contents;
 }

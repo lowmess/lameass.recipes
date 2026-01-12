@@ -10,13 +10,12 @@ import Card from "#components/card.astro";
 import Container from "#components/container.astro";
 import Ingredient from "#components/ingredient.astro";
 import NestedHeading from "#components/nested-heading.astro";
-import ChevronDown from "#icons/chevron-down.svg";
 import GlobalLayout from "#layouts/global-layout.astro";
 import type { Measurement } from "#types/recipe.ts";
+import type { Unit } from "#types/unit.ts";
 import { getDisplacementValues } from "#util/displacement.ts";
-import { toFraction } from "#util/number.ts";
 import { minutesToHours } from "#util/time.ts";
-import { getUnit, pluralizeUnit } from "#util/units.ts";
+import { getUnit, pluralizeAmountWithUnit } from "#util/units.ts";
 
 export async function getStaticPaths() {
 	const { allRecipes } = await executeQuery(getAllRecipes);
@@ -57,16 +56,18 @@ const {
 
 const yields = recipe.yields as Measurement;
 let yieldLabel: string = "Serves";
+const baseYieldAmount = yields.amount;
 let yieldValue: string = yields.amount.toString();
+let yieldUnit: Unit | false;
 
 if (yields.unit === "each") {
 	yieldLabel = "Yields";
 } else if (yields.unit !== "servings") {
-	const unit = getUnit(yields.unit);
+	yieldUnit = getUnit(yields.unit);
 
-	if (unit) {
+	if (yieldUnit) {
 		yieldLabel = `Yields`;
-		yieldValue = `${toFraction(yields.amount)} ${pluralizeUnit(yields.amount, unit)}`;
+		yieldValue = pluralizeAmountWithUnit(yields.amount, yieldUnit);
 	}
 }
 
@@ -151,11 +152,15 @@ const theme = `var(--color-${category!.color})`;
 									<span class="label">{yieldLabel}:</span>
 
 									<div class="value adjustment-container">
-										<span>
-											{yieldValue}{" "}
-											<span class="adjustment-display">
-												(x<span data-ingredient-adjustment>1</span>)
-											</span>
+										<span
+											data-yields
+											data-yields-amount={baseYieldAmount}
+											data-yields-unit={
+												// @ts-expect-error it is not being used before it's assigned?
+												yieldUnit || undefined
+											}
+										>
+											{yieldValue}
 										</span>
 
 										<label for="serving-adjust" class="visually-hidden">
@@ -163,18 +168,73 @@ const theme = `var(--color-${category!.color})`;
 										</label>
 
 										<select id="serving-adjust" name="serving-adjust">
-											<option value="0.25">x1/4</option>
-											<option value="0.5">x1/2</option>
-											<option value="0.75">x3/4</option>
-											<option value="1" selected>
-												x1
+											<option value="0.25">
+												{pluralizeAmountWithUnit(
+													baseYieldAmount * 0.25,
+													// @ts-expect-error it is not being used before it's assigned?
+													yieldUnit,
+												)}{" "}
+												(x1/4)
 											</option>
-											<option value="1.5">x1.5</option>
-											<option value="2">x2</option>
-											<option value="4">x4</option>
+
+											<option value="0.5">
+												{pluralizeAmountWithUnit(
+													baseYieldAmount * 0.5,
+													// @ts-expect-error it is not being used before it's assigned?
+													yieldUnit,
+												)}{" "}
+												(x1/2)
+											</option>
+
+											<option value="0.75">
+												{pluralizeAmountWithUnit(
+													baseYieldAmount * 0.75,
+													// @ts-expect-error it is not being used before it's assigned?
+													yieldUnit,
+												)}{" "}
+												(x3/4)
+											</option>
+
+											<option value="1" selected>
+												{pluralizeAmountWithUnit(
+													baseYieldAmount,
+													// @ts-expect-error it is not being used before it's assigned?
+													yieldUnit,
+												)}{" "}
+												(x1)
+											</option>
+
+											<option value="1.5">
+												{pluralizeAmountWithUnit(
+													baseYieldAmount * 1.5,
+													// @ts-expect-error it is not being used before it's assigned?
+													yieldUnit,
+												)}{" "}
+												(x1.5)
+											</option>
+
+											<option value="2">
+												{pluralizeAmountWithUnit(
+													baseYieldAmount * 2,
+													// @ts-expect-error it is not being used before it's assigned?
+													yieldUnit,
+												)}{" "}
+												(x2)
+											</option>
+
+											<option value="4">
+												{pluralizeAmountWithUnit(
+													baseYieldAmount * 4,
+													// @ts-expect-error it is not being used before it's assigned?
+													yieldUnit,
+												)}{" "}
+												(x4)
+											</option>
 										</select>
 
-										<ChevronDown class="select-icon" aria-hidden />
+										<span class="adjustment-display">
+											(x<span data-ingredient-adjustment>1</span>)
+										</span>
 									</div>
 								</p>
 							</>
@@ -255,41 +315,52 @@ const theme = `var(--color-${category!.color})`;
 
 <script>
 	import { toFraction } from "#util/number.ts";
-	import { pluralizeUnit } from "#util/units.ts";
+	import { pluralizeAmountWithUnit, pluralizeUnit } from "#util/units.ts";
 
-	const select = document.querySelector('select[name="serving-adjust"]');
+	const $select = document.querySelector('select[name="serving-adjust"]');
+	const $yieldsEl = document.querySelector("[data-yields]");
+
+	// @ts-expect-error `dataset` does absolutely exist on `Element`
+	const yieldsBaseValue = parseFloat($yieldsEl?.dataset.yieldsAmount || "1");
+	// @ts-expect-error `dataset` does absolutely exist on `Element`
+	const yieldsUnit = $yieldsEl?.dataset.yieldsUnit;
 
 	const ingredients = document.querySelectorAll("[data-ingredient]");
 	const adjustmentDisplay = document.querySelector(
 		"[data-ingredient-adjustment]",
 	);
 
-	select?.addEventListener("change", (event) => {
+	$select?.addEventListener("change", (event) => {
 		// @ts-expect-error yes it does dude
 		const adjustmentAmount = parseFloat(event.target?.value || "1");
 
 		// @ts-expect-error yes it does dude
 		adjustmentDisplay.innerHTML = toFraction(adjustmentAmount);
 
+		if ($yieldsEl) {
+			const nextAmount = yieldsBaseValue * adjustmentAmount;
+			$yieldsEl.innerHTML = pluralizeAmountWithUnit(nextAmount, yieldsUnit);
+		}
+
 		ingredients.forEach((ingredient) => {
-			const amountEl = ingredient.querySelector("[data-ingredient-amount]");
-			const unitEl = ingredient.querySelector("[data-ingredient-unit]");
+			const $amountEl = ingredient.querySelector("[data-ingredient-amount]");
+			const $unitEl = ingredient.querySelector("[data-ingredient-unit]");
 
 			let amount = 1;
 
-			if (amountEl) {
+			if ($amountEl) {
 				const initialAmount = parseFloat(
-					amountEl?.getAttribute("data-ingredient-amount") || "1",
+					$amountEl?.getAttribute("data-ingredient-amount") || "1",
 				);
 
 				amount = initialAmount * adjustmentAmount;
 
-				amountEl.innerHTML = toFraction(amount);
+				$amountEl.innerHTML = toFraction(amount);
 			}
 
-			if (unitEl) {
-				const unit = unitEl?.getAttribute("data-ingredient-unit") as string;
-				unitEl.innerHTML = pluralizeUnit(amount, unit);
+			if ($unitEl) {
+				const unit = $unitEl?.getAttribute("data-ingredient-unit") as string;
+				$unitEl.innerHTML = pluralizeUnit(amount, unit);
 			}
 		});
 	});
@@ -440,6 +511,9 @@ const theme = `var(--color-${category!.color})`;
 
 	.adjustment-container {
 		position: relative;
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-sm);
 		cursor: pointer;
 
 		& select {

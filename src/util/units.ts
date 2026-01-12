@@ -1,5 +1,7 @@
 import { Unit } from "#types/unit";
+
 import { pluralize } from "./grammar";
+import { toFraction } from "./number";
 
 export function getUnit(potentialUnit: string): Unit | false {
 	switch (potentialUnit) {
@@ -190,4 +192,8 @@ export function pluralizeUnit(amount: number, potentialUnit: string | Unit) {
 	}
 
 	return pluralize(amount, singular, plural);
+}
+
+export function pluralizeAmountWithUnit(amount: number, unit?: Unit | false) {
+	return `${toFraction(amount)} ${unit ? pluralizeUnit(amount, unit) : ""}`.trim();
 }

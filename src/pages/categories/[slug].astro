@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 }
 type Props = ResultOf<typeof getAllCategories>["allCategories"][number];
 
-const category = Astro.props;
+const category: Props = Astro.props;
 
 const { id, slug } = category;
 

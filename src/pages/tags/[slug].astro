@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 }
 type Props = ResultOf<typeof getAllTags>["allTags"][number];
 
-const { id, title, slug } = Astro.props;
+const { id, title, slug }: Props = Astro.props;
 
 if (!slug) {
 	throw new Error("Tag missing slug");

@@ -6,3 +6,5 @@ node_modules
 .env.local
 out/
 tsconfig.tsbuildinfo
+.astro/
+dist

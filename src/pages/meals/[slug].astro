@@ -1,0 +1,41 @@
+---
+import { executeQuery } from "#api/datocms/execute-query.ts";
+import type { ResultOf } from "#api/datocms/graphql.ts";
+import { getAllMeals, getMealById } from "#api/queries/meal.ts";
+import Container from "#components/container.astro";
+import GlobalLayout from "#layouts/global-layout.astro";
+
+export async function getStaticPaths() {
+	const { allMeals } = await executeQuery(getAllMeals);
+
+	return allMeals.map((meal) => ({
+		params: { slug: meal.slug },
+		props: meal,
+	}));
+}
+type Props = ResultOf<typeof getAllMeals>["allMeals"][number];
+
+const mealFromProps: Props = Astro.props;
+
+const { id, slug } = mealFromProps;
+
+if (!slug) {
+	throw new Error("Meal missing slug");
+}
+
+const { meal } = await executeQuery(getMealById, {
+	variables: { id },
+});
+
+if (!meal) {
+	throw new Error(`Meal with id "${id}" not found`);
+}
+---
+
+<GlobalLayout>
+	<Container>
+		<pre>
+			{JSON.stringify(meal, null, 2)}
+		</pre>
+	</Container>
+</GlobalLayout>

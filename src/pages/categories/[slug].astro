@@ -25,7 +25,7 @@ const category: Props = Astro.props;
 const { id, slug } = category;
 
 if (!slug) {
-	throw new Error("Tag missing slug");
+	throw new Error("Category missing slug");
 }
 
 const result = Astro.getActionResult(actions.search.recipes);

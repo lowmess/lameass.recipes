@@ -3144,7 +3144,6 @@ input RecipeModelFilter {
   _updatedAt: UpdatedAtFilter
   updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  notes: StructuredTextFilter
   author: LinkFilter
   cookTime: IntegerFilter
   totalTime: IntegerFilter
@@ -3154,6 +3153,7 @@ input RecipeModelFilter {
   pairsWith: LinksFilter
   seo: SeoFilter
   searchTerms: StringFilter
+  notes: StructuredTextFilter
   directions: StructuredTextFilter
   ingredients: StructuredTextFilter
   equipment: StructuredTextFilter

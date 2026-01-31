@@ -1,5 +1,5 @@
 import { graphql } from "#api/datocms/graphql.ts";
-import { SeoFieldsFragment } from "./fragments";
+import { SeoFieldsFragment } from "#api/queries/fragments";
 
 export const RecipePreviewFragment = graphql(`
 	fragment RecipePreviewFragment on RecipeRecord @_unmask {

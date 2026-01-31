@@ -2672,7 +2672,7 @@ type MealModelDescriptionField {
 type MealModelDirectionsField {
   blocks: [String!]!
   inlineBlocks: [String!]!
-  links: [String!]!
+  links: [RecipeRecord!]!
   value: JsonField!
 }
 
@@ -2688,12 +2688,15 @@ input MealModelFilter {
   _updatedAt: UpdatedAtFilter
   updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  seo: SeoFilter
-  recipes: LinksFilter
-  directions: StructuredTextFilter
   description: StructuredTextFilter
+  prepTime: IntegerFilter
+  cookTime: IntegerFilter
+  seo: SeoFilter
+  serves: IntegerFilter
+  directions: StructuredTextFilter
+  recipes: LinksFilter
   slug: SlugFilter
-  ttile: StringFilter
+  title: StringFilter
   OR: [MealModelFilter]
   AND: [MealModelFilter]
 }
@@ -2721,8 +2724,14 @@ enum MealModelOrderBy {
   updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  ttile_ASC
-  ttile_DESC
+  prepTime_ASC
+  prepTime_DESC
+  cookTime_ASC
+  cookTime_DESC
+  serves_ASC
+  serves_DESC
+  title_ASC
+  title_DESC
 }
 
 """Record of type Meal (meal)"""
@@ -2745,14 +2754,17 @@ type MealRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  cookTime: IntType
   createdAt: DateTime!
-  description: MealModelDescriptionField
+  description: MealModelDescriptionField!
   directions: MealModelDirectionsField
   id: ItemId!
+  prepTime: IntType
   recipes: [RecipeRecord!]!
   seo: SeoField
+  serves: IntType
   slug: String!
-  ttile: String!
+  title: String!
   updatedAt: DateTime!
 }
 

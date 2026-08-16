@@ -14,10 +14,10 @@ body {
 
 :where(a) {
 	color: inherit;
-	text-decoration-color: var(--color-accent);
+	text-decoration-color: var(--theme, var(--color-accent));
 
 	&:hover {
-		color: var(--color-accent);
+		color: var(--theme, var(--color-accent));
 	}
 }
 

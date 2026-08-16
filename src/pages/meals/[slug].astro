@@ -1,9 +1,16 @@
 ---
+import { StructuredText } from "@datocms/astro";
+
 import { executeQuery } from "#api/datocms/execute-query.ts";
 import type { ResultOf } from "#api/datocms/graphql.ts";
 import { getAllMeals, getMealById } from "#api/queries/meal.ts";
 import Container from "#components/container.astro";
+import NestedHeading from "#components/nested-heading.astro";
+import RecipeLink from "#components/recipe-link.astro";
+import RecipeStack from "#components/recipe-stack.astro";
 import GlobalLayout from "#layouts/global-layout.astro";
+import { getRandomIntegerBetween } from "#util/random.ts";
+import { minutesToHours } from "#util/time.ts";
 
 export async function getStaticPaths() {
 	const { allMeals } = await executeQuery(getAllMeals);
@@ -30,12 +37,172 @@ const { meal } = await executeQuery(getMealById, {
 if (!meal) {
 	throw new Error(`Meal with id "${id}" not found`);
 }
+
+const { title, description, recipes, directions, prepTime, cookTime, serves } =
+	meal;
+
+// duplicates intentionally allowed; more common colors more likely to be theme
+const categoryColorsInMeal = Array.from(
+	recipes.map((recipe) => recipe.category.color),
+);
+const themeColor =
+	categoryColorsInMeal[
+		getRandomIntegerBetween(0, categoryColorsInMeal.length - 1)
+	];
+const theme = `var(--color-${themeColor})`;
 ---
 
 <GlobalLayout>
-	<Container>
-		<pre>
-			{JSON.stringify(meal, null, 2)}
-		</pre>
+	<Container class="meal" style={{ "--theme": theme }}>
+		<h1>{title}</h1>
+
+		{
+			description && (
+				<div class="meal-description">
+					<StructuredText data={description} />
+				</div>
+			)
+		}
+
+		{
+			(prepTime || cookTime || serves) && (
+				<ul>
+					{prepTime && <li>{minutesToHours(prepTime)} prep</li>}
+
+					{cookTime && <li>{minutesToHours(cookTime)} cook</li>}
+
+					{serves && <li>Serves {serves}</li>}
+				</ul>
+			)
+		}
+
+		<div class="meal-content">
+			<h2>Recipes</h2>
+
+			<RecipeStack recipes={recipes} heading={3} />
+
+			{
+				directions && (
+					<>
+						<h2>Directions</h2>
+
+						<div class="meal-directions">
+							<StructuredText
+								data={directions}
+								linkToRecordComponents={{
+									RecipeRecord: RecipeLink,
+								}}
+								nodeOverrides={{
+									heading: NestedHeading,
+								}}
+							/>
+						</div>
+					</>
+				)
+			}
+		</div>
 	</Container>
 </GlobalLayout>
+
+<style>
+	.meal {
+		--theme: var(--theme, var(--color-accent));
+
+		padding-block: var(--rhythm-lg);
+	}
+
+	h1 {
+		margin-block-start: 0;
+		margin-block-end: var(--rhythm-xs);
+		text-align: center;
+		font-weight: 400;
+		font-size: var(--font-size-xxl);
+		color: var(--theme);
+	}
+
+	h2 {
+		margin-block: 0;
+		font-size: var(--font-size-xl);
+		font-weight: 400;
+		text-decoration: underline;
+		text-decoration-color: var(--theme);
+	}
+
+	:global(.meal-description p) {
+		max-width: 55ch;
+		margin-block: 0;
+		margin-inline: auto;
+		text-align: center;
+		text-wrap: pretty;
+	}
+
+	.meal-content {
+		display: grid;
+		align-items: baseline;
+		row-gap: var(--space-lg);
+		column-gap: var(--rhythm-lg);
+		margin-block-start: var(--rhythm-lg);
+
+		h2 {
+			text-align: center;
+			margin-block-end: calc(var(--rhythm-lg) * -1);
+		}
+
+		@media (min-width: 48em) {
+			grid-template-columns: max-content 1fr;
+
+			h2 {
+				position: sticky;
+				top: var(--rhythm-lg);
+				background-color: var(--color-background);
+				text-align: start;
+
+				&::before {
+					content: "";
+					position: absolute;
+					right: 0;
+					left: 0;
+					bottom: 100%;
+					height: var(--rhythm-lg);
+					background-image: linear-gradient(
+						to top,
+						var(--color-background),
+						hsl(from var(--color-background) h s l / 0%)
+					);
+				}
+			}
+		}
+	}
+
+	:global(.meal-directions h3) {
+		font-size: var(--font-size-lg);
+
+		&:not(:first-child) {
+			margin-block-start: var(--rhythm-lg);
+		}
+	}
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: var(--rhtyhm-sm);
+		max-width: fit-content;
+		margin-block-start: var(--rhythm-md);
+		margin-block-end: 0;
+		margin-inline: auto;
+		padding: 0;
+		list-style-type: none;
+		text-align: center;
+
+		@media (min-width: 30em) {
+			flex-direction: row;
+			gap: 0;
+
+			li:not(:first-child)::before {
+				content: "/";
+				margin-inline: 0.5em;
+				color: var(--theme);
+			}
+		}
+	}
+</style>

@@ -92,7 +92,7 @@ const theme = `var(--color-${category!.color})`;
 ---
 
 <GlobalLayout>
-	<Container class="recipe">
+	<Container class="recipe" style={{ "--theme": theme }}>
 		<h1>{title}</h1>
 
 		{
@@ -364,7 +364,6 @@ const theme = `var(--color-${category!.color})`;
 
 <style
 	define:vars={{
-		theme,
 		infoVerticalOffset,
 		infoHorizontalOffset,
 		infoRotation,

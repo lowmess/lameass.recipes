@@ -7,6 +7,9 @@ export const MealPreviewFragment = graphql(`
 		id
 		title
 		slug
+		description {
+			value
+		}
 		prepTime
 		cookTime
 		serves

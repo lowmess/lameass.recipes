@@ -48,13 +48,15 @@ if (hasAmount) {
 ---
 
 <p data-ingredient>
-	{amount && <span data-ingredient-amount={amount}>{toFraction(amount)}</span>}
+	{amount && <span data-ingredient-amount={amount}>{toFraction(amount)}</span>}{
+		" "
+	}
 	{
 		unit && (
 			<span data-ingredient-unit={unit}>
 				{pluralizeUnit(amount || 1, unit)}
 			</span>
 		)
-	}
+	}{" "}
 	{ingredient}
 </p>

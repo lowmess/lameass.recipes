@@ -148,9 +148,8 @@ const theme = `var(--color-${category!.color})`;
 					{
 						yields && yieldLabel && yieldValue && (
 							<>
-								<p class="contents">
+								<div class="contents">
 									<span class="label">{yieldLabel}:</span>
-
 									<div class="value adjustment-container">
 										<span
 											data-yields
@@ -162,11 +161,9 @@ const theme = `var(--color-${category!.color})`;
 										>
 											{yieldValue}
 										</span>
-
 										<label for="serving-adjust" class="visually-hidden">
 											Adjust servings
 										</label>
-
 										<select id="serving-adjust" name="serving-adjust">
 											<option value="0.25">
 												{pluralizeAmountWithUnit(
@@ -231,12 +228,11 @@ const theme = `var(--color-${category!.color})`;
 												(x4)
 											</option>
 										</select>
-
 										<span class="adjustment-display">
 											(x<span data-ingredient-adjustment>1</span>)
 										</span>
 									</div>
-								</p>
+								</div>
 							</>
 						)
 					}

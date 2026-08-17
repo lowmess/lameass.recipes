@@ -4,20 +4,42 @@ import { StructuredText } from "@datocms/astro";
 import type { FragmentOf } from "#api/datocms/graphql.ts";
 import type { MealPreviewFragment } from "#api/queries/meal.ts";
 import { getMealTheme } from "#util/meal.ts";
+import { pluralize } from "#util/grammar.ts";
+import { minutesToHours } from "#util/time.ts";
 
 type Props = {
 	meal: FragmentOf<typeof MealPreviewFragment>;
+	isFeatured?: boolean;
 };
 
-const { meal } = Astro.props;
+const { meal, isFeatured } = Astro.props;
 
-const { slug, title, description } = meal;
+const { slug, title, description, prepTime, cookTime, serves, recipes } = meal;
+
+const totalTime = (prepTime ?? 0) + (cookTime ?? 0);
+const recipeCount = recipes.length;
 
 const theme = getMealTheme(meal);
 ---
 
-<section>
+<section data-featured={isFeatured ? true : undefined}>
 	<h2><a href={`/meals/${slug}`}>{title}</a></h2>
+
+	{
+		(totalTime > 0 || recipeCount > 0 || serves) && (
+			<ul>
+				{recipeCount > 0 && (
+					<li>
+						{recipeCount} {pluralize(recipeCount, "recipe")}
+					</li>
+				)}
+
+				{totalTime > 0 && <li>{minutesToHours(totalTime)}</li>}
+
+				{serves && <li>Serves {serves}</li>}
+			</ul>
+		)
+	}
 
 	{
 		description && (
@@ -32,17 +54,18 @@ const theme = getMealTheme(meal);
 	section {
 		--theme: var(--theme, var(--color-accent));
 
-		max-width: 55ch;
 		margin-block: 0;
-		margin-inline: auto;
 		text-align: center;
 		text-wrap: pretty;
 	}
 
 	h2 {
 		font-size: var(--font-size-xl);
-		margin-block-start: 0;
-		margin-block-end: var(--rhythm-xs);
+		margin-block: 0;
+
+		[data-featured] & {
+			font-size: var(--font-size-xxl);
+		}
 
 		a {
 			color: var(--theme);
@@ -54,7 +77,27 @@ const theme = getMealTheme(meal);
 		}
 	}
 
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-block-start: 0;
+		margin-block-end: var(--rhythm-sm);
+		padding: 0;
+		list-style-type: none;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		text-align: center;
+
+		li:not(:first-child)::before {
+			content: "\2022";
+			margin-inline: 0.5em;
+		}
+	}
+
 	:global(.meal-preview-description p) {
+		max-width: 55ch;
 		margin-block: 0;
+		margin-inline: auto;
 	}
 </style>

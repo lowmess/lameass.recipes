@@ -1,7 +1,7 @@
 import { graphql } from "#api/datocms/graphql.ts";
 
 export const getSiteMetadata = graphql(`
-	query siteMetadata {
+	query GetSiteMetadata {
 		_site {
 			globalSeo {
 				titleSuffix

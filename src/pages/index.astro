@@ -1,15 +1,72 @@
 ---
 import { executeQuery } from "#api/datocms/execute-query.ts";
+import { getHomepage } from "#api/queries/homepage.ts";
 import { getRecentRecipes } from "#api/queries/recipe.ts";
+import MealPreview from "#components/meal-preview.astro";
 import PageTitle from "#components/page-title.astro";
 import RecipeStack from "#components/recipe-stack.astro";
 import GlobalLayout from "#layouts/global-layout.astro";
 
+const { homepage } = await executeQuery(getHomepage);
 const { allRecipes } = await executeQuery(getRecentRecipes);
+
+const { pageTitle, featuredMeal } = homepage || {};
+
+const title =
+	pageTitle || "The best recipes on Earth, or at least on this website.";
 ---
 
 <GlobalLayout>
-	<PageTitle>Recent additions to the cookbook</PageTitle>
+	<PageTitle class="hero-title">{title}</PageTitle>
 
-	<RecipeStack recipes={allRecipes} />
+	{
+		featuredMeal && (
+			<section>
+				<h2>A meal fit for a queen</h2>
+
+				<MealPreview meal={featuredMeal} isFeatured />
+
+				<a href="/meals" class="cta">
+					Explore the menu
+				</a>
+			</section>
+		)
+	}
+
+	<section>
+		<h2>What we&apos;ve been cooking up lately</h2>
+
+		<RecipeStack recipes={allRecipes} />
+
+		<a href="/recipes" class="cta">Browse the cookbook</a>
+	</section>
 </GlobalLayout>
+
+<style>
+	.hero-title {
+		margin-block: var(--rhythm-xxl);
+		font-size: var(--font-size-xxxl);
+		line-height: var(--line-height-solid);
+	}
+
+	h2 {
+		font-size: var(--font-size-xl);
+		text-align: center;
+		font-weight: 400;
+	}
+
+	section {
+		border-block-start: 2px solid var(--color-accent);
+		padding-block-start: var(--rhythm-md);
+		padding-block-end: var(--rhythm-xxl);
+	}
+
+	.cta {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-width: fit-content;
+		margin-block-start: var(--rhythm-lg);
+		margin-inline: auto;
+	}
+</style>

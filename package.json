@@ -13,7 +13,7 @@
     "preview": "astro preview",
     "check": "astro check --minimumFailingSeverity warning",
     "astro": "astro",
-    "generate-schema": "dotenv -c -- bash -c 'gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\"'"
+    "generate-schema": "dotenv -c -- bash -c 'gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\" && gql.tada generate-output'"
   },
   "author": "Alec Lomas <alec@lowmess.com>",
   "repository": {

@@ -14,7 +14,7 @@
 			{
 				"name": "gql.tada/ts-plugin",
 				"schema": "./schema.graphql",
-				"tadaOutputLocation": "./src/lib/datocms/graphql-env.d.ts"
+				"tadaOutputLocation": "./src/api/datocms/graphql-env.d.ts"
 			}
 		]
 	}

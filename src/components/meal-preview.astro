@@ -11,9 +11,9 @@ type Props = {
 
 const { meal } = Astro.props;
 
-const { slug, title, description, recipes } = meal;
+const { slug, title, description } = meal;
 
-const theme = getMealTheme(recipes);
+const theme = getMealTheme(meal);
 ---
 
 <section>

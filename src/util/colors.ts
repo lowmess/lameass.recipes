@@ -12,6 +12,8 @@ export const colors = [
 
 export type Color = (typeof colors)[number];
 
-export function isColor(color: string): color is Color {
+export function isColor(color: string | null): color is Color {
+	if (!color) return false;
+
 	return colors.some((validColor) => validColor === color);
 }

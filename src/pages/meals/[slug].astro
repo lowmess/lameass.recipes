@@ -41,7 +41,7 @@ if (!meal) {
 const { title, description, recipes, directions, prepTime, cookTime, serves } =
 	meal;
 
-const theme = getMealTheme(recipes);
+const theme = getMealTheme(meal);
 ---
 
 <GlobalLayout>
@@ -79,7 +79,6 @@ const theme = getMealTheme(recipes);
 						<h2>Directions</h2>
 
 						<div class="meal-directions">
-							{/* @ts-expect-error not entirely sure how to get this data properly typed, since it should be pulling straight from dato */}
 							<StructuredText
 								data={directions}
 								linkToRecordComponents={{

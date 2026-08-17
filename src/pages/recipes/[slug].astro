@@ -11,7 +11,6 @@ import Ingredient from "#components/ingredient.astro";
 import NestedHeading from "#components/nested-heading.astro";
 import RecipeLink from "#components/recipe-link.astro";
 import GlobalLayout from "#layouts/global-layout.astro";
-import type { Measurement } from "#types/recipe.ts";
 import type { Unit } from "#types/unit.ts";
 import { getDisplacementValues } from "#util/displacement.ts";
 import { minutesToHours } from "#util/time.ts";
@@ -47,6 +46,7 @@ const {
 	prepTime = 0,
 	cookTime = 0,
 	totalTime = (prepTime ?? 0) + (cookTime ?? 0),
+	yields,
 	description,
 	tags,
 	equipment,
@@ -54,7 +54,6 @@ const {
 	directions,
 } = recipe;
 
-const yields = recipe.yields as Measurement;
 let yieldLabel: string = "Serves";
 const baseYieldAmount = yields.amount;
 let yieldValue: string = yields.amount.toString();
@@ -273,7 +272,6 @@ const theme = `var(--color-${category!.color})`;
 				<>
 					<h2>Ingredients</h2>
 
-					{/* @ts-expect-error not entirely sure how to get this data properly typed, since it should be pulling straight from dato */}
 					<StructuredText
 						data={ingredients}
 						nodeOverrides={{
@@ -293,7 +291,6 @@ const theme = `var(--color-${category!.color})`;
 				<>
 					<h2>Steps</h2>
 
-					{/* @ts-expect-error not entirely sure how to get this data properly typed, since it should be pulling straight from dato */}
 					<StructuredText
 						data={directions}
 						linkToRecordComponents={{

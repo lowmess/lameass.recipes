@@ -3,7 +3,9 @@ import { Unit } from "#types/unit";
 import { pluralize } from "./grammar";
 import { toFraction } from "./number";
 
-export function getUnit(potentialUnit: string): Unit | false {
+export function getUnit(potentialUnit: string | null): Unit | false {
+	if (!potentialUnit) return false;
+
 	switch (potentialUnit) {
 		// actual units
 		case Unit.Cup:

@@ -8,7 +8,6 @@ import Card from "#components/card.astro";
 import CategoryIcon from "#components/category-icon.astro";
 import Ribbon from "#components/ribbon.astro";
 import { Category } from "#types/category.ts";
-import type { Measurement } from "#types/recipe.ts";
 import { toFraction } from "#util/number.ts";
 import { minutesToHours } from "#util/time.ts";
 import { getUnit, pluralizeUnit } from "#util/units.ts";
@@ -34,6 +33,7 @@ const {
 	prepTime = 0,
 	cookTime = 0,
 	totalTime = (prepTime ?? 0) + (cookTime ?? 0),
+	yields,
 	description,
 	tags,
 } = recipe;
@@ -43,7 +43,6 @@ const time = totalTime || (prepTime || 0) + (cookTime || 0);
 // category is a required field
 const theme = `var(--color-${category!.color})`;
 
-const yields = recipe.yields as Measurement;
 let yieldString;
 
 if (yields.unit === "servings") {

@@ -71,7 +71,7 @@ const theme = getMealTheme(recipes);
 		<div class="meal-content">
 			<h2>Recipes</h2>
 
-			<RecipeStack recipes={recipes} heading={3} />
+			<RecipeStack recipes={recipes} headingLevel="h3" />
 
 			{
 				directions && (
@@ -79,6 +79,7 @@ const theme = getMealTheme(recipes);
 						<h2>Directions</h2>
 
 						<div class="meal-directions">
+							{/* @ts-expect-error not entirely sure how to get this data properly typed, since it should be pulling straight from dato */}
 							<StructuredText
 								data={directions}
 								linkToRecordComponents={{

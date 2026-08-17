@@ -1,15 +1,10 @@
+import type { FragmentOf } from "#api/datocms/graphql.ts";
+import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
 import { isColor, type Color } from "#util/colors";
 import { getRandomIntegerBetween } from "#util/random";
 
-/** @todo: figure out why FragmentOf<RecipePreviewFragment> was not working here */
-type partialRecipeWithCategory = {
-	category: {
-		color: string;
-	};
-};
-
 export function getMealTheme(
-	recipes: Array<partialRecipeWithCategory>,
+	recipes: Array<FragmentOf<typeof RecipePreviewFragment>>,
 ): `var(--color-${Color})` {
 	// duplicates intentionally allowed; more common colors more likely to be theme
 	const categoryColorsInMeal = recipes.map((recipe) => recipe.category.color);

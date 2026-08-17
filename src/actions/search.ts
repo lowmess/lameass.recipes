@@ -1,16 +1,17 @@
-import { executeQuery } from "#api/datocms/execute-query.ts";
-import { getAllRecipes } from "#api/queries/recipe.ts";
 import { defineAction } from "astro:actions";
-import { z } from "astro:schema";
+import { z } from "astro/zod";
 import { render } from "datocms-structured-text-to-plain-text";
 import Fuse from "fuse.js";
+
+import { executeQuery } from "#api/datocms/execute-query.ts";
+import { getAllRecipes } from "#api/queries/recipe.ts";
 
 export const search = {
 	recipes: defineAction({
 		accept: "form",
 
 		input: z.object({
-			query: z.string().optional(),
+			query: z.string().trim().optional(),
 		}),
 
 		handler: async (input) => {

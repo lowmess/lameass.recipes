@@ -88,7 +88,7 @@ export function getUnit(potentialUnit: string | null): Unit | false {
 			return Unit.Pinch;
 
 		case Unit.Slice:
-		case "slice":
+		case "slices":
 			return Unit.Slice;
 
 		default:

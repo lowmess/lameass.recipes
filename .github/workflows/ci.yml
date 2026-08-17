@@ -21,7 +21,7 @@ jobs:
           cache-dependency-path: "package-lock.json"
 
       - name: Install dependencies
-        run: nub ci --ignore-scripts
+        run: npm ci --ignore-scripts
 
       - name: Lint JS-like files
         run: npmx eslint .  --max-warnings 0
@@ -40,7 +40,7 @@ jobs:
           cache-dependency-path: "package-lock.json"
 
       - name: Install dependencies
-        run: nub ci --ignore-scripts
+        run: npm ci --ignore-scripts
 
       - name: Check types
         run: npm run check

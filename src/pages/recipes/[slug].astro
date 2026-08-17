@@ -5,14 +5,12 @@ import { isEmptyDocument } from "datocms-structured-text-utils";
 import { executeQuery } from "#api/datocms/execute-query.ts";
 import type { ResultOf } from "#api/datocms/graphql.ts";
 import { getAllRecipes, getRecipeById } from "#api/queries/recipe.ts";
-import Card from "#components/card.astro";
 import Container from "#components/container.astro";
 import Ingredient from "#components/ingredient.astro";
 import NestedHeading from "#components/nested-heading.astro";
 import RecipeLink from "#components/recipe-link.astro";
 import GlobalLayout from "#layouts/global-layout.astro";
 import type { Unit } from "#types/unit.ts";
-import { getDisplacementValues } from "#util/displacement.ts";
 import { minutesToHours } from "#util/time.ts";
 import { getUnit, pluralizeAmountWithUnit } from "#util/units.ts";
 
@@ -70,22 +68,6 @@ if (yields.unit === "each") {
 	}
 }
 
-const {
-	verticalOffset: infoVerticalOffset,
-	horizontalOffset: infoHorizontalOffset,
-	rotation: infoRotation,
-} = getDisplacementValues({
-	maxVerticalOffset: 32,
-});
-
-const {
-	verticalOffset: eqVerticalOffset,
-	horizontalOffset: eqHorizontalOffset,
-	rotation: eqRotation,
-} = getDisplacementValues({
-	maxVerticalOffset: 32,
-});
-
 // category is a required field
 const theme = `var(--color-${category!.color})`;
 ---
@@ -93,6 +75,18 @@ const theme = `var(--color-${category!.color})`;
 <GlobalLayout>
 	<Container class="recipe" style={{ "--theme": theme }}>
 		<h1>{title}</h1>
+
+		<ul class="taxonomy">
+			<li><a href={`/categories/${category.slug}`}>{category.title}</a></li>
+
+			{
+				tags.map((tag) => (
+					<li>
+						<a href={`/tags/${tag.slug}`}>{tag.title}</a>
+					</li>
+				))
+			}
+		</ul>
 
 		{
 			description && (
@@ -102,207 +96,160 @@ const theme = `var(--color-${category!.color})`;
 			)
 		}
 
-		<div
-			class="recipe-meta"
-			data-has-equipment={!!equipment && !isEmptyDocument(equipment)}
-		>
-			<Card class="card card--info">
-				<div class="info-grid">
-					<h2>Recipe Information</h2>
+		<ul class="prep">
+			{prepTime && <li>{minutesToHours(prepTime)} prep</li>}
 
-					<p class="contents">
-						<span class="label">Category:</span>
-						<a href={`/categories/${category!.slug}`} class="value link-ghost">
-							{category!.title}
-						</a>
-					</p>
-
-					{
-						prepTime && prepTime > 0 && (
-							<p class="contents">
-								<span class="label">Prep time:</span>
-								<span class="value">{minutesToHours(prepTime)}</span>
-							</p>
-						)
-					}
-
-					{
-						cookTime && cookTime > 0 && (
-							<p class="contents">
-								<span class="label">Cook time:</span>
-								<span class="value">{minutesToHours(cookTime)}</span>
-							</p>
-						)
-					}
-
-					{
-						totalTime && totalTime > 0 && !prepTime && !cookTime && (
-							<p class="contents">
-								<span class="label">Time:</span>
-								<span class="value">{minutesToHours(totalTime)}</span>
-							</p>
-						)
-					}
-
-					{
-						yields && yieldLabel && yieldValue && (
-							<>
-								<div class="contents">
-									<span class="label">{yieldLabel}:</span>
-									<div class="value adjustment-container">
-										<span
-											data-yields
-											data-yields-amount={baseYieldAmount}
-											data-yields-unit={
-												// @ts-expect-error it is not being used before it's assigned?
-												yieldUnit || undefined
-											}
-										>
-											{yieldValue}
-										</span>
-										<label for="serving-adjust" class="visually-hidden">
-											Adjust servings
-										</label>
-										<select id="serving-adjust" name="serving-adjust">
-											<option value="0.25">
-												{pluralizeAmountWithUnit(
-													baseYieldAmount * 0.25,
-													// @ts-expect-error it is not being used before it's assigned?
-													yieldUnit,
-												)}{" "}
-												(x1/4)
-											</option>
-
-											<option value="0.5">
-												{pluralizeAmountWithUnit(
-													baseYieldAmount * 0.5,
-													// @ts-expect-error it is not being used before it's assigned?
-													yieldUnit,
-												)}{" "}
-												(x1/2)
-											</option>
-
-											<option value="0.75">
-												{pluralizeAmountWithUnit(
-													baseYieldAmount * 0.75,
-													// @ts-expect-error it is not being used before it's assigned?
-													yieldUnit,
-												)}{" "}
-												(x3/4)
-											</option>
-
-											<option value="1" selected>
-												{pluralizeAmountWithUnit(
-													baseYieldAmount,
-													// @ts-expect-error it is not being used before it's assigned?
-													yieldUnit,
-												)}{" "}
-												(x1)
-											</option>
-
-											<option value="1.5">
-												{pluralizeAmountWithUnit(
-													baseYieldAmount * 1.5,
-													// @ts-expect-error it is not being used before it's assigned?
-													yieldUnit,
-												)}{" "}
-												(x1.5)
-											</option>
-
-											<option value="2">
-												{pluralizeAmountWithUnit(
-													baseYieldAmount * 2,
-													// @ts-expect-error it is not being used before it's assigned?
-													yieldUnit,
-												)}{" "}
-												(x2)
-											</option>
-
-											<option value="4">
-												{pluralizeAmountWithUnit(
-													baseYieldAmount * 4,
-													// @ts-expect-error it is not being used before it's assigned?
-													yieldUnit,
-												)}{" "}
-												(x4)
-											</option>
-										</select>
-										<span class="adjustment-display">
-											(x<span data-ingredient-adjustment>1</span>)
-										</span>
-									</div>
-								</div>
-							</>
-						)
-					}
-
-					{
-						tags.length > 0 && (
-							<>
-								<p class="label">Tags:</p>
-
-								<ul class="tags">
-									{tags.map((tag) => (
-										<li class="tag">
-											<a href={`/tags/${tag.slug}`} class="link-ui">
-												{tag.title}
-											</a>
-										</li>
-									))}
-								</ul>
-							</>
-						)
-					}
-				</div>
-			</Card>
+			{cookTime && <li>{minutesToHours(cookTime)} cook</li>}
 
 			{
+				totalTime && totalTime > 0 && !prepTime && !cookTime && (
+					<li class="value">{minutesToHours(totalTime)}</li>
+				)
+			}
+
+			{
+				yields && yieldLabel && yieldValue && (
+					<li class="adjustment-container">
+						<span>{yieldLabel}</span>{" "}
+						<span
+							data-yields
+							data-yields-amount={baseYieldAmount}
+							data-yields-unit={
+								// @ts-expect-error it is not being used before it's assigned?
+								yieldUnit || undefined
+							}
+						>
+							{yieldValue}
+						</span>
+						<label for="serving-adjust" class="visually-hidden">
+							Adjust servings
+						</label>
+						<select id="serving-adjust" name="serving-adjust">
+							<option value="0.25">
+								{pluralizeAmountWithUnit(
+									baseYieldAmount * 0.25,
+									// @ts-expect-error it is not being used before it's assigned?
+									yieldUnit,
+								)}{" "}
+								(x1/4)
+							</option>
+
+							<option value="0.5">
+								{pluralizeAmountWithUnit(
+									baseYieldAmount * 0.5,
+									// @ts-expect-error it is not being used before it's assigned?
+									yieldUnit,
+								)}{" "}
+								(x1/2)
+							</option>
+
+							<option value="0.75">
+								{pluralizeAmountWithUnit(
+									baseYieldAmount * 0.75,
+									// @ts-expect-error it is not being used before it's assigned?
+									yieldUnit,
+								)}{" "}
+								(x3/4)
+							</option>
+
+							<option value="1" selected>
+								{pluralizeAmountWithUnit(
+									baseYieldAmount,
+									// @ts-expect-error it is not being used before it's assigned?
+									yieldUnit,
+								)}{" "}
+								(x1)
+							</option>
+
+							<option value="1.5">
+								{pluralizeAmountWithUnit(
+									baseYieldAmount * 1.5,
+									// @ts-expect-error it is not being used before it's assigned?
+									yieldUnit,
+								)}{" "}
+								(x1.5)
+							</option>
+
+							<option value="2">
+								{pluralizeAmountWithUnit(
+									baseYieldAmount * 2,
+									// @ts-expect-error it is not being used before it's assigned?
+									yieldUnit,
+								)}{" "}
+								(x2)
+							</option>
+
+							<option value="4">
+								{pluralizeAmountWithUnit(
+									baseYieldAmount * 4,
+									// @ts-expect-error it is not being used before it's assigned?
+									yieldUnit,
+								)}{" "}
+								(x4)
+							</option>
+						</select>
+						<span class="adjustment-display">
+							(x<span data-ingredient-adjustment>1</span>)
+						</span>
+					</li>
+				)
+			}
+		</ul>
+
+		<div class="recipe-sections">
+			{
 				equipment && !isEmptyDocument(equipment) && (
-					<Card class="card card--equipment">
+					<>
 						<h2>Equipment</h2>
 
-						<StructuredText data={equipment} />
-					</Card>
+						<div class="equipment">
+							<StructuredText data={equipment} />
+						</div>
+					</>
+				)
+			}
+
+			{
+				ingredients && !isEmptyDocument(ingredients) && (
+					<>
+						<h2>Ingredients</h2>
+
+						<div class="ingredients">
+							<StructuredText
+								data={ingredients}
+								nodeOverrides={{
+									heading: NestedHeading,
+									paragraph: Ingredient,
+								}}
+								linkToRecordComponents={{
+									RecipeRecord: RecipeLink,
+								}}
+							/>
+						</div>
+					</>
+				)
+			}
+
+			{
+				directions && !isEmptyDocument(directions) && (
+					<>
+						<h2>Steps</h2>
+
+						<div class="steps">
+							<StructuredText
+								data={directions}
+								linkToRecordComponents={{
+									RecipeRecord: RecipeLink,
+								}}
+								nodeOverrides={{
+									heading: NestedHeading,
+								}}
+							/>
+						</div>
+					</>
 				)
 			}
 		</div>
-
-		{
-			ingredients && !isEmptyDocument(ingredients) && (
-				<>
-					<h2>Ingredients</h2>
-
-					<StructuredText
-						data={ingredients}
-						nodeOverrides={{
-							heading: NestedHeading,
-							paragraph: Ingredient,
-						}}
-						linkToRecordComponents={{
-							RecipeRecord: RecipeLink,
-						}}
-					/>
-				</>
-			)
-		}
-
-		{
-			directions && !isEmptyDocument(directions) && (
-				<>
-					<h2>Steps</h2>
-
-					<StructuredText
-						data={directions}
-						linkToRecordComponents={{
-							RecipeRecord: RecipeLink,
-						}}
-						nodeOverrides={{
-							heading: NestedHeading,
-						}}
-					/>
-				</>
-			)
-		}
 	</Container>
 </GlobalLayout>
 
@@ -359,16 +306,7 @@ const theme = `var(--color-${category!.color})`;
 	});
 </script>
 
-<style
-	define:vars={{
-		infoVerticalOffset,
-		infoHorizontalOffset,
-		infoRotation,
-		eqVerticalOffset,
-		eqHorizontalOffset,
-		eqRotation,
-	}}
->
+<style>
 	.recipe {
 		--theme: var(--theme, var(--color-accent));
 
@@ -377,7 +315,7 @@ const theme = `var(--color-${category!.color})`;
 
 	h1 {
 		margin-block-start: 0;
-		margin-block-end: var(--rhythm-xs);
+		margin-block-end: calc(var(--rhythm-xs) * -1);
 		text-align: center;
 		font-weight: 400;
 		font-size: var(--font-size-xxl);
@@ -386,13 +324,13 @@ const theme = `var(--color-${category!.color})`;
 
 	h2 {
 		margin-block: 0;
-		font-size: var(--font-size-lg);
+		font-size: var(--font-size-xl);
 		font-weight: 400;
 		text-decoration: underline;
 		text-decoration-color: var(--theme);
 	}
 
-	:global(.recipe .description p) {
+	:global(.description p) {
 		max-width: 55ch;
 		margin-block: 0;
 		margin-inline: auto;
@@ -400,87 +338,90 @@ const theme = `var(--color-${category!.color})`;
 		text-wrap: pretty;
 	}
 
-	.recipe-meta {
-		margin-block-start: var(--rhythm-md);
-		margin-block-end: var(--rhythm-lg);
-
-		.card--info {
-			transform: translateX(var(--infoHorizontalOffset))
-				rotateZ(var(--infoRotation));
-		}
-
-		&[data-has-equipment="true"] {
-			display: grid;
-
-			.card--info {
-				z-index: 2;
-			}
-
-			.card--equipment {
-				z-index: 1;
-				transform: translateX(var(--eqHorizontalOffset))
-					rotateZ(var(--eqRotation));
-			}
-
-			@media (min-width: 64em) {
-				.card--info {
-					grid-column: 8 / span 8;
-					grid-row: 1;
-					transform: translateY(var(--infoVerticalOffset))
-						rotateZ(var(--infoRotation));
-				}
-
-				.card--equipment {
-					grid-column: 1 / span 8;
-					grid-row: 1;
-					transform: translateY(var(--eqVerticalOffset))
-						rotateZ(var(--eqRotation));
-				}
-			}
-		}
-	}
-
-	.card {
+	.prep {
 		display: flex;
 		flex-direction: column;
-		gap: var(--rhythm-sm);
-		width: 100%;
-		max-width: 40rem;
-		margin-inline: auto;
+		justify-content: center;
+		margin-block-start: var(--rhythm-md);
+		margin-block-end: 0;
+		padding: 0;
+		list-style-type: none;
+		text-align: center;
+
+		@media (min-width: 40em) {
+			flex-direction: row;
+			gap: 0;
+
+			li:not(:first-child)::before {
+				content: "/";
+				margin-inline: 0.5em;
+				color: var(--theme);
+			}
+		}
+	}
+
+	.taxonomy {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-block-start: 0;
+		margin-block-end: var(--rhythm-md);
+		padding: 0;
+		list-style-type: none;
 		font-size: var(--font-size-sm);
+		color: var(--color-text-secondary);
+		text-align: center;
 
-		h2 {
-			margin-block-end: var(--rhythm-sm);
-			font-family: var(--font-family-basier);
-			font-size: var(--font-size-md);
-			font-weight: 600;
+		a {
+			color: inherit;
 			text-decoration: none;
+
+			&:hover {
+				color: var(--theme);
+			}
+		}
+
+		li:not(:first-child)::before {
+			content: "\2022";
+			margin-inline: 0.5em;
 		}
 	}
 
-	.info-grid {
+	.recipe-sections {
 		display: grid;
-		grid-template-columns: max-content 1fr;
-		row-gap: var(--rhythm-sm);
-		column-gap: var(--space-md);
+		align-items: baseline;
+		row-gap: var(--space-lg);
+		column-gap: var(--rhythm-lg);
+		margin-block-start: var(--rhythm-lg);
 
 		h2 {
-			grid-column: 1/-1;
-		}
-	}
-
-	.card--equipment {
-		:global(ul) {
-			display: flex;
-			flex-direction: column;
-			gap: var(--rhythm-sm);
-			margin: 0;
-			padding: 0;
-			list-style-type: none;
+			text-align: center;
+			margin-block-end: calc(var(--rhythm-lg) * -1);
 		}
 
-		:global(li) {
-			border-bottom: 1px solid var(--color-text);
+		@media (min-width: 48em) {
+			grid-template-columns: max-content 1fr;
+
+			h2 {
+				position: sticky;
+				top: var(--rhythm-lg);
+				background-color: var(--color-background);
+				text-align: start;
+
+				&::before {
+					content: "";
+					position: absolute;
+					right: 0;
+					left: 0;
+					bottom: 100%;
+					height: var(--rhythm-lg);
+					background-image: linear-gradient(
+						to top,
+						var(--color-background),
+						hsl(from var(--color-background) h s l / 0%)
+					);
+				}
+			}
 		}
 	}
 
@@ -505,6 +446,7 @@ const theme = `var(--color-${category!.color})`;
 		position: relative;
 		display: inline-flex;
 		align-items: center;
+		justify-content: center;
 		gap: var(--space-sm);
 		cursor: pointer;
 

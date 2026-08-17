@@ -13,16 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
-      - uses: nubjs/setup-nub@v0
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version-file: .node-version
+          node-version-file: ".node-version"
+          cache: "npm"
+          cache-dependency-path: "package-lock.json"
 
       - name: Install dependencies
         run: nub ci --ignore-scripts
 
       - name: Lint JS-like files
-        run: nubx eslint .  --max-warnings 0
+        run: npmx eslint .  --max-warnings 0
 
   typecheck:
     name: Typecheck
@@ -30,13 +32,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
-      - uses: nubjs/setup-nub@v0
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version-file: .node-version
+          node-version-file: ".node-version"
+          cache: "npm"
+          cache-dependency-path: "package-lock.json"
 
       - name: Install dependencies
         run: nub ci --ignore-scripts
 
       - name: Check types
-        run: nubx astro check --minimumFailingSeverity warning
+        run: npm run check

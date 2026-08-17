@@ -1,8 +1,6 @@
 {
 	"$schema": "https://openapi.vercel.sh/vercel.json",
 	"version": 2,
-	"installCommand": "curl -fsSL https://nubjs.com/install.sh | bash && export PATH=$HOME/.nub/bin:$PATH && nub ci",
-	"buildCommand": "export PATH=$HOME/.nub/bin:$PATH && nub run build",
 	"redirects": [
 		{
 			"source": "/categories/dinner",

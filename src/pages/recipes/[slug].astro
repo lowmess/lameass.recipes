@@ -103,7 +103,7 @@ const theme = `var(--color-${category!.color})`;
 
 			{
 				totalTime && totalTime > 0 && !prepTime && !cookTime && (
-					<li class="value">{minutesToHours(totalTime)}</li>
+					<li>{minutesToHours(totalTime)}</li>
 				)
 			}
 
@@ -425,15 +425,6 @@ const theme = `var(--color-${category!.color})`;
 		}
 	}
 
-	.label {
-		margin: 0;
-		text-align: end;
-	}
-
-	.value {
-		border-bottom: 1px solid var(--color-text);
-	}
-
 	label.visually-hidden {
 		user-select: none;
 	}
@@ -457,62 +448,11 @@ const theme = `var(--color-${category!.color})`;
 		}
 	}
 
-	.select-icon {
-		position: absolute;
-		top: 0.05lh;
-		right: var(--space-xs);
-		width: 0.5lh;
-		height: 0.5lh;
-	}
+	:global(.steps h3) {
+		font-size: var(--font-size-lg);
 
-	.tags {
-		position: relative;
-		z-index: 1;
-		display: flex;
-		flex-wrap: wrap;
-		column-gap: 1ch;
-		row-gap: var(--rhythm-sm);
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
-	}
-
-	.tag {
-		font-family: var(--font-family-rock-salt);
-		text-shadow:
-			-2px 2px 0px var(--color-card-background),
-			-2px -2px 0px var(--color-card-background),
-			2px 2px 0px var(--color-card-background),
-			2px -2px 0px var(--color-card-background);
-
-		&::before {
-			content: "";
-			position: absolute;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			z-index: -1;
-			border-bottom: 1px solid var(--color-text);
-		}
-
-		&:not(:last-child)::after {
-			content: ",";
-			color: var(--theme);
-		}
-	}
-
-	.striped-structured-text {
-		margin: calc(var(--space-md) * -1);
-		margin-block-start: var(--space-md);
-
-		:global(& p) {
-			margin-block: 0;
-			padding-block: var(--rhythm-sm);
-			padding-inline: var(--space-md);
-
-			&:nth-of-type(odd) {
-				background-color: hsl(from var(--color-background) h s l / 0.5);
-			}
+		&:not(:first-child) {
+			margin-block-start: var(--rhythm-lg);
 		}
 	}
 </style>

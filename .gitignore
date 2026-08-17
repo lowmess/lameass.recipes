@@ -3,6 +3,7 @@ node_modules
 *.log
 .vscode
 .next
+.vercel
 .env.local
 out/
 tsconfig.tsbuildinfo

@@ -1,0 +1,60 @@
+---
+import { StructuredText } from "@datocms/astro";
+
+import type { FragmentOf } from "#api/datocms/graphql.ts";
+import type { MealPreviewFragment } from "#api/queries/meal.ts";
+import { getMealTheme } from "#util/meal.ts";
+
+type Props = {
+	meal: FragmentOf<typeof MealPreviewFragment>;
+};
+
+const { meal } = Astro.props;
+
+const { slug, title, description, recipes } = meal;
+
+const theme = getMealTheme(recipes);
+---
+
+<section>
+	<h2><a href={`/meals/${slug}`}>{title}</a></h2>
+
+	{
+		description && (
+			<div class="meal-preview-description">
+				<StructuredText data={description} />
+			</div>
+		)
+	}
+</section>
+
+<style define:vars={{ theme }}>
+	section {
+		--theme: var(--theme, var(--color-accent));
+
+		max-width: 55ch;
+		margin-block: 0;
+		margin-inline: auto;
+		text-align: center;
+		text-wrap: pretty;
+	}
+
+	h2 {
+		font-size: var(--font-size-xl);
+		margin-block-start: 0;
+		margin-block-end: var(--rhythm-xs);
+
+		a {
+			color: var(--theme);
+			text-decoration: none;
+
+			&:hover {
+				color: var(--color-text);
+			}
+		}
+	}
+
+	:global(.meal-preview-description p) {
+		margin-block: 0;
+	}
+</style>

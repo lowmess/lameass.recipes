@@ -2,23 +2,28 @@
 import { executeQuery } from "#api/datocms/execute-query.ts";
 import { getAllMeals } from "#api/queries/meal.ts";
 import Container from "#components/container.astro";
+import MealPreview from "#components/meal-preview.astro";
+import PageTitle from "#components/page-title.astro";
 import GlobalLayout from "#layouts/global-layout.astro";
 
 const { allMeals } = await executeQuery(getAllMeals);
-
-const meals = allMeals;
 ---
 
 <GlobalLayout>
 	<Container>
-		<ul>
-			{
-				meals.map((meal) => (
-					<li>
-						<a href={`/meals/${meal.slug}`}>{meal.title}</a>
-					</li>
-				))
-			}
-		</ul>
+		<PageTitle>The menu</PageTitle>
+
+		<div class="meals">
+			{allMeals.map((meal) => <MealPreview meal={meal} />)}
+		</div>
 	</Container>
 </GlobalLayout>
+
+<style>
+	.meals {
+		display: flex;
+		flex-direction: column;
+		gap: var(--rhythm-xl);
+		margin-block-end: var(--rhythm-xxl);
+	}
+</style>

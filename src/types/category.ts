@@ -5,6 +5,6 @@ export const Category = Object.freeze({
 	Snack: "snack",
 	Cocktail: "cocktail",
 	Ingredient: "ingredient",
-});
+} as const);
 
 export type Category = (typeof Category)[keyof typeof Category];

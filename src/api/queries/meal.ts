@@ -14,8 +14,10 @@ export const MealPreviewFragment = graphql(`
 		cookTime
 		serves
 		recipes {
-			# only need recipe count for the preview
 			id
+			category {
+				color
+			}
 		}
 	}
 `);

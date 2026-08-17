@@ -9,7 +9,7 @@ import NestedHeading from "#components/nested-heading.astro";
 import RecipeLink from "#components/recipe-link.astro";
 import RecipeStack from "#components/recipe-stack.astro";
 import GlobalLayout from "#layouts/global-layout.astro";
-import { getRandomIntegerBetween } from "#util/random.ts";
+import { getMealTheme } from "#util/meal.ts";
 import { minutesToHours } from "#util/time.ts";
 
 export async function getStaticPaths() {
@@ -41,15 +41,7 @@ if (!meal) {
 const { title, description, recipes, directions, prepTime, cookTime, serves } =
 	meal;
 
-// duplicates intentionally allowed; more common colors more likely to be theme
-const categoryColorsInMeal = Array.from(
-	recipes.map((recipe) => recipe.category.color),
-);
-const themeColor =
-	categoryColorsInMeal[
-		getRandomIntegerBetween(0, categoryColorsInMeal.length - 1)
-	];
-const theme = `var(--color-${themeColor})`;
+const theme = getMealTheme(recipes);
 ---
 
 <GlobalLayout>

@@ -1,5 +1,6 @@
 ---
 import { StructuredText } from "@datocms/astro";
+import { render } from "datocms-structured-text-to-plain-text";
 
 import { executeQuery } from "#api/datocms/execute-query.ts";
 import type { ResultOf } from "#api/datocms/graphql.ts";
@@ -44,7 +45,7 @@ const { title, description, recipes, directions, prepTime, cookTime, serves } =
 const theme = getMealTheme(meal);
 ---
 
-<GlobalLayout>
+<GlobalLayout title={title} description={render(description) ?? undefined}>
 	<Container class="meal" style={{ "--theme": theme }}>
 		<h1>{title}</h1>
 

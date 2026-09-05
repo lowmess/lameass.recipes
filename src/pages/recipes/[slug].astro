@@ -1,6 +1,7 @@
 ---
 import { StructuredText } from "@datocms/astro";
 import { isEmptyDocument } from "datocms-structured-text-utils";
+import { render } from "datocms-structured-text-to-plain-text";
 
 import { executeQuery } from "#api/datocms/execute-query.ts";
 import type { ResultOf } from "#api/datocms/graphql.ts";
@@ -72,7 +73,7 @@ if (yields.unit === "each") {
 const theme = `var(--color-${category!.color})`;
 ---
 
-<GlobalLayout>
+<GlobalLayout title={title} description={render(description) ?? undefined}>
 	<Container class="recipe" style={{ "--theme": theme }}>
 		<h1>{title}</h1>
 

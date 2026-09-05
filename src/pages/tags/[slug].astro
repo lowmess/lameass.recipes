@@ -44,7 +44,7 @@ const color = colors[index];
 const theme = `var(--color-${color})`;
 ---
 
-<GlobalLayout>
+<GlobalLayout title={`Recipes Tagged "${title}"`}>
 	<h1>Recipes tagged<br /><span class="tag-title">{title}</span></h1>
 
 	<Search class="search" />

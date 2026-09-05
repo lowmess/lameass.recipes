@@ -1,4 +1,6 @@
 ---
+import { Font } from "astro:assets";
+
 import { executeQuery } from "#api/datocms/execute-query.ts";
 import { getSiteMetadata } from "#api/queries/site.ts";
 
@@ -79,18 +81,7 @@ const pageDescription = description;
 <meta property="twitter:title" content={pageTitle} />
 <meta property="twitter:description" content={pageDescription} />
 
-<!-- preload display fonts -->
-<link
-	rel="preload"
-	href="/fonts/VCHenrietta-Regular.woff2"
-	as="font"
-	type="font/woff2"
-	crossorigin
-/>
-<link
-	rel="preload"
-	href="/fonts/VCHenrietta-SemiBold.woff2"
-	as="font"
-	type="font/woff2"
-	crossorigin
-/>
+<!-- Fonts -->
+<Font cssVariable="--font-family-henrietta" preload />
+<Font cssVariable="--font-family-basier-mono" />
+<Font cssVariable="--font-family-rock-salt" />

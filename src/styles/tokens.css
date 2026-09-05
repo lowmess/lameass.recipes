@@ -11,14 +11,6 @@
 	--font-size-xxxl: clamp(3rem, 1.235rem + 5.88vw, 5rem);
 	--font-size-huge: clamp(5rem, 3.864rem + 5.68vw, 7.5rem);
 
-	--font-family-system:
-		system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu", "Cantarell",
-		"Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-		"Segoe UI Symbol", "Noto Color Emoji";
-	--font-family-henrietta: Henrietta, georgia, serif;
-	--font-family-basier: "Basier Mono", monospace;
-	--font-family-rock-salt: "Rock Salt";
-
 	--line-height-solid: 1;
 	--line-height-heading: 1.25;
 	--line-height-body: 1.5;

@@ -36,21 +36,17 @@ const {
 					/>
 				);
 			})
-		}
-	</Tag>
+		}</Tag
+	>
 </div>
 
 <style>
-	div[data-measure] {
+	[data-measure] {
 		container-type: inline-size;
 	}
 
 	.stack {
 		--offset: 2rlh;
-		/** 0 when viewport and element are same width, 1 otherwise */
-		--stack-is-not-full-width: sign(
-			100vw - calc(100cqw + (var(--container-padding) * 2))
-		);
 
 		display: grid;
 		max-width: max-content;
@@ -59,16 +55,16 @@ const {
 	}
 
 	.card--stacked {
+		--local-displacement: 0;
+
 		grid-row: calc(var(--count) * 23 + 1) / span 24;
 		grid-column: 1;
-		transform: translateX(
-				max(
-					calc(var(--displacement) * 0.25),
-					calc(var(--displacement) * var(--stack-is-not-full-width))
-				)
-			)
-			rotateZ(var(--rotation));
+		transform: translateX(var(--local-displacement)) rotateZ(var(--rotation));
 		will-animate: transform;
+
+		@media (min-width: 40em) {
+			--local-displacement: var(--displacement);
+		}
 
 		@media (any-pointer: fine) and (any-hover: hover) and (prefers-reduced-motion: no-preference) {
 			grid-row: calc(var(--count) * 3 + 1) / span 4;
@@ -80,7 +76,7 @@ const {
 
 			&:hover ~ .card--stacked {
 				transform: translateY(calc(var(--offset) * 0.5))
-					translateX(var(--displacement)) rotateZ(var(--rotation));
+					translateX(var(--local-displacement)) rotateZ(var(--rotation));
 			}
 		}
 	}

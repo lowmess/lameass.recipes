@@ -2,6 +2,7 @@
 import type { HTMLAttributes } from "astro/types";
 import { actions } from "astro:actions";
 
+import Container from "#components/container.astro";
 import SearchIcon from "#icons/search.svg";
 
 type Props = HTMLAttributes<"div">;
@@ -9,17 +10,19 @@ type Props = HTMLAttributes<"div">;
 const { class: className, ...props } = Astro.props;
 ---
 
-<form method="POST" action={actions.search.recipes}>
-	<div class:list={[className, "search-input"]} {...props}>
-		<input type="search" name="query" placeholder="Search recipes" />
+<Container>
+	<form method="POST" action={actions.search.recipes}>
+		<div class:list={[className, "search-input"]} {...props}>
+			<input type="search" name="query" placeholder="Search recipes" />
 
-		<button>
-			<SearchIcon />
+			<button>
+				<SearchIcon />
 
-			<span class="visually-hidden">Search</span>
-		</button>
-	</div>
-</form>
+				<span class="visually-hidden">Search</span>
+			</button>
+		</div>
+	</form></Container
+>
 
 <div class="empty-content hidden">
 	<p>No recipes found for &ldquo;<span id="query-container"></span>&rdquo;.</p>
@@ -122,6 +125,7 @@ const { class: className, ...props } = Astro.props;
 			border-inline-start: 4px solid var(--color-search-border);
 			padding: var(--space-xs);
 			background-color: var(--color-accent);
+			color: var(--color-text);
 
 			&:hover {
 				background-color: hsl(

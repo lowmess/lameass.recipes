@@ -4,7 +4,7 @@ import { getAllMeals } from "#api/queries/meal.ts";
 import Container from "#components/container.astro";
 import MealPreview from "#components/meal-preview.astro";
 import PageTitle from "#components/page-title.astro";
-import GlobalLayout from "#layouts/global-layout.astro";
+import GlobalLayout from "#layouts/global.astro";
 
 const { allMeals } = await executeQuery(getAllMeals);
 ---

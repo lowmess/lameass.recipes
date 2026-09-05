@@ -2,7 +2,7 @@
 import { executeQuery } from "#api/datocms/execute-query.ts";
 import { getAllCategories } from "#api/queries/category.ts";
 import CategoryTitle from "#components/category-title.astro";
-import GlobalLayout from "#layouts/global-layout.astro";
+import GlobalLayout from "#layouts/global.astro";
 
 const { allCategories } = await executeQuery(getAllCategories);
 ---

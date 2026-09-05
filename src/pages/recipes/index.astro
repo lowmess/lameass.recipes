@@ -6,7 +6,7 @@ import { getAllRecipes } from "#api/queries/recipe.ts";
 import PageTitle from "#components/page-title.astro";
 import RecipeStack from "#components/recipe-stack.astro";
 import Search from "#components/search.astro";
-import GlobalLayout from "#layouts/global-layout.astro";
+import GlobalLayout from "#layouts/global.astro";
 
 const result = Astro.getActionResult(actions.search.recipes);
 

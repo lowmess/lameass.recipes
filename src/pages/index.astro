@@ -5,7 +5,7 @@ import { getRecentRecipes } from "#api/queries/recipe.ts";
 import MealPreview from "#components/meal-preview.astro";
 import PageTitle from "#components/page-title.astro";
 import RecipeStack from "#components/recipe-stack.astro";
-import GlobalLayout from "#layouts/global-layout.astro";
+import GlobalLayout from "#layouts/global.astro";
 
 const { homepage } = await executeQuery(getHomepage);
 const { allRecipes } = await executeQuery(getRecentRecipes);

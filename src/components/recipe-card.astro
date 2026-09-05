@@ -151,7 +151,8 @@ if (yields.unit === "servings") {
 
 	.info-ribbon {
 		display: flex;
-		gap: var(--space-sm);
+		flex-direction: column;
+		gap: var(--rhythm-xs);
 		width: 100%;
 		margin-block-start: var(--rhythm-lg);
 		border-block-start: 2px solid var(--theme, var(--color-accent));
@@ -159,10 +160,16 @@ if (yields.unit === "servings") {
 		font-size: var(--font-size-sm);
 		font-family: var(--font-family-rock-salt);
 
-		& > * + *::before {
-			content: "\2022";
-			color: var(--theme, var(--color-accent));
-			margin-inline-end: var(--space-sm);
+		@container (width > 30rem) {
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: var(--space-sm);
+
+			& > * + *::before {
+				content: "\2022";
+				color: var(--theme, var(--color-accent));
+				margin-inline-end: var(--space-sm);
+			}
 		}
 	}
 

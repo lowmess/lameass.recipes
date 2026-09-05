@@ -21,26 +21,36 @@ const {
 }: Props<HTMLTag> = Astro.props;
 ---
 
-<Tag class:list={["stack", className]} {...props}>
-	{
-		recipes.map((recipe, index) => {
-			const { horizontalOffset, rotation } = getDisplacementValues({});
+<div data-measure>
+	<Tag class:list={["stack", className]} {...props}>
+		{
+			recipes.map((recipe, index) => {
+				const { horizontalOffset, rotation } = getDisplacementValues({});
 
-			return (
-				<RecipeCard
-					recipe={recipe}
-					headingLevel={headingLevel}
-					class="card--stacked"
-					style={`--displacement: ${horizontalOffset}; --rotation: ${rotation}; --count: ${index};`}
-				/>
-			);
-		})
-	}
-</Tag>
+				return (
+					<RecipeCard
+						recipe={recipe}
+						headingLevel={headingLevel}
+						class="card--stacked"
+						style={`--displacement: ${horizontalOffset}; --rotation: ${rotation}; --count: ${index};`}
+					/>
+				);
+			})
+		}
+	</Tag>
+</div>
 
 <style>
+	div[data-measure] {
+		container-type: inline-size;
+	}
+
 	.stack {
 		--offset: 2rlh;
+		/** 0 when viewport and element are same width, 1 otherwise */
+		--stack-is-not-full-width: sign(
+			100vw - calc(100cqw + (var(--container-padding) * 2))
+		);
 
 		display: grid;
 		max-width: max-content;
@@ -49,12 +59,19 @@ const {
 	}
 
 	.card--stacked {
-		grid-row: calc(var(--count) * 3 + 1) / span 4;
+		grid-row: calc(var(--count) * 23 + 1) / span 24;
 		grid-column: 1;
-		transform: translateX(var(--displacement)) rotateZ(var(--rotation));
+		transform: translateX(
+				max(
+					calc(var(--displacement) * 0.25),
+					calc(var(--displacement) * var(--stack-is-not-full-width))
+				)
+			)
+			rotateZ(var(--rotation));
 		will-animate: transform;
 
-		@media (any-hover: hover) {
+		@media (any-pointer: fine) and (any-hover: hover) and (prefers-reduced-motion: no-preference) {
+			grid-row: calc(var(--count) * 3 + 1) / span 4;
 			transition: transform 0.3s ease;
 
 			&:hover {

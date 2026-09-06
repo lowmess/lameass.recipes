@@ -21,6 +21,7 @@ export async function getStaticPaths() {
 		props: meal,
 	}));
 }
+
 type Props = ResultOf<typeof getAllMeals>["allMeals"][number];
 
 const mealFromProps: Props = Astro.props;
@@ -45,7 +46,11 @@ const { title, description, recipes, directions, prepTime, cookTime, serves } =
 const theme = getMealTheme(meal);
 ---
 
-<GlobalLayout title={title} description={render(description) ?? undefined}>
+<GlobalLayout
+	title={title}
+	description={render(description) ?? undefined}
+	ogImageUrl={`${Astro.url}/og-image.png`}
+>
 	<Container class="meal" style={{ "--theme": theme }}>
 		<h1>{title}</h1>
 

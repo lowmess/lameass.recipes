@@ -1,4 +1,6 @@
 import fs from "fs";
+
+import { render } from "datocms-structured-text-to-plain-text";
 import {
 	type HTMLAttributes,
 	type PropsWithChildren,
@@ -7,6 +9,12 @@ import {
 } from "react";
 import satori from "satori";
 import sharp from "sharp";
+
+import type { FragmentOf } from "#api/datocms/graphql.ts";
+import type { MealPreviewFragment } from "#api/queries/meal.ts";
+import { pluralize } from "#util/grammar";
+import { getMealHex } from "#util/meal";
+import { minutesToHours } from "#util/time";
 
 const henrietta = fs.readFileSync(
 	"./src/assets/fonts/VCHenrietta-Regular.woff",
@@ -102,6 +110,7 @@ function OgImageLayout({ style, children }: OgImageLayoutProps) {
 				padding: "32px",
 				backgroundColor: "#eff0d0",
 				color: "#2e2e2d",
+				fontFamily: "Basier Mono",
 				...style,
 			}}
 		>
@@ -137,6 +146,86 @@ export function SiteOgImage(): ReactNode {
 					backgroundColor: "#f94838",
 				}}
 			/>
+		</OgImageLayout>
+	);
+}
+
+export function MealOgImage({
+	meal,
+}: PropsWithChildren<{
+	meal: FragmentOf<typeof MealPreviewFragment>;
+}>): ReactNode {
+	const color = getMealHex(meal);
+
+	const { title, description, recipes, prepTime, cookTime, serves } = meal;
+
+	const totalTime = (prepTime ?? 0) + (cookTime ?? 0);
+
+	return (
+		<OgImageLayout>
+			<Logo
+				width="128"
+				style={{ position: "absolute", top: "32px", right: "32px" }}
+			/>
+
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "center",
+					marginTop: "48px",
+					textAlign: "center",
+				}}
+			>
+				<span
+					style={{
+						fontFamily: "Henrietta",
+						fontSize: "96px",
+						color,
+						textWrap: "balance",
+						lineHeight: "1",
+					}}
+				>
+					{title}
+				</span>
+
+				<span
+					style={{
+						marginTop: "32px",
+						fontSize: "28px",
+						textWrap: "balance",
+						lineHeight: "1.5",
+					}}
+				>
+					{render(description)}
+				</span>
+
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "row",
+						gap: "16px",
+						marginTop: "32px",
+						fontSize: "24px",
+					}}
+				>
+					<span>
+						{recipes.length} {pluralize(recipes.length, "recipe")}
+					</span>
+
+					<span style={{ color }}>/</span>
+
+					{totalTime > 0 && (
+						<div style={{ display: "contents" }}>
+							<span>{minutesToHours(totalTime)}</span>
+
+							<span style={{ color }}>/</span>
+						</div>
+					)}
+
+					{serves && <span>Serves {serves}</span>}
+				</div>
+			</div>
 		</OgImageLayout>
 	);
 }

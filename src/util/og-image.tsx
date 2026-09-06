@@ -12,9 +12,13 @@ import sharp from "sharp";
 
 import type { FragmentOf } from "#api/datocms/graphql.ts";
 import type { MealPreviewFragment } from "#api/queries/meal.ts";
+import type { RecipePreviewFragment } from "#api/queries/recipe.ts";
+import { getColorHex, type Color } from "#util/colors";
 import { pluralize } from "#util/grammar";
 import { getMealHex } from "#util/meal";
+import { toFraction } from "#util/number";
 import { minutesToHours } from "#util/time";
+import { getUnit, pluralizeUnit } from "#util/units";
 
 const henrietta = fs.readFileSync(
 	"./src/assets/fonts/VCHenrietta-Regular.woff",
@@ -152,9 +156,9 @@ export function SiteOgImage(): ReactNode {
 
 export function MealOgImage({
 	meal,
-}: PropsWithChildren<{
+}: {
 	meal: FragmentOf<typeof MealPreviewFragment>;
-}>): ReactNode {
+}): ReactNode {
 	const color = getMealHex(meal);
 
 	const { title, description, recipes, prepTime, cookTime, serves } = meal;
@@ -173,6 +177,7 @@ export function MealOgImage({
 					display: "flex",
 					flexDirection: "column",
 					alignItems: "center",
+					gap: "32px",
 					marginTop: "48px",
 					textAlign: "center",
 				}}
@@ -191,7 +196,6 @@ export function MealOgImage({
 
 				<span
 					style={{
-						marginTop: "32px",
 						fontSize: "28px",
 						textWrap: "balance",
 						lineHeight: "1.5",
@@ -205,7 +209,6 @@ export function MealOgImage({
 						display: "flex",
 						flexDirection: "row",
 						gap: "16px",
-						marginTop: "32px",
 						fontSize: "24px",
 					}}
 				>
@@ -224,6 +227,129 @@ export function MealOgImage({
 					)}
 
 					{serves && <span>Serves {serves}</span>}
+				</div>
+			</div>
+		</OgImageLayout>
+	);
+}
+
+export function RecipeOgImage({
+	recipe,
+}: {
+	recipe: FragmentOf<typeof RecipePreviewFragment>;
+}): ReactNode {
+	const {
+		title,
+		category,
+		prepTime = 0,
+		cookTime = 0,
+		totalTime = (prepTime ?? 0) + (cookTime ?? 0),
+		yields,
+		description,
+		tags,
+	} = recipe;
+
+	const time = totalTime || (prepTime || 0) + (cookTime || 0);
+
+	const themeColor = getColorHex(category!.color as Color);
+
+	let yieldString;
+
+	if (yields.unit === "servings") {
+		yieldString = `Serves ${yields.amount}`;
+	} else if (yields.unit === "each") {
+		yieldString = `Yields ${yields.amount}`;
+	} else {
+		const unit = getUnit(yields.unit);
+
+		if (unit) {
+			const amount = toFraction(yields.amount);
+
+			yieldString = `Yields ${amount} ${pluralizeUnit(yields.amount, unit)}`;
+		}
+	}
+
+	return (
+		<OgImageLayout>
+			<Logo
+				width="128"
+				style={{ position: "absolute", top: "32px", right: "32px" }}
+			/>
+
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					width: "100%",
+					height: "100%",
+				}}
+			>
+				<span
+					style={{
+						marginTop: "32px",
+						fontFamily: "Henrietta",
+						fontSize: "96px",
+						color: themeColor,
+						textWrap: "balance",
+						lineHeight: "1",
+					}}
+				>
+					{title}
+				</span>
+
+				<span
+					style={{
+						marginTop: "32px",
+						fontSize: "28px",
+						textWrap: "balance",
+						lineHeight: "1.5",
+					}}
+				>
+					{render(description)}
+				</span>
+
+				<span
+					style={{
+						height: "2px",
+						marginTop: "auto",
+						backgroundColor: themeColor,
+					}}
+				/>
+
+				<div
+					style={{
+						display: "flex",
+						gap: "12px",
+						marginTop: "8px",
+						fontSize: "21px",
+						fontFamily: "Rock Salt",
+					}}
+				>
+					<span>{category.title}</span>
+
+					{time > 0 && (
+						<div style={{ display: "contents" }}>
+							<span style={{ color: themeColor }}>&bull;</span>
+
+							<span>{minutesToHours(time)}</span>
+						</div>
+					)}
+
+					{yieldString && (
+						<div style={{ display: "contents" }}>
+							<span style={{ color: themeColor }}>&bull;</span>
+
+							<span>{yieldString}</span>
+						</div>
+					)}
+
+					{tags.map((tag) => (
+						<div style={{ display: "contents" }}>
+							<span style={{ color: themeColor }}>&bull;</span>
+
+							<span>{tag.title}</span>
+						</div>
+					))}
 				</div>
 			</div>
 		</OgImageLayout>

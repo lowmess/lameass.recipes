@@ -18,11 +18,12 @@ import { getUnit, pluralizeAmountWithUnit } from "#util/units.ts";
 export async function getStaticPaths() {
 	const { allRecipes } = await executeQuery(getAllRecipes);
 
-	return allRecipes.map((tag) => ({
-		params: { slug: tag.slug },
-		props: tag,
+	return allRecipes.map((recipe) => ({
+		params: { slug: recipe.slug },
+		props: recipe,
 	}));
 }
+
 type Props = ResultOf<typeof getAllRecipes>["allRecipes"][number];
 
 const { id, slug }: Props = Astro.props;
@@ -73,7 +74,11 @@ if (yields.unit === "each") {
 const theme = `var(--color-${category!.color})`;
 ---
 
-<GlobalLayout title={title} description={render(description) ?? undefined}>
+<GlobalLayout
+	title={title}
+	description={render(description) ?? undefined}
+	ogImageUrl={`${Astro.url}/og-image.png`}
+>
 	<Container class="recipe" style={{ "--theme": theme }}>
 		<h1>{title}</h1>
 

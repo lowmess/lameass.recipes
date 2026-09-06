@@ -15,6 +15,7 @@ type Props = HTMLAttributes<"svg"> & {
 
 const { category, ...props } = Astro.props;
 
+// eslint-disable-next-line no-useless-assignment
 let IconComponent = MainDishIcon;
 
 switch (category) {

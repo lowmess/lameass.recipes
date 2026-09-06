@@ -77,7 +77,7 @@ const theme = `var(--color-${category!.color})`;
 <GlobalLayout
 	title={title}
 	description={render(description) ?? undefined}
-	ogImageUrl={`${Astro.url}/og-image.png`}
+	ogImageUrl={`${Astro.url}og-image.png`}
 >
 	<Container class="recipe" style={{ "--theme": theme }}>
 		<h1>{title}</h1>

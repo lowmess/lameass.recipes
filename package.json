@@ -34,7 +34,9 @@
     "fuse.js": "^7.5.0",
     "gql.tada": "^1.11.3",
     "postcss-preset-env": "^11.5.1",
+    "react": "^19.2.8",
     "sanitize.css": "^13.0.0",
+    "satori": "^0.33.4",
     "sharp": "^0.35.4"
   },
   "devDependencies": {
@@ -42,6 +44,7 @@
     "@astrojs/ts-plugin": "^1.10.11",
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.4.1",
+    "@types/react": "^19.2.18",
     "dotenv-cli": "^11.0.0",
     "eslint": "^10.10.0",
     "eslint-plugin-astro": "^3.1.0",

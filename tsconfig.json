@@ -16,6 +16,7 @@
 				"schema": "./schema.graphql",
 				"tadaOutputLocation": "./src/api/datocms/graphql-env.d.ts"
 			}
-		]
+		],
+		"jsx": "react-jsx"
 	}
 }

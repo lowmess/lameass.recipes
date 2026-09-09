@@ -23,7 +23,7 @@ const { category, class: className, as: Tag = "h1" } = Astro.props;
 		{plurals[category.slug as Category]}
 	</Tag>
 
-	<CategoryIcon category={category.slug as Category} aria-hidden />
+	<CategoryIcon category={category.slug as Category} aria-hidden="true" />
 </div>
 
 <style>

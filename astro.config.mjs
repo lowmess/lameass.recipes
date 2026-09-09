@@ -1,13 +1,12 @@
+import netlify from "@astrojs/netlify";
 import sitemap from "@astrojs/sitemap";
 import { defineConfig, fontProviders } from "astro/config";
-
-import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
 	site: "https://lameass.recipes",
 	integrations: [sitemap()],
-	adapter: vercel(),
+	adapter: netlify(),
 	fonts: [
 		{
 			name: "Henrietta",

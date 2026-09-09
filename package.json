@@ -22,9 +22,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@astrojs/netlify": "^8.2.5",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
-    "@astrojs/vercel": "^11.0.10",
     "@datocms/astro": "^0.6.16",
     "@datocms/cda-client": "^0.3.2",
     "@fontsource/rock-salt": "^5.3.0",

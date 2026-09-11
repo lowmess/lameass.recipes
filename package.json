@@ -1,6 +1,6 @@
 {
   "name": "lameass.recipes",
-  "version": "2.0",
+  "version": "2.0.0",
   "description": "A recipe site, but without the 2,500 word storytime recipes.",
   "imports": {
     "#*": "./src/*"
@@ -28,13 +28,13 @@
     "@datocms/astro": "^0.6.16",
     "@datocms/cda-client": "^0.3.2",
     "@fontsource/rock-salt": "^5.3.0",
-    "astro": "^7.3.1",
+    "astro": "^7.3.2",
     "datocms-structured-text-to-plain-text": "^6.0.0",
     "datocms-structured-text-utils": "^6.0.1",
     "fuse.js": "^7.5.0",
     "gql.tada": "^1.11.3",
-    "postcss-preset-env": "^11.5.1",
-    "react": "^19.2.8",
+    "postcss-preset-env": "^11.5.2",
+    "react": "^19.3.0",
     "sanitize.css": "^13.0.0",
     "satori": "^0.33.4",
     "sharp": "^0.35.4"
@@ -43,17 +43,17 @@
     "@astrojs/check": "^0.9.10",
     "@astrojs/ts-plugin": "^1.10.11",
     "@eslint/js": "^10.0.1",
-    "@types/node": "^26.4.1",
-    "@types/react": "^19.2.18",
+    "@types/node": "^22.20.2",
+    "@types/react": "^19.3.0",
     "dotenv-cli": "^11.0.0",
     "eslint": "^10.10.0",
     "eslint-plugin-astro": "^3.1.0",
     "husky": "^9.1.7",
-    "lint-staged": "^17.5.0",
+    "lint-staged": "^17.5.1",
     "prettier": "^3.7.4",
-    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-astro": "^1.0.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.69.0"
+    "typescript-eslint": "^8.70.0"
   },
   "lint-staged": {
     "!(*.d.ts)*.{js,cjs,mjs,jsx,ts,tsx,astro}": [
